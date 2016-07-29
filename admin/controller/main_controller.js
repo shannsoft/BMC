@@ -27,7 +27,7 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
       var uname = $scope.user.username;
       var password = $scope.user.password;
       if(uname == 'admin' && password == 'admin'){
-          $rootScope.loggedin =true;
+          $rootScope.loggedin = true;
           $state.go('dashboard');
       }
       else{
