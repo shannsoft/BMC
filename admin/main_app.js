@@ -8,7 +8,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/dashboard',
             controller:"Main_Controller",
             onEnter: function($localStorage, $state) {
-               if (!localStorage.getItem('accessToken')) {
+               if (!$localStorage.user.accessToken) {
                    $state.go('login');
                }
              }
@@ -18,7 +18,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/login',
             controller:"Main_Controller",
             onEnter: function($localStorage, $state) {
-               if (localStorage.getItem('accessToken')) {
+               if ($localStorage.user.accessToken) {
                    $state.go('dashboard');
                }
              }
@@ -28,7 +28,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
              url:'/newemployee',
              controller:"Main_Controller",
              onEnter: function($localStorage, $state) {
-               if (!localStorage.getItem('accessToken')) {
+               if (!$localStorage.user.accessToken) {
                    $state.go('login');
                }
              }
@@ -38,7 +38,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
              url:'/existingemployee',
              controller:"Main_Controller",
              onEnter: function($localStorage, $state) {
-               if (!localStorage.getItem('accessToken')) {
+               if (!$localStorage.user.accessToken) {
                    $state.go('login');
                }
              }
