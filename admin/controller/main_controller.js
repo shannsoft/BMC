@@ -1,9 +1,9 @@
-app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService){
+app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService,Util){
   /*******************************************************/
   /*************This is use for check user login**********/
   /*******************************************************/
   $scope.getUserDetails = function(){
-   if($localStorage.user.accessToken){
+   if($localStorage.user){
      $scope.logedIn_user = $localStorage.user;
      $rootScope.loggedin = true;
    }
@@ -39,11 +39,10 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
     })
   }
   $scope.signOut = function(){
-    employeeService.logout(localStorage.getItem('accessToken')).then(function(pRes) {
+    employeeService.logout().then(function(pRes) {
       if(pRes.status == 200){
-        console.log(pRes.data.message);
         $rootScope.loggedin = false;
-        localStorage.setItem('accessToken','');
+        delete $localStorage.user;
         $state.go("login");
       }
     },
