@@ -6,45 +6,42 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('dashboard', {
             templateUrl: 'pages/dashboard.html',
             url: '/dashboard',
+            controller:"Main_Controller",
             onEnter: function($localStorage, $state) {
                if (!localStorage.getItem('accessToken')) {
                    $state.go('login');
                }
-           },
-            controller:"Main_Controller"
+             }
         })
         .state('login', {
             templateUrl: 'pages/login.html',
             url: '/login',
+            controller:"Main_Controller",
             onEnter: function($localStorage, $state) {
                if (localStorage.getItem('accessToken')) {
                    $state.go('dashboard');
                }
-           },
-          controller:"Main_Controller"
+             }
         })
-
         .state('newemployee',{
              templateUrl:'pages/newemployee.html',
              url:'/newemployee',
+             controller:"Main_Controller",
              onEnter: function($localStorage, $state) {
                if (!localStorage.getItem('accessToken')) {
                    $state.go('login');
                }
-           },
-             controller:"main_controller"
-
+             }
         })
         .state('existingemployee',{
              templateUrl:'pages/existingemployee.html',
              url:'/existingemployee',
+             controller:"main_controller",
              onEnter: function($localStorage, $state) {
                if (!localStorage.getItem('accessToken')) {
                    $state.go('login');
                }
-           },
-             controller:"main_controller"
-
+             }
         })
 });
 // app.constant('CONFIG', {

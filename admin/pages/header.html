@@ -1,13 +1,9 @@
 <header class="main-header">
-  <a href="index2.html" class="logo">
-    <!-- mini logo for sidebar mini 50x50 pixels -->
+  <a ui-sref="dashboard" class="logo">
     <span class="logo-mini"><b>B</b>MC</span>
-    <!-- logo for regular state and mobile devices -->
     <span class="logo-lg"><b>Admin</b>BMC</span>
   </a>
-  <!-- Header Navbar: style can be found in header.less -->
   <nav class="navbar navbar-static-top">
-    <!-- Sidebar toggle button-->
     <a href="" class="sidebar-toggle" data-toggle="offcanvas" role="button">
       <span class="sr-only">Toggle navigation</span>
     </a>
@@ -15,20 +11,19 @@
       <ul class="nav navbar-nav">
         <li class="dropdown user user-menu">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="dist/img/rda-sm-logo.png" class="user-image" alt="User Image">
-            <span class="hidden-xs">{{profile.first_name+' '+profile.last_name}}</span>
+            <img src="dist/img/logo.jpg" class="user-image" alt="User Image">
+            <span class="hidden-xs">Test Admin</span>
           </a>
           <ul class="dropdown-menu">
             <li class="user-header">
-              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+              <img src="dist/img/logo.jpg" class="img-circle" alt="User Image">
               <p>
-                {{profile.first_name+' '+profile.last_name}} - <span ng-if="profile.user_type == '1'">Admin</span><span ng-if="profile.user_type == '2'">Verifier</span><span ng-if="profile.user_type == '3'">Enterer</span>
+                Test Admin - Admin
               </p>
             </li>
-            <!-- Menu Footer-->
             <li class="user-footer">
               <div class="pull-left">
-                <a href="" class="btn btn-default btn-flat" ui-sref="userProfile">Profile</a>
+                <a href="" class="btn btn-default btn-flat">Profile</a>
               </div>
               <div class="pull-right">
                 <a href="" class="btn btn-default btn-flat" ng-click="signOut()">Sign out</a>
