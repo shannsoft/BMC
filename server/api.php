@@ -205,7 +205,7 @@ header('Access-Control-Allow-Origin: *');
 				}
 			}
 			else{
-				$this->sendResponse(202,"validation Error","Invalid user name or password");
+				$this->sendResponse(202,"Invalid user name or password");
 			}
     }
 		public function logout(){
