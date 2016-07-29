@@ -36,7 +36,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('existingemployee',{
              templateUrl:'pages/existingemployee.html',
              url:'/existingemployee',
-             controller:"main_controller",
+             controller:"Main_Controller",
              onEnter: function($localStorage, $state) {
                if (!localStorage.getItem('accessToken')) {
                    $state.go('login');
@@ -44,9 +44,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
              }
         })
 });
-// app.constant('CONFIG', {
-//   'HTTP_HOST': '../server/api1.php' //client staging
-// })
+app.constant('CONFIG', {
+  'HTTP_HOST': '../server/api.php' //client staging
+})
 // app.factory('Util', ['$rootScope',  '$timeout' , function( $rootScope, $timeout){
 //     var Util = {};
 //     $rootScope.alerts =[];

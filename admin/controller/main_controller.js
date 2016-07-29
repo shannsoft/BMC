@@ -1,18 +1,11 @@
-app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage){
+app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService){
   /*******************************************************/
   /*************This is use for check user login**********/
   /*******************************************************/
   $scope.getUserDetails = function(){
    if(localStorage.getItem('accessToken')){
+     console.log(12121);
      $rootScope.loggedin = true;
- //     $rootScope.user_type = localStorage.getItem('userType');
- //     userService.getUserDetails(localStorage.getItem('accessToken')).then(function(pRes) {
- //         if(pRes.status == 200){
- //           $scope.profile = pRes.data.data;
- //         }
- //       },function(err) {
- //       console.log(">>>>>>>>>>>>>   ",err);
- //     })
    }
    else{
      $rootScope.loggedin = false;
@@ -21,19 +14,42 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
  /*******************************************************/
  /*************This is use for  user login***************/
  /*******************************************************/
-  $scope.login = function(){
-      localStorage.setItem('accessToken','abc1234');
-      console.log(localStorage.getItem('accessToken')) ;
-      var uname = $scope.user.username;
-      var password = $scope.user.password;
-      if(uname == 'admin' && password == 'admin'){
-          $rootScope.loggedin = true;
-          $state.go('dashboard');
+  $scope.login = function(user){
+    employeeService.login(user).then(function(pRes) {
+      if(pRes.data.statusCode == 200){
+        localStorage.setItem('accessToken',pRes.data.data.token);
+        $localStorage.user ={
+          "district_id" : pRes.data.data.district_id,
+           "email"      : pRes.data.data.email,
+           "id"         : pRes.data.data.id,
+           "roll_id"    : pRes.data.data.roll_id,
+           "ulb_id"     : pRes.data.data.ulb_id,
+           "user_name"  : pRes.data.data.user_name
+        }
+        $scope.getUserDetails();
+        $state.go("dashboard");
       }
       else{
-          alert("error");
+          Util.alertMessage('danger', pRes.data.message);
       }
-  };
+    },
+    function(err) {
+      console.log(">>>>>>>>>>>>>   ",err);
+    })
+  }
+  $scope.signOut = function(){
+    employeeService.logout(localStorage.getItem('accessToken')).then(function(pRes) {
+      if(pRes.status == 200){
+        console.log(pRes.data.message);
+        $rootScope.loggedin = false;
+        localStorage.setItem('accessToken','');
+        $state.go("login");
+      }
+    },
+    function(err) {
+      console.log(">>>>>>>>>>>>>   ",err);
+    })
+  }
   /*******************************************************/
   /*************This is use for  user logout**************/
   /*******************************************************/
