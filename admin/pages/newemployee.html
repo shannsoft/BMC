@@ -15,7 +15,7 @@
           <div class="form-group" ng-class="{'has-error': (addemployee.emp_name.$invalid && addemployee.emp_name.$touched)}">
              <label for="inputEmail3" class="col-sm-3 control-label">Employee Name</label>
              <div class="col-sm-8">
-               <input type="text" class="form-control" name="emp_name" ng-model="addemployee.emp_name" placeholder="employee Name" required ng-pattern="/^(\D)+$/">
+               <input type="text" class="form-control" name="emp_name" ng-model="employee.emp_name" placeholder="employee Name" required ng-pattern="/^(\D)+$/">
                <span class="help-block" ng-show="addemployee.emp_name.$error.required && addemployee.emp_name.$touched">Please enter employee name</span>
                <span class="help-block" ng-show="addemployee.emp_name.$error.pattern && addemployee.emp_name.$touched">Name should not be numeric</span>
              </div>
@@ -69,9 +69,9 @@
           <div class="form-group" ng-class="{'has-error': (addemployee.emp_pin.$invalid && addemployee.emp_pin.$touched)}">
             <label for="inputEmail3" class="col-sm-3 control-label">Pin</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" name="emp_pin" ng-model="employee.emp_pin" placeholder="employee pin no" required ng-pattern="[0-9]{6}(\s*,*,\s*[0-9]{6})*">
+              <input type="text" class="form-control" name="emp_pin" ng-model="employee.emp_pin"  ng-maxlength="6"  placeholder="employee pin no" required ng-pattern="/^[0-9]/">
               <span class="help-block" ng-show="addemployee.emp_pin.$error.required && addemployee.emp_pin.$touched">Please enter pin code</span>
-              <span class="help-block" ng-show="addemployee.emp_pin.$error.pattern && addemployee.emp_pin.$touched">pin number must be six digit</span>
+              <span class="help-block" ng-show="addemployee.emp_pin.$error.pattern && addemployee.emp_pin.$touched" ng-message="maxlength">pin number must be six digit and start from 7</span>
             </div>
           </div>
           <div class="form-group" ng-class="{'has-error': (addemployee.emp_mobile.$invalid && addemployee.emp_mobile.$touched)}">
@@ -106,26 +106,26 @@
               <!-- <input type="text" class="form-control pull-right" id="datepicker" ng-model="buildingPlan.date"> -->
               <!-- <div date-picker="dates.today" id="pickerMinDateDiv" min-date="minDate" view="date" min-view="hours" timezone="UTC" watch-direct-changes="true"></div> -->
               <p class="input-group">
-                <input type="text" class="form-control" uib-datepicker-popup ng-model="emp.dob" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                <input type="text" class="form-control" uib-datepicker-popup ng-model="employee.dob" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword3" class="col-sm-3 control-label">DOJ</label>
+          <div class="col-sm-8">
+              <!-- <input type="text" class="form-control pull-right" id="datepicker" ng-model="buildingPlan.date"> -->
+              <!-- <div date-picker="dates.today" id="pickerMinDateDiv" min-date="minDate" view="date" min-view="hours" timezone="UTC" watch-direct-changes="true"></div> -->
+              <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup ng-model="employee.doj" is-open="popup1.opened1" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
               </p>
           </div>
         </div>
-        <div class="form-group">
-        <label for="inputPassword3" class="col-sm-3 control-label">DOJ</label>
-        <div class="col-sm-8">
-            <!-- <input type="text" class="form-control pull-right" id="datepicker" ng-model="buildingPlan.date"> -->
-            <!-- <div date-picker="dates.today" id="pickerMinDateDiv" min-date="minDate" view="date" min-view="hours" timezone="UTC" watch-direct-changes="true"></div> -->
-            <p class="input-group">
-              <input type="text" class="form-control" uib-datepicker-popup ng-model="employee.doj" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open2()" ng-disabled="addemployee.$invalid"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
-            </p>
-        </div>
-      </div>
       <div class="form-group" ng-class="{'has-error': (addemployee.emp_status.$invalid && addemployee.emp_status.$touched)}">
         <label for="inputPassword3" class="col-sm-3 control-label">Employee Status</label>
         <div class="col-sm-8">
