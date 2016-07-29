@@ -188,13 +188,13 @@ header('Access-Control-Allow-Origin: *');
 				$rows = $this->executeGenericDQLQuery($sql);
 				if(sizeof($rows)){
 						$users = array();
-						$users[0]['id'] = $rows[0]['user_id'];
-						$users[0]['user_name'] = $rows[0]['user_name'];
-						$users[0]['email'] = $rows[0]['email'];
-						$users[0]['roll_id'] = $rows[0]['roll_id'];
-						$users[0]['ulb_id'] = $rows[0]['ulb_id'];
-						$users[0]['token'] = $rows[0]['user_token'];
-						$users[0]['district_id'] = $rows[0]['district_id'];
+						$users['id'] = $rows[0]['user_id'];
+						$users['user_name'] = $rows[0]['user_name'];
+						$users['email'] = $rows[0]['email'];
+						$users['roll_id'] = $rows[0]['roll_id'];
+						$users['ulb_id'] = $rows[0]['ulb_id'];
+						$users['token'] = $rows[0]['user_token'];
+						$users['district_id'] = $rows[0]['district_id'];
 						$this->sendResponse(200,$this->messages['loginSuccess'],$users);
 				}
 				else {
