@@ -12,18 +12,11 @@ app.factory("employeeService", function ($http,CONFIG,$localStorage) {
       });
       return response;
     },
-    logout: function (data) {
-      var _serializedData = $.param({"reqmethod": 'logout'});
-      var response = $http({
-          method: 'POST',
-          url: CONFIG.HTTP_HOST,
-          data : _serializedData,
-          headers: {
-              'Accesstoken': localStorage.getItem('accessToken'),
-              'Content-Type': 'application/x-www-form-urlencoded'
-          }
-      });
+    logout: function () {
+      var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod=logout",{
+         headers: {'Accesstoken':$localStorage.user.accessToken}
+       });
       return response;
     }
-  }
+  };
 });

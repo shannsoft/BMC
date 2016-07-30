@@ -1,13 +1,14 @@
-app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService){
+app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService,Util){
   /*******************************************************/
   /*************This is use for check user login**********/
   /*******************************************************/
   $scope.getUserDetails = function(){
-   if(localStorage.getItem('accessToken')){
-     console.log(12121);
+   if($localStorage.user){
+     $scope.logedIn_user = $localStorage.user;
      $rootScope.loggedin = true;
    }
    else{
+     $scope.logedIn_user = {};
      $rootScope.loggedin = false;
    }
  }
@@ -17,14 +18,14 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
   $scope.login = function(user){
     employeeService.login(user).then(function(pRes) {
       if(pRes.data.statusCode == 200){
-        localStorage.setItem('accessToken',pRes.data.data.token);
         $localStorage.user ={
           "district_id" : pRes.data.data.district_id,
            "email"      : pRes.data.data.email,
            "id"         : pRes.data.data.id,
            "roll_id"    : pRes.data.data.roll_id,
            "ulb_id"     : pRes.data.data.ulb_id,
-           "user_name"  : pRes.data.data.user_name
+           "user_name"  : pRes.data.data.user_name,
+           "accessToken": pRes.data.data.token
         }
         $scope.getUserDetails();
         $state.go("dashboard");
@@ -38,11 +39,10 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
     })
   }
   $scope.signOut = function(){
-    employeeService.logout(localStorage.getItem('accessToken')).then(function(pRes) {
+    employeeService.logout().then(function(pRes) {
       if(pRes.status == 200){
-        console.log(pRes.data.message);
         $rootScope.loggedin = false;
-        localStorage.setItem('accessToken','');
+        delete $localStorage.user;
         $state.go("login");
       }
     },

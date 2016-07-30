@@ -8,7 +8,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/dashboard',
             controller:"Main_Controller",
             onEnter: function($localStorage, $state) {
-               if (!localStorage.getItem('accessToken')) {
+               if (!$localStorage.user) {
                    $state.go('login');
                }
              }
@@ -18,7 +18,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/login',
             controller:"Main_Controller",
             onEnter: function($localStorage, $state) {
-               if (localStorage.getItem('accessToken')) {
+               if ($localStorage.user) {
                    $state.go('dashboard');
                }
              }
@@ -28,7 +28,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
              url:'/newemployee',
              controller:"Main_Controller",
              onEnter: function($localStorage, $state) {
-               if (!localStorage.getItem('accessToken')) {
+               if (!$localStorage.user) {
                    $state.go('login');
                }
              }
@@ -38,7 +38,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
              url:'/existingemployee',
              controller:"Main_Controller",
              onEnter: function($localStorage, $state) {
-               if (!localStorage.getItem('accessToken')) {
+               if (!$localStorage.user) {
                    $state.go('login');
                }
              }
@@ -47,32 +47,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
 app.constant('CONFIG', {
   'HTTP_HOST': '../server/api.php' //client staging
 })
-// app.factory('Util', ['$rootScope',  '$timeout' , function( $rootScope, $timeout){
-//     var Util = {};
-//     $rootScope.alerts =[];
-//     Util.alertMessage = function(msgType, message){
-//         console.log(1212121);
-//         var alert = { type:msgType , msg: message };
-//         $rootScope.alerts.push( alert );
-//         $timeout(function(){
-//             $rootScope.alerts.splice($rootScope.alerts.indexOf(alert), 1);
-//         }, 5000);
-//     };
-//     return Util;
-// }]);
-//
-// app.directive('fileModel', ['$parse', function ($parse) {
-//     return {
-//        restrict: 'A',
-//        link: function(scope, element, attrs) {
-//           var model = $parse(attrs.fileModel);
-//           var modelSetter = model.assign;
-//
-//           element.bind('change', function(){
-//              scope.$apply(function(){
-//                 modelSetter(scope, element[0].files[0]);
-//              });
-//           });
-//        }
-//     };
- // }]);
+app.factory('Util', ['$rootScope',  '$timeout' , function( $rootScope, $timeout){
+    var Util = {};
+    $rootScope.alerts =[];
+    Util.alertMessage = function(msgType, message){
+        console.log(1212121);
+        var alert = { type:msgType , msg: message };
+        $rootScope.alerts.push( alert );
+        $timeout(function(){
+            $rootScope.alerts.splice($rootScope.alerts.indexOf(alert), 1);
+        }, 5000);
+    };
+    return Util;
+}]);

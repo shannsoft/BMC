@@ -11,6 +11,9 @@ header('Access-Control-Allow-Origin: *');
 	  const DB = "omc_123";
 		// adding table names
 		const usersTable = "user_tbl";
+		const designation = "designation_master";
+		const district = "district_master";
+		const ulb_tbl = "ulb_master";
 		private $db = NULL;
 		private $proxy = NULL;
 		private $storeApiLogin = false;
@@ -202,7 +205,7 @@ header('Access-Control-Allow-Origin: *');
 				}
 			}
 			else{
-				$this->sendResponse(202,"validation Error","Invalid user name or password");
+				$this->sendResponse(202,"Invalid user name or password");
 			}
     }
 		public function logout(){
@@ -227,54 +230,36 @@ header('Access-Control-Allow-Origin: *');
 				}
 			}
 		}
-		public function updateProfile(){
-			$user_data = isset($this->_request['user_data']) ? $this->_request['user_data'] : $this->_request;
-			$email = isset($user_data['email']) ? $user_data['email'] : '';
-			$first_name = isset($user_data['first_name']) ? $user_data['first_name'] : '';
-			$last_name = isset($user_data['last_name']) ? $user_data['last_name'] : '';
-			$mobile = isset($user_data['mobile']) ? $user_data['mobile'] : '';
-			$token = $user_data['token'];
-					$previous = false;
-					$sql = "update ".self::usersTable." set ";
-					if(isset($user_data['email'])){
-						$sql .="email ='$email'";
-						$previous = true;
-					}
-					if(isset($user_data['first_name'])){
-						$comma = ($previous) ? ',' : '';
-						$sql .="$comma first_name ='$first_name'";
-						$previous = true;
-					}
-					if(isset($user_data['last_name'])){
-						$comma = ($previous) ? ',' : '';
-						$sql .="$comma last_name ='$last_name'";
-						$previous = true;
-					}
-					if(isset($user_data['mobile'])){
-						$comma = ($previous) ? ',' : '';
-						$sql .="$comma mobile ='$mobile'";
-						$previous = true;
-					}
-					$sql .= " where token='$token'";
-					$result = $this->executeGenericDMLQuery($sql);
-					if($result){
-						$this->sendResponse2(200,$this->messages['userUpdated']);
-					}
-		}
-		public function checkPassword(){
-			if(isset($this->_request['password']) && isset($this->_request['token'])){
-				$cpass = $this->_request['password'];
-				$token = $this->_request['token'];
-				$sql = "SELECT password FROM ".self::usersTable." where token='$token'";
-				$rows = $this->executeGenericDQLQuery($sql);
-				$users = array();
-				if($rows[0]['password'] == md5($cpass)){
-					$this->sendResponse(200,"success","ok");
-				}
-				else{
-					$this->sendResponse(201,"failure","fail");
-				}
+		public function getDesignationList(){
+			$sql = "select * from ".self::designation;
+			$rows = $this->executeGenericDQLQuery($sql);
+			$desig = array();
+			for($i=0;$i<sizeof($rows);$i++){
+				$desig[$i]['id'] = $rows[$i]['designation_id'];
+				$desig[$i]['designation'] = $rows[$i]['designation'];
 			}
+			$this->sendResponse(200,$this->messages['dataFetched'],$desig);
+		}
+		public function getDistrictList(){
+			$sql = "select * from ".self::district;
+			$rows = $this->executeGenericDQLQuery($sql);
+			$desig = array();
+			for($i=0;$i<sizeof($rows);$i++){
+				$desig[$i]['id'] = $rows[$i]['district_id'];
+				$desig[$i]['designation'] = $rows[$i]['name'];
+			}
+			$this->sendResponse(200,$this->messages['dataFetched'],$desig);
+		}
+		public function getULBList(){
+			$district_id = $this->_request['district_id'];
+			$sql = "select * from ".self::ulb_tbl." where district_id = ".$district_id;
+			$rows = $this->executeGenericDQLQuery($sql);
+			$desig = array();
+			for($i=0;$i<sizeof($rows);$i++){
+				$desig[$i]['id'] = $rows[$i]['ulb_id'];
+				$desig[$i]['name'] = $rows[$i]['name'];
+			}
+			$this->sendResponse(200,$this->messages['dataFetched'],$desig);
 		}
 		public function user() {
 				if(!isset($this->_request['operation']))
