@@ -17,6 +17,18 @@ app.factory("employeeService", function ($http,CONFIG,$localStorage) {
          headers: {'Accesstoken':$localStorage.user.accessToken}
        });
       return response;
+    },
+    // submitdetails: function(){
+    //   var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod=submitdetails" ,{
+    //       headers: {'Accesstoken':$localStorage.user.accessToken}
+    //   });
+    //}
+    desingnation: function(){
+      var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod=getDesignationList",{
+         headers: {}
+       });
+      return response;
     }
+
   };
 });

@@ -1,0 +1,57 @@
+<section class="content-header" >
+  <h1 class="">
+    Employee List
+    <small>control panel</small>
+  </h1>
+  <button class="btn btn-primary pull-right" ui-sref="newplan" ng-if="user_type == '3'"><i class="fa fa-plus"></i></button>
+</section>
+<section class="content" ng-init="loaddetails()">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Employee Details</h3>
+        </div>
+        <div class="box-body">
+          <table id="example2" class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>village/town</th>
+                <th>city</th>
+                <th>Po</th>
+                <th>District</th>
+                <th>Pin</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>UIB</th>
+                <th>DOB</th>
+                <th>DOJ</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="employee in employeedetails">
+                <td></td>
+                <td>{{employee.Name}}</td>
+                <td>{{employee.Designation}}</td>
+                <td>{{employee.village/town}}</td>
+                <td>{{employee.city}}</td>
+                <td>{{employee.Po}}</td>
+                <td>{{employee.District}}</td>
+                <td>{{employee.Pin}}</td>
+                <td>{{employee.Mobile}}</td>
+                <td>{{employee.Email}}</td>
+                <td>{{employee.UIB}}</td>
+                <td>{{employee.DOB}}</td>
+                <td>{{employee.DOJ}}</td>
+                <td>{{employee.Status}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

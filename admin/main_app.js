@@ -33,9 +33,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
                }
              }
         })
-        .state('existingemployee',{
-             templateUrl:'pages/existingemployee.html',
-             url:'/existingemployee',
+        .state('employeedetails',{
+             templateUrl:'pages/employeedetails.html',
+             url:'/employeedetails',
              controller:"Main_Controller",
              onEnter: function($localStorage, $state) {
                if (!$localStorage.user) {
@@ -47,16 +47,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
 app.constant('CONFIG', {
   'HTTP_HOST': '../server/api.php' //client staging
 })
-app.factory('Util', ['$rootScope',  '$timeout' , function( $rootScope, $timeout){
-    var Util = {};
-    $rootScope.alerts =[];
-    Util.alertMessage = function(msgType, message){
-        console.log(1212121);
-        var alert = { type:msgType , msg: message };
-        $rootScope.alerts.push( alert );
-        $timeout(function(){
-            $rootScope.alerts.splice($rootScope.alerts.indexOf(alert), 1);
-        }, 5000);
-    };
-    return Util;
-}]);
+// app.factory('Util', ['$rootScope',  '$timeout' , function( $rootScope, $timeout){
+//     var Util = {};
+//     $rootScope.alerts =[];
+//     Util.alertMessage = function(msgType, message){
+//         console.log(1212121);
+//         var alert = { type:msgType , msg: message };
+//         $rootScope.alerts.push( alert );
+//         // $timeout(function(){
+//         //     $rootScope.alerts.splice($rootScope.alerts.indexOf(alert), 1);
+//         // }, 5000);
+//     };
+//     return Util;

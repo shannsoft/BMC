@@ -1,4 +1,4 @@
-app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService,Util){
+app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService){
   /*******************************************************/
   /*************This is use for check user login**********/
   /*******************************************************/
@@ -6,6 +6,7 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
    if($localStorage.user){
      $scope.logedIn_user = $localStorage.user;
      $rootScope.loggedin = true;
+     $rootScope.roll_id = localStorage.getItem('roll_id');
    }
    else{
      $scope.logedIn_user = {};
@@ -25,8 +26,9 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
            "roll_id"    : pRes.data.data.roll_id,
            "ulb_id"     : pRes.data.data.ulb_id,
            "user_name"  : pRes.data.data.user_name,
-           "accessToken": pRes.data.data.token
+           "accessToken": pRes.data.data.token,
         }
+      //  localStorage.setItem("roll_id",pRes.data.data.roll_id);
         $scope.getUserDetails();
         $state.go("dashboard");
       }
@@ -38,6 +40,9 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
       console.log(">>>>>>>>>>>>>   ",err);
     })
   }
+  /*******************************************************/
+  /*************This is use for  user logout**************/
+  /*******************************************************/
   $scope.signOut = function(){
     employeeService.logout().then(function(pRes) {
       if(pRes.status == 200){
@@ -50,9 +55,7 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
       console.log(">>>>>>>>>>>>>   ",err);
     })
   }
-  /*******************************************************/
-  /*************This is use for  user logout**************/
-  /*******************************************************/
+  /***************This is for showing calender pop up*******************/
   $scope.open2 = function() {
    $scope.popup1.opened1 = true;
   };
@@ -104,5 +107,22 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
      }
    }
    return '';
+ }
+ // $scope.loaddetails = function(){
+ //     console.log(pRes);
+ //     $rootScope.employeedetails = pRes.data.data;
+ // }
+ //
+ // $scope.submitdetail = functtion(employee){
+ //
+ // }
+ $scope.desingnation = function(){
+   employeeService.desingnation().then(function(pRes) {
+     if(pRes.status == 200){
+     $scope.employeelist = pRes.data.data;
+     }
+
+    console.log(pRes);
+  })
  }
 });
