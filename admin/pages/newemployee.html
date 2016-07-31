@@ -24,7 +24,8 @@
             <label for="inputPassword3" class="col-sm-3 control-label">Designation</label>
             <div class="col-sm-8">
               <select class="form-control"  ng-model="employee.emp_designation" name="emp_designation" ng-init="desingnation()"  required>
-                <option value="employee.id" ng-repeat="employee in employeelist">{{employee.designation}}</option>
+                <option value="">Select Designation</option>
+                <option value="{{employee.id}}" ng-repeat="employee in employeelist">{{employee.designation}}</option>
               </select>
               <span class="help-block" ng-show="addemployee.emp_designation.$error.required && addemployee.emp_designation.$touched">Please add your desingnation</span>
             </div>
@@ -56,10 +57,9 @@
           <div class="form-group" ng-class="{'has-error': (addemployee.emp_district.$invalid && addemployee.emp_district.$touched)}">
             <label for="inputPassword3" class="col-sm-3 control-label"> District</label>
             <div class="col-sm-8">
-              <select class="form-control" ng-model="employee.emp_district" name="emp_district" required>
-                <option value="">--select one--</option>
-                <option value="2">Verifier</option>
-                <option value="3">Enterer</option>
+              <select class="form-control" ng-model="employee.emp_district" name="emp_district" ng-init="loaddistrict()" ng-change="getdistrictulb(employee.emp_district)" required>
+                <option value="">Select District</option>
+                <option value="{{district.id}}" ng-repeat="district in district" >{{district.designation}}</option>
               </select>
               <span class="help-block" ng-show="addemployee.emp_district.$error.required && addemployee.emp_district.$touched">Please enter a district</span>
             </div>
@@ -88,12 +88,11 @@
            </div>
          </div>
           <div class="form-group" ng-class="{'has-error': (addemployee.emp_uib.$invalid && addemployee.emp_uib.$touched)}">
-            <label for="inputPassword3" class="col-sm-3 control-label">Employee UIB</label>
+            <label for="inputPassword3" class="col-sm-3 control-label">Employee ULB</label>
             <div class="col-sm-8">
-              <select class="form-control" ng-model="employee.emp_uib" name="emp_uib" required>
-                <option value="">--select one--</option>
-                <option value="2">Verifier</option>
-                <option value="3">Enterer</option>
+              <select class="form-control" ng-model="employee.emp_ulb"  name="emp_uib" required>
+                <option value="">Select ULB</option>
+                <option value="{{ulb.id}}" ng-repeat="ulb in ulblist">{{ulb.name}}</option>
               </select>
               <span class="help-block" ng-show="addemployee.emp_uib.$error.required && addemployee.emp_uib.$touched">Please enter employee UIB no</span>
             </div>

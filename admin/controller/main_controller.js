@@ -28,7 +28,7 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
            "user_name"  : pRes.data.data.user_name,
            "accessToken": pRes.data.data.token,
         }
-      //  localStorage.setItem("roll_id",pRes.data.data.roll_id);
+       localStorage.setItem("roll_id",pRes.data.data.roll_id);
         $scope.getUserDetails();
         $state.go("dashboard");
       }
@@ -116,13 +116,30 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
  // $scope.submitdetail = functtion(employee){
  //
  // }
+ /****binds employee desingnation in newemployee page**/
  $scope.desingnation = function(){
    employeeService.desingnation().then(function(pRes) {
      if(pRes.status == 200){
      $scope.employeelist = pRes.data.data;
      }
 
-    console.log(pRes);
+  //  console.log(pRes);
   })
+ }
+ /**binds district and ulb in district and ulb dropdown in newemployee page**/
+ $scope.loaddistrict = function(){
+   employeeService.loaddistrict().then(function(pRes){
+     if(pRes.status == 200){
+     $scope.district = pRes.data.data;
+     }
+     //console.log(pRes);
+   })
+ }
+ $scope.getdistrictulb = function(emp_district){
+   console.log(emp_district);
+   employeeService.getdistrictulb(parseInt(emp_district)).then(function(pRes){
+     $scope.ulblist = pRes.data.data;
+     console.log(pRes);
+   })
  }
 });

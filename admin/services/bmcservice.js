@@ -28,7 +28,24 @@ app.factory("employeeService", function ($http,CONFIG,$localStorage) {
          headers: {}
        });
       return response;
-    }
-
+    },
+    loaddistrict: function(){
+      var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod=getDistrictList",{
+         headers: {}
+       });
+      return response;
+    },
+    getdistrictulb: function(id){
+      var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod= getULBList&district_id="+id,{
+         headers: {}
+       });
+      return response;
+    },
+    // employeedistrict:function(){
+    //   var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod= getULBList&id=+id",{
+    //      headers: {}
+    //    });
+    //   return response;
+    // }
   };
 });
