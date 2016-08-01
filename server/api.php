@@ -268,6 +268,9 @@ header('Access-Control-Allow-Origin: *');
 			$sql = null;
 			$headers = apache_request_headers(); // to get all the headers
 			$accessToken = $headers['Accesstoken'];
+			$sql = "select * from ".self::usersTable." where user_token = '$accessToken'";
+			$rows = $this->executeGenericDQLQuery($sql);
+			$user_id = $rows[0]['user_id'];
 			switch ($this->_request['operation']) {
 				case 'create':
 					$employee_data = $this->_request['employee_data'];
@@ -288,7 +291,7 @@ header('Access-Control-Allow-Origin: *');
 					$status = $employee_data['status'];
 					$created = new Date();
 					$isDeleted = 0;
-					$sql = "insert into ".self::employee_table."(name,designation_id,villege_town,city,post,police_station,district_id,pin,mobile,email,ulb_id,dob,doj,dor,emp_status,createdDate,isDeleted) values('$name','$desingnation','$village','$city','$post','$ps','$district','$pin','$mobile','$email','$ulb_id','$dob','$doj','$dor','$status','$created','$isDeleted')";
+					$sql = "insert into ".self::employee_table."(name,designation_id,villege_town,city,post,police_station,district_id,pin,mobile,email,ulb_id,dob,doj,dor,emp_status,createdDate,isDeleted,created_by) values('$name','$desingnation','$village','$city','$post','$ps','$district','$pin','$mobile','$email','$ulb_id','$dob','$doj','$dor','$status','$created','$isDeleted','$user_id')";
 					$rows = $this->executeGenericDMLQuery($sql);
 					$this->sendResponse(200,$this->messages['userCreated']);
 					break;
