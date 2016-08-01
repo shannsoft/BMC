@@ -10,7 +10,7 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
     });
   }
 });
-app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService){
+app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService,Util){
   /*******************************************************/
   /*************This is use for check user login**********/
   /*******************************************************/

@@ -4931,3 +4931,6 @@ table.text-center th {
 {
   width:35px;
 }
+.over-x-sc{
+  overflow-x: scroll;
+}
