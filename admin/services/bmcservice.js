@@ -1,3 +1,13 @@
+app.factory("ulbService", function ($http,CONFIG,$localStorage) {
+  return{
+    getEmployeeList : function(){
+      var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod=employee&operation=get",{
+         headers: {'Accesstoken':$localStorage.user.accessToken}
+       });
+      return response;
+    }
+  }
+});
 app.factory("employeeService", function ($http,CONFIG,$localStorage) {
   return{
     login: function (data) {

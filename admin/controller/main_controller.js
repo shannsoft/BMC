@@ -1,4 +1,16 @@
-app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService,Util){
+app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,ulbService){
+  /*******************************************************/
+  /*************This is use for employee List*************/
+  /*******************************************************/
+  $scope.loadEmpList = function(){
+    ulbService.getEmployeeList().then(function(pRes) {
+      if(pRes.data.statusCode == 200){
+        $scope.emp_list = pRes.data.data;
+      }
+    });
+  }
+});
+app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService){
   /*******************************************************/
   /*************This is use for check user login**********/
   /*******************************************************/
@@ -128,10 +140,8 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
    })
  }
  $scope.getdistrictulb = function(emp_district){
-   //console.log(emp_district);
    employeeService.getdistrictulb(parseInt(emp_district)).then(function(pRes){
      $scope.ulblist = pRes.data.data;
-    // console.log(pRes);
    })
  }
  $scope.submitdetails = function(){
@@ -158,9 +168,9 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
         Util.alertMessage('success', pRes.data.message);
         console.log(pRes);
       }
-      // else {
-      //   alertMessage('danger');
-      // }
+      else {
+        Util.alertMessage('danger', 'Error with add employee');
+      }
     })
  }
 });

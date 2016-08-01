@@ -33,10 +33,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
                }
              }
         })
-        .state('employeedetails',{
-             templateUrl:'pages/employeedetails.html',
-             url:'/employeedetails',
-             controller:"Main_Controller",
+        .state('employeeList',{
+             templateUrl:'pages/employee_list.html',
+             url:'/employeeList',
+             controller:"Emp_Controller",
              onEnter: function($localStorage, $state) {
                if (!$localStorage.user) {
                    $state.go('login');

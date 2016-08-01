@@ -324,6 +324,14 @@ header('Access-Control-Allow-Origin: *');
 					}
 					$this->sendResponse(200,$this->messages['dataFetched'],$employee);
 					break;
+				case 'delete':
+					$employee_data = isset($this->_request['employee_data']) ? $this->_request['employee_data'] : $this->_request;
+					$sql = "update ".self::usersTable." set isDeleted=1 where emp_id=".$employee_data['id'];
+					$result = $this->executeGenericDMLQuery($sql);
+					if($result){
+						$this->sendResponse(200,$this->messages['deleted']);
+					}
+					break;
 			}
 		}
 	}
