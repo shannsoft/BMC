@@ -59,7 +59,7 @@
             <div class="col-sm-8">
               <select class="form-control" ng-model="employee.emp_district" name="emp_district" ng-init="loaddistrict()" ng-change="getdistrictulb(employee.emp_district)" required>
                 <option value="">Select District</option>
-                <option value="{{district.id}}" ng-repeat="district in district" >{{district.designation}}</option>
+                <option value="{{district.id}}" ng-repeat="district in district" >{{district.name}}</option>
               </select>
               <span class="help-block" ng-show="addemployee.emp_district.$error.required && addemployee.emp_district.$touched">Please enter a district</span>
             </div>

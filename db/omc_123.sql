@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2016 at 08:16 AM
+-- Generation Time: Aug 01, 2016 at 09:35 AM
 -- Server version: 10.0.17-MariaDB
 -- PHP Version: 5.6.14
 
@@ -60,14 +60,14 @@ INSERT INTO `designation_master` (`designation_id`, `designation`) VALUES
 
 CREATE TABLE `district_master` (
   `district_id` int(11) NOT NULL,
-  `name` text NOT NULL
+  `district_name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `district_master`
 --
 
-INSERT INTO `district_master` (`district_id`, `name`) VALUES
+INSERT INTO `district_master` (`district_id`, `district_name`) VALUES
 (1, 'Anugul'),
 (2, 'Bargarh'),
 (3, 'Bhadrak'),
@@ -107,7 +107,7 @@ INSERT INTO `district_master` (`district_id`, `name`) VALUES
 
 CREATE TABLE `document_master` (
   `document_id` int(11) NOT NULL,
-  `name` text NOT NULL
+  `document_name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -126,7 +126,7 @@ CREATE TABLE `employee_table` (
   `police_station` text NOT NULL,
   `district_id` int(11) NOT NULL,
   `pin` int(11) NOT NULL,
-  `mobile` int(15) DEFAULT NULL,
+  `mobile` text,
   `email` text,
   `ulb_id` int(11) NOT NULL,
   `dob` date NOT NULL,
@@ -137,6 +137,13 @@ CREATE TABLE `employee_table` (
   `modifiedDate` date DEFAULT NULL,
   `isDeleted` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `employee_table`
+--
+
+INSERT INTO `employee_table` (`emp_id`, `name`, `designation_id`, `villege_town`, `city`, `post`, `police_station`, `district_id`, `pin`, `mobile`, `email`, `ulb_id`, `dob`, `doj`, `dor`, `emp_status`, `createdDate`, `modifiedDate`, `isDeleted`) VALUES
+(1, 'Santosh', 1, 'bhubaneswar', 'bhubaneswar', 'bbsr', '', 19, 751001, '9438753143', 'santoshmajhi99@gmail.com', 1, '2016-08-03', '2016-08-04', '2018-04-12', 'Active', '2016-08-01', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -213,7 +220,7 @@ CREATE TABLE `section_master` (
 
 CREATE TABLE `ulb_master` (
   `ulb_id` int(11) NOT NULL,
-  `name` text NOT NULL,
+  `ulb_name` text NOT NULL,
   `district_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -221,7 +228,7 @@ CREATE TABLE `ulb_master` (
 -- Dumping data for table `ulb_master`
 --
 
-INSERT INTO `ulb_master` (`ulb_id`, `name`, `district_id`) VALUES
+INSERT INTO `ulb_master` (`ulb_id`, `ulb_name`, `district_id`) VALUES
 (1, 'Angul (M)', 1),
 (2, 'Athamallik (N)', 1),
 (3, 'Talcher (M)', 1),
@@ -240,8 +247,8 @@ CREATE TABLE `user_tbl` (
   `email` text NOT NULL,
   `user_name` text NOT NULL,
   `password` text NOT NULL,
-  `mobile` int(15) NOT NULL,
-  `address` text NOT NULL,
+  `mobile` text,
+  `address` text,
   `roll_id` int(11) NOT NULL,
   `ulb_id` int(11) NOT NULL,
   `district_id` int(11) NOT NULL,
@@ -253,8 +260,8 @@ CREATE TABLE `user_tbl` (
 --
 
 INSERT INTO `user_tbl` (`user_id`, `email`, `user_name`, `password`, `mobile`, `address`, `roll_id`, `ulb_id`, `district_id`, `user_token`) VALUES
-(1, 'admin@gmail.com', 'Admin', 'E10ADC3949BA59ABBE56E057F20F883E', 0, '', 0, 0, 0, ''),
-(2, 'uibno@gmail.com', 'uib', 'E10ADC3949BA59ABBE56E057F20F883E', 0, '', 3, 1, 0, 'O11GpIXXBU1mldWd8HWmUYKa98ysPM5ApYAoSlKdFYNUMrsOFRWLiOY69oLH');
+(1, 'admin@gmail.com', 'Admin', 'E10ADC3949BA59ABBE56E057F20F883E', '0', '', 0, 0, 0, ''),
+(2, 'uibno@gmail.com', 'ulb_angul', 'E10ADC3949BA59ABBE56E057F20F883E', '0', '', 3, 1, 0, 'Rt7v9chSxeq2HU34T46AN53FFLTTds4oD1yKFNO2xDPRWQ3j6jt0Kmx06QeU');
 
 --
 -- Indexes for dumped tables
@@ -343,7 +350,7 @@ ALTER TABLE `document_master`
 -- AUTO_INCREMENT for table `employee_table`
 --
 ALTER TABLE `employee_table`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `pension_history`
 --

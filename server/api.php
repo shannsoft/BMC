@@ -247,7 +247,7 @@ header('Access-Control-Allow-Origin: *');
 			$desig = array();
 			for($i=0;$i<sizeof($rows);$i++){
 				$desig[$i]['id'] = $rows[$i]['district_id'];
-				$desig[$i]['designation'] = $rows[$i]['name'];
+				$desig[$i]['name'] = $rows[$i]['district_name'];
 			}
 			$this->sendResponse(200,$this->messages['dataFetched'],$desig);
 		}
@@ -258,7 +258,7 @@ header('Access-Control-Allow-Origin: *');
 			$desig = array();
 			for($i=0;$i<sizeof($rows);$i++){
 				$desig[$i]['id'] = $rows[$i]['ulb_id'];
-				$desig[$i]['name'] = $rows[$i]['name'];
+				$desig[$i]['name'] = $rows[$i]['ulb_name'];
 			}
 			$this->sendResponse(200,$this->messages['dataFetched'],$desig);
 		}
@@ -294,26 +294,27 @@ header('Access-Control-Allow-Origin: *');
 					break;
 				case 'get':
 					$employee_data = isset($this->_request['employee_data']) ? $this->_request['employee_data'] : $this->_request;
-					$sql = "SELECT * FROM ".self::employee_table."where isDeleted = 0";
+					$sql = "SELECT a.emp_id, a.name, a.villege_town, a.city, a.post, a.police_station, a.pin, a.mobile, a.email, a.dob, a.doj, a.dor, a.emp_status, a.createdDate, a.modifiedDate, a.isDeleted, b.district_name, c.designation, d.ulb_name FROM employee_table a INNER JOIN district_master b ON a.district_id = b.district_id INNER JOIN designation_master c ON a.designation_id = c.designation_id INNER JOIN ulb_master d ON a.ulb_id = d.ulb_id where a.isDeleted = 0";
 					if(isset($employee_data['id']))
-						$sql .= " AND emp_id=".$employee_data['id'];
+						$sql .= " AND a.emp_id=".$employee_data['id'];
 					$rows = $this->executeGenericDQLQuery($sql);
 					$employee = array();
 					for($i = 0; $i < sizeof($rows); $i++) {
 						$employee[$i]['id'] = $rows[$i]['emp_id'];
 						$employee[$i]['name'] = $rows[$i]['name'];
-						$employee[$i]['designation_id'] = $rows[$i]['designation_id'];
+						$employee[$i]['designation'] = $rows[$i]['designation'];
 						$employee[$i]['village'] = $rows[$i]['villege_town'];
 						$employee[$i]['city'] = $rows[$i]['city'];
 						$employee[$i]['post'] = $rows[$i]['post'];
 						$employee[$i]['police_station'] = $rows[$i]['police_station'];
-						$employee[$i]['district_id'] = $rows[$i]['district_id'];
+						$employee[$i]['district'] = $rows[$i]['district_name'];
 						$employee[$i]['pin'] = $rows[$i]['pin'];
 						$employee[$i]['mobile'] = $rows[$i]['mobile'];
 						$employee[$i]['email'] = $rows[$i]['email'];
 						$employee[$i]['dob'] = $rows[$i]['dob'];
 						$employee[$i]['doj'] = $rows[$i]['doj'];
 						$employee[$i]['dor'] = $rows[$i]['dor'];
+						$employee[$i]['ulb'] = $rows[$i]['ulb_name'];
 						$employee[$i]['emp_status'] = $rows[$i]['emp_status'];
 						$employee[$i]['createdDate'] = $rows[$i]['createdDate'];
 						$employee[$i]['isDeleted'] = $rows[$i]['isDeleted'];
