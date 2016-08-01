@@ -54,6 +54,14 @@
               <span class="help-block" ng-show="addemployee.emp_po.$error.pattern && addemployee.emp_po.$touched">city should not be numeric</span>
             </div>
           </div>
+          <div class="form-group" ng-class="{'has-error': (addemployee.emp_ps.$invalid && addemployee.emp_ps.$touched)}">
+            <label for="inputEmail3" class="col-sm-3 control-label">Ps</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="emp_ps" ng-model="employee.emp_ps" placeholder="employee postal address" required ng-pattern="/^(\D)+$/">
+              <span class="help-block" ng-show="addemployee.emp_ps.$error.required && addemployee.emp_ps.$touched">Please enter po name</span>
+              <span class="help-block" ng-show="addemployee.emp_ps.$error.pattern && addemployee.emp_ps.$touched">city should not be numeric</span>
+            </div>
+          </div>
           <div class="form-group" ng-class="{'has-error': (addemployee.emp_district.$invalid && addemployee.emp_district.$touched)}">
             <label for="inputPassword3" class="col-sm-3 control-label"> District</label>
             <div class="col-sm-8">
@@ -127,9 +135,9 @@
         <label for="inputPassword3" class="col-sm-3 control-label">Employee Status</label>
         <div class="col-sm-8">
           <select class="form-control" ng-model="employee.emp_status" name="emp_status" required>
-            <option value="">--select one--</option>
-            <option value="2">Active</option>
-            <option value="3">Suspend</option>
+            <option value="">Select one</option>
+            <option value="Active">Active</option>
+            <option value="Suspend">Suspend</option>
           </select>
           <span class="help-block" ng-show="addemployee.emp_status.$error.required && addemployee.emp_status.$touched">Please enter employee status</span>
         </div>
@@ -139,6 +147,9 @@
         <div class="box-footer">
           <button type="submit" class="btn btn-default" ui-sref="users">Cancel</button>
           <button ng-disabled="addemployee.$invalid" type="submit" class="btn btn-info pull-right" ng-click="submitdetails()">Submit</button>
+          <section  align="center m-t-sm">
+              <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="close()">{{alert.msg}}</alert>
+          </section>
         </div>
         <!-- /.box-footer -->
       </form>

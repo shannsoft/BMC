@@ -36,8 +36,16 @@ app.factory("employeeService", function ($http,CONFIG,$localStorage) {
        });
       return response;
     },
-    // submitdetails: function(){
-    //
-    // }
+    submitdetails: function(data,option){
+      var _serializedData = $.param({"reqmethod": 'employee', "operation":option, "employee_data" : data});
+      var response = $http({
+          method: 'POST',
+          url: CONFIG.HTTP_HOST,
+          data : _serializedData,
+          headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
+      });
+      
+      return response;
+    }
   };
 });

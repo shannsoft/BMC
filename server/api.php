@@ -289,7 +289,7 @@ header('Access-Control-Allow-Origin: *');
 					$doj = $employee_data['doj'];
 					$dor = $employee_data['dor'];
 					$status = $employee_data['status'];
-					$created = new Date();
+					$created = date("Y-m-d");
 					$isDeleted = 0;
 					$sql = "insert into ".self::employee_table."(name,designation_id,villege_town,city,post,police_station,district_id,pin,mobile,email,ulb_id,dob,doj,dor,emp_status,createdDate,isDeleted,created_by) values('$name','$desingnation','$village','$city','$post','$ps','$district','$pin','$mobile','$email','$ulb_id','$dob','$doj','$dor','$status','$created','$isDeleted','$user_id')";
 					$rows = $this->executeGenericDMLQuery($sql);

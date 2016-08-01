@@ -1,4 +1,4 @@
-app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService){
+app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService,Util){
   /*******************************************************/
   /*************This is use for check user login**********/
   /*******************************************************/
@@ -134,7 +134,33 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
     // console.log(pRes);
    })
  }
- // $scope.submitdetails = functtion(){
- //    employeeService.
- // }
+ $scope.submitdetails = function(){
+    var dor = moment($scope.employee.dob).add(60,"years").format("YYYY-MM-DD")
+    var obj = {
+      "name":$scope.employee.emp_name,
+      "desingnation":$scope.employee.emp_designation,
+      "village":$scope.employee.emp_village,
+      "city":$scope.employee.emp_city,
+      "post":$scope.employee.emp_po,
+      "ps":$scope.employee.emp_ps,
+      "district":$scope.employee.emp_district,
+      "pin":$scope.employee.emp_pin,
+      "mobile":$scope.employee.mobile,
+      "email":$scope.employee.email,
+      "ulb_id":$scope.employee.emp_ulb,
+      "dob":moment($scope.employee.dob).format("YYYY-MM-DD"),
+      "doj":moment($scope.employee.doj).format("YYYY-MM-DD"),
+      "dor":dor,
+      "status":$scope.employee.emp_status,
+    }
+    employeeService.submitdetails(obj,'create').then(function(pRes){
+      if(pRes.data.statusCode == 200){
+        Util.alertMessage('success', pRes.data.message);
+        console.log(pRes);
+      }
+      // else {
+      //   alertMessage('danger');
+      // }
+    })
+ }
 });
