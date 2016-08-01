@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 29, 2016 at 09:16 AM
+-- Generation Time: Aug 01, 2016 at 08:16 AM
 -- Server version: 10.0.17-MariaDB
 -- PHP Version: 5.6.14
 
@@ -30,6 +30,27 @@ CREATE TABLE `designation_master` (
   `designation_id` int(11) NOT NULL,
   `designation` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `designation_master`
+--
+
+INSERT INTO `designation_master` (`designation_id`, `designation`) VALUES
+(1, 'Office Superitendent'),
+(3, 'Head Clerk'),
+(4, 'Manager'),
+(5, 'Upper Division Clerk'),
+(6, 'Tax Daroga'),
+(7, 'Accountant'),
+(8, 'Octroi Superitendent'),
+(9, 'Lower Division Clerk'),
+(10, 'Cashier'),
+(11, 'Typist'),
+(12, 'Carriage Inspector'),
+(13, 'Warrent Officer'),
+(14, 'Light Inspector'),
+(15, 'Librerian'),
+(16, 'Birth/Death Registration Clerk');
 
 -- --------------------------------------------------------
 
@@ -111,7 +132,10 @@ CREATE TABLE `employee_table` (
   `dob` date NOT NULL,
   `doj` date NOT NULL,
   `dor` date NOT NULL,
-  `emp_status` text NOT NULL
+  `emp_status` text NOT NULL,
+  `createdDate` date NOT NULL,
+  `modifiedDate` date DEFAULT NULL,
+  `isDeleted` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -216,6 +240,8 @@ CREATE TABLE `user_tbl` (
   `email` text NOT NULL,
   `user_name` text NOT NULL,
   `password` text NOT NULL,
+  `mobile` int(15) NOT NULL,
+  `address` text NOT NULL,
   `roll_id` int(11) NOT NULL,
   `ulb_id` int(11) NOT NULL,
   `district_id` int(11) NOT NULL,
@@ -226,8 +252,9 @@ CREATE TABLE `user_tbl` (
 -- Dumping data for table `user_tbl`
 --
 
-INSERT INTO `user_tbl` (`user_id`, `email`, `user_name`, `password`, `roll_id`, `ulb_id`, `district_id`, `user_token`) VALUES
-(1, 'admin@gmail.com', 'Admin', 'E10ADC3949BA59ABBE56E057F20F883E', 0, 0, 0, '');
+INSERT INTO `user_tbl` (`user_id`, `email`, `user_name`, `password`, `mobile`, `address`, `roll_id`, `ulb_id`, `district_id`, `user_token`) VALUES
+(1, 'admin@gmail.com', 'Admin', 'E10ADC3949BA59ABBE56E057F20F883E', 0, '', 0, 0, 0, ''),
+(2, 'uibno@gmail.com', 'uib', 'E10ADC3949BA59ABBE56E057F20F883E', 0, '', 3, 1, 0, 'O11GpIXXBU1mldWd8HWmUYKa98ysPM5ApYAoSlKdFYNUMrsOFRWLiOY69oLH');
 
 --
 -- Indexes for dumped tables
@@ -301,7 +328,7 @@ ALTER TABLE `user_tbl`
 -- AUTO_INCREMENT for table `designation_master`
 --
 ALTER TABLE `designation_master`
-  MODIFY `designation_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `designation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `district_master`
 --
@@ -346,7 +373,7 @@ ALTER TABLE `ulb_master`
 -- AUTO_INCREMENT for table `user_tbl`
 --
 ALTER TABLE `user_tbl`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
