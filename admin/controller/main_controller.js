@@ -108,14 +108,6 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
    }
    return '';
  }
- // $scope.loaddetails = function(){
- //     console.log(pRes);
- //     $rootScope.employeedetails = pRes.data.data;
- // }
- //
- // $scope.submitdetail = functtion(employee){
- //
- // }
  /****binds employee desingnation in newemployee page**/
  $scope.desingnation = function(){
    employeeService.desingnation().then(function(pRes) {
@@ -136,10 +128,13 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
    })
  }
  $scope.getdistrictulb = function(emp_district){
-   console.log(emp_district);
+   //console.log(emp_district);
    employeeService.getdistrictulb(parseInt(emp_district)).then(function(pRes){
      $scope.ulblist = pRes.data.data;
-     console.log(pRes);
+    // console.log(pRes);
    })
  }
+ // $scope.submitdetails = functtion(){
+ //    employeeService.
+ // }
 });

@@ -14,6 +14,7 @@ header('Access-Control-Allow-Origin: *');
 		const designation = "designation_master";
 		const district = "district_master";
 		const ulb_tbl = "ulb_master";
+		const employee_table = "employee_table";
 		private $db = NULL;
 		private $proxy = NULL;
 		private $storeApiLogin = false;
@@ -53,7 +54,7 @@ header('Access-Control-Allow-Origin: *');
 		public $messages = array(
 				"operationNotDefined" => "Operation not Defined",
 				"dataFetched" => "data fetched success",
-				"userCreated" => "User created successfully",
+				"userCreated" => "Employee added successfully",
 				"deleted" => "data deleted successfully",
 				"userUpdated" => "data updated successfully",
 				"loginSuccess" => "Successfully Logedin",
@@ -261,112 +262,65 @@ header('Access-Control-Allow-Origin: *');
 			}
 			$this->sendResponse(200,$this->messages['dataFetched'],$desig);
 		}
-		public function user() {
-				if(!isset($this->_request['operation']))
-					$this->sendResponse2(400,$this->messages['operationNotDefined']);
-				$sql = null;
-				switch ($this->_request['operation']) {
-					case 'create':
-						$user_data = $this->_request['user_data'];
-						$user_name = $user_data['user_name'];
-						$password = md5($user_data['password']);
-						$email = $user_data['email'];
-						$first_name = $user_data['first_name'];
-						$last_name = $user_data['last_name'];
-						$mobile = $user_data['mobile'];
-						$user_type = $user_data['user_type'];
-						$status = 0; //0 for inactive and 1 for active
-						$sql = "INSERT INTO ".self::usersTable."(user_type, user_name, mobile, password, email, first_name, last_name,status) VALUES ('$user_type','$user_name','$mobile','$password','$email','$first_name','$last_name','$status')";
-						// echo $sql;
-						$rows = $this->executeGenericDMLQuery($sql);
-						$this->sendResponse2(200,$this->messages['userCreated']);
-						break;
-					case 'update':
-					$user_data = isset($this->_request['user_data']) ? $this->_request['user_data'] : $this->_request;
-					$user_name = isset($user_data['user_name']) ? $user_data['user_name'] : '';
-					$password = isset($user_data['password']) ? md5($user_data['password']) : '';
-					$email = isset($user_data['email']) ? $user_data['email'] : '';
-					$first_name = isset($user_data['first_name']) ? $user_data['first_name'] : '';
-					$last_name = isset($user_data['last_name']) ? $user_data['last_name'] : '';
-					$mobile = isset($user_data['mobile']) ? $user_data['mobile'] : '';
-					$status = isset($user_data['status']) ? $user_data['status'] : '';
-							$previous = false;
-							$sql = "update ".self::usersTable." set ";
-							if(isset($user_data['user_name'])){
-								$previous = true;
-								$sql .="user_name ='$user_name'";
-							}
-							if(isset($user_data['password'])){
-								$comma = ($previous) ? ',' : '';
-								$sql .="$comma password ='$password' ";
-								$previous = true;
-							}
-							if(isset($user_data['email'])){
-								$comma = ($previous) ? ',' : '';
-								$sql .="$comma email ='$email'";
-								$previous = true;
-							}
-							if(isset($user_data['first_name'])){
-								$comma = ($previous) ? ',' : '';
-								$sql .="$comma first_name ='$first_name'";
-								$previous = true;
-							}
-							if(isset($user_data['last_name'])){
-								$comma = ($previous) ? ',' : '';
-								$sql .="$comma last_name ='$last_name'";
-								$previous = true;
-							}
-							if(isset($user_data['mobile'])){
-								$comma = ($previous) ? ',' : '';
-								$sql .="$comma mobile ='$mobile'";
-								$previous = true;
-							}
-							if(isset($user_data['status'])){
-								$comma = ($previous) ? ',' : '';
-								$sql .="$comma status = $status";
-							}
-							$sql .= " where id=".$user_data['id'];
-							// $user_type = $user_data['user_type'];
-							// $status = 0; //0 for inactive and 1 for active
-							// echo $sql;
-							$result = $this->executeGenericDMLQuery($sql);
-							if($result){
-								$this->sendResponse2(200,$this->messages['userUpdated']);
-							}
-						break;
-					case 'delete':
-					$user_data = isset($this->_request['user_data']) ? $this->_request['user_data'] : $this->_request;
-					  $sql = "delete from ".self::usersTable. " where id=".$user_data['id'];
-						$result = $this->executeGenericDMLQuery($sql);
-						if($result){
-							$this->sendResponse2(200,$this->messages['deleted']);
-						}
-						break;
-					// this will fetche the all the users and the single user data if the id is mention for the user
-					case 'get':
-						$user_data = isset($this->_request['user_data']) ? $this->_request['user_data'] : $this->_request;
-						$sql = "SELECT * FROM ".self::usersTable;
-						if(isset($user_data['id']))
-							$sql .= " where id=".$user_data['id'];
-						$rows = $this->executeGenericDQLQuery($sql);
-						$users = array();
-						for($i=0;$i<sizeof($rows);$i++)
-						{
-							$users[$i]['id'] = $rows[$i]['id'];
-							$users[$i]['user_type'] = $rows[$i]['user_type'];
-							$users[$i]['user_name'] = $rows[$i]['user_name'];
-							$users[$i]['mobile'] = $rows[$i]['mobile'];
-							$users[$i]['email'] = $rows[$i]['email'];
-							$users[$i]['first_name'] = $rows[$i]['first_name'];
-							$users[$i]['last_name'] = $rows[$i]['last_name'];
-							$users[$i]['token'] = $rows[$i]['token'];
-							$users[$i]['status'] = $rows[$i]['status'];
-						}
-						$this->sendResponse2(200,$this->messages['dataFetched'],$users);
-						break;
-					default:
-							$this->sendResponse2(400,$this->messages['operationNotDefined']);
-				}
+		public function employee(){
+			if(!isset($this->_request['operation']))
+				$this->sendResponse(400,$this->messages['operationNotDefined']);
+			$sql = null;
+			$headers = apache_request_headers(); // to get all the headers
+			$accessToken = $headers['Accesstoken'];
+			switch ($this->_request['operation']) {
+				case 'create':
+					$employee_data = $this->_request['employee_data'];
+					$name = $employee_data['name'];
+					$desingnation = $employee_data['desingnation'];
+					$village = $employee_data['village'];
+					$city = $employee_data['city'];
+					$post = $employee_data['post'];
+					$ps = $employee_data['ps'];
+					$district = $employee_data['district'];
+					$pin = $employee_data['pin'];
+					$mobile = $employee_data['mobile'];
+					$email = $employee_data['email'];
+					$ulb_id = $employee_data['ulb_id'];
+					$dob = $employee_data['dob'];
+					$doj = $employee_data['doj'];
+					$dor = $employee_data['dor'];
+					$status = $employee_data['status'];
+					$created = new Date();
+					$isDeleted = 0;
+					$sql = "insert into ".self::employee_table."(name,designation_id,villege_town,city,post,police_station,district_id,pin,mobile,email,ulb_id,dob,doj,dor,emp_status,createdDate,isDeleted) values('$name','$desingnation','$village','$city','$post','$ps','$district','$pin','$mobile','$email','$ulb_id','$dob','$doj','$dor','$status','$created','$isDeleted')";
+					$rows = $this->executeGenericDMLQuery($sql);
+					$this->sendResponse(200,$this->messages['userCreated']);
+					break;
+				case 'get':
+					$employee_data = isset($this->_request['employee_data']) ? $this->_request['employee_data'] : $this->_request;
+					$sql = "SELECT * FROM ".self::employee_table."where isDeleted = 0";
+					if(isset($employee_data['id']))
+						$sql .= " AND emp_id=".$employee_data['id'];
+					$rows = $this->executeGenericDQLQuery($sql);
+					$employee = array();
+					for($i = 0; $i < sizeof($rows); $i++) {
+						$employee[$i]['id'] = $rows[$i]['emp_id'];
+						$employee[$i]['name'] = $rows[$i]['name'];
+						$employee[$i]['designation_id'] = $rows[$i]['designation_id'];
+						$employee[$i]['village'] = $rows[$i]['villege_town'];
+						$employee[$i]['city'] = $rows[$i]['city'];
+						$employee[$i]['post'] = $rows[$i]['post'];
+						$employee[$i]['police_station'] = $rows[$i]['police_station'];
+						$employee[$i]['district_id'] = $rows[$i]['district_id'];
+						$employee[$i]['pin'] = $rows[$i]['pin'];
+						$employee[$i]['mobile'] = $rows[$i]['mobile'];
+						$employee[$i]['email'] = $rows[$i]['email'];
+						$employee[$i]['dob'] = $rows[$i]['dob'];
+						$employee[$i]['doj'] = $rows[$i]['doj'];
+						$employee[$i]['dor'] = $rows[$i]['dor'];
+						$employee[$i]['emp_status'] = $rows[$i]['emp_status'];
+						$employee[$i]['createdDate'] = $rows[$i]['createdDate'];
+						$employee[$i]['isDeleted'] = $rows[$i]['isDeleted'];
+					}
+					$this->sendResponse(200,$this->messages['dataFetched'],$employee);
+					break;
+			}
 		}
 	}
 	$api = new API;

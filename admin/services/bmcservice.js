@@ -18,11 +18,6 @@ app.factory("employeeService", function ($http,CONFIG,$localStorage) {
        });
       return response;
     },
-    // submitdetails: function(){
-    //   var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod=submitdetails" ,{
-    //       headers: {'Accesstoken':$localStorage.user.accessToken}
-    //   });
-    //}
     desingnation: function(){
       var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod=getDesignationList",{
          headers: {}
@@ -41,11 +36,8 @@ app.factory("employeeService", function ($http,CONFIG,$localStorage) {
        });
       return response;
     },
-    // employeedistrict:function(){
-    //   var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod= getULBList&id=+id",{
-    //      headers: {}
-    //    });
-    //   return response;
+    // submitdetails: function(){
+    //
     // }
   };
 });
