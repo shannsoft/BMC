@@ -356,7 +356,7 @@ header('Access-Control-Allow-Origin: *');
 					$modified = date("Y-m-d");
 					$sql = "update ".self::employee_table." set name='$name'";
 					if(isset($employee_data['desingnation'])){
-						$sql .=", designation_id = ".$desingnation;
+						$sql .=", designation_id = ".$desingnation."";
 					}
 					if(isset($employee_data['village'])){
 						$sql .=", villege_town = '$village'";

@@ -1,4 +1,4 @@
-app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,ulbService,$stateParams){
+app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,ulbService,$stateParams,$window,Util){
   /*******************************************************/
   /*************This is use for employee List*************/
   /*******************************************************/
@@ -27,20 +27,21 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
       console.log(pRes);
     })
   }
-  $scope.updateEmployee = function(){
+  $scope.updateEmployee = function(id){
       var dor = moment($scope.employee.dob).add(60,"years").format("YYYY-MM-DD")
       var obj = {
-      "name":$scope.employee.emp_name,
-      "desingnation":$scope.employee.emp_designation,
-      "village":$scope.employee.emp_village,
-      "city":$scope.employee.emp_city,
-      "post":$scope.employee.emp_po,
-      "ps":$scope.employee.emp_ps,
-      "district":$scope.employee.emp_district,
-      "pin":$scope.employee.emp_pin,
+      "id":id,
+      "name":$scope.employee.name,
+      "desingnation":$scope.employee.desingnation,
+      "village":$scope.employee.village,
+      "city":$scope.employee.city,
+      "post":$scope.employee.post,
+      "ps":$scope.employee.police_station,
+      "district":$scope.employee.district,
+      "pin":$scope.employee.pin,
       "mobile":$scope.employee.mobile,
       "email":$scope.employee.email,
-      "ulb_id":$scope.employee.emp_ulb,
+      "ulb_id":$scope.employee.ulb_id,
       "dob":moment($scope.employee.dob).format("YYYY-MM-DD"),
       "doj":moment($scope.employee.doj).format("YYYY-MM-DD"),
       "dor":dor,
@@ -55,14 +56,20 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
   }
   /******This is for delete employee from employee list********/
   $scope.deleteEmployee = function(id){
+    //alert('are you sure want to delete');
+    deleteUser = $window.confirm('Are you sure you want to delete this employee?');
+    if(deleteUser){
+     //Your action will goes here
+     alert('Yes i want to delete');
+    }
    var obj = {
      "id":id
    }
    ulbService.manageEmployee(obj,'delete').then(function(pRes) {
      console.log(pRes);
-     if(pRes.status == 200){
-       $scope.loadEmpList();
-     }
+    //  if(pRes.status == 200){
+    //    $scope.loadEmpList();
+    //  }
    })
  }
 });
