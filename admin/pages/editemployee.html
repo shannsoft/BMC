@@ -23,7 +23,7 @@
           <div class="form-group" ng-class="{'has-error': (addemployee.emp_designation.$invalid && addemployee.emp_designation.$touched)}">
             <label for="inputPassword3" class="col-sm-3 control-label">Designation</label>
             <div class="col-sm-8">
-              <select class="form-control"  ng-model="employee.desingnation" name="emp_designation" ng-init="desingnation()"  required>
+              <select class="form-control"  ng-model="employee.designation_id" name="emp_designation" ng-init="desingnation()"  required>
                 <option value="">Select Designation</option>
                 <option value="{{item.id}}" ng-selected="employee.designation_id == item.id" ng-repeat="item in designationList">{{item.designation}}</option>
               </select>
@@ -65,7 +65,7 @@
           <div class="form-group" ng-class="{'has-error': (addemployee.emp_district.$invalid && addemployee.emp_district.$touched)}">
             <label for="inputPassword3" class="col-sm-3 control-label"> District</label>
             <div class="col-sm-8">
-              <select class="form-control" ng-model="employee.district" name="emp_district" ng-init="loaddistrict()" ng-change="getdistrictulb(employee.emp_district)" required>
+              <select class="form-control" ng-model="employee.district_id" name="emp_district" ng-init="loaddistrict()" ng-change="getdistrictulb(employee.emp_district)" required>
                 <option value="">Select District</option>
                 <option value="{{district.id}}" ng-selected="employee.district_id == district.id" ng-repeat="district in district" >{{district.name}}</option>
               </select>
