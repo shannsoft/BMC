@@ -237,3 +237,6 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
     })
  }
 });
+app.controller("User_controller",function([$scope,$state,Util,$localStorage]){
+
+});

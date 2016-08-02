@@ -48,6 +48,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
              url:'/editemployee/:id',
              controller:"Emp_Controller"
         })
+        .state('userProfile',{
+             templateUrl:'pages/users/UserProfile.html',
+             url:'/UserProfile',
+             controller:"User_controller"
+        })
 });
 app.constant('CONFIG', {
   'HTTP_HOST': '../server/api.php' //client staging

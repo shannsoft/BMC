@@ -16,11 +16,12 @@
           <i class="fa fa-dashboard"></i> <span>Dashboard</span>
         </a>
       </li>
-      <li ng-if="roll_id == '0'">
-        <a href="">
-          <i class="fa fa-th"></i> <span>User Management</span>
-        </a>
-      </li>
+      <li class="treeview">
+       <a href="" ui-sref="userProfile">
+         <i class="fa fa-cogs"></i>
+         <span>My Profile</span>
+       </a>
+     </li>
       <li class="treeview" ng-if="roll_id == '3'">
         <a href="">
           <i class="fa fa-graduation-cap" aria-hidden="true"></i>
