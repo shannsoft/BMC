@@ -1,4 +1,4 @@
-app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,ulbService){
+app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,ulbService,$stateParams){
   /*******************************************************/
   /*************This is use for employee List*************/
   /*******************************************************/
@@ -7,8 +7,64 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
       if(pRes.data.statusCode == 200){
         $scope.emp_list = pRes.data.data;
       }
-    });
+    })
   }
+  /*****This is redirect employee to edit employee page***/
+  $scope.goToEdit = function(id){
+    console.log(id);
+    $state.go('editEmployee',{id:id})
+  }
+  /******This is use for loading editemployee page along with employee data for further edit******/
+  $scope.loadEmployeebyID = function(){
+    var obj ={
+      "id":$stateParams.id
+    }
+    ulbService.loadEmployeebyID(obj,'get').then(function(pRes){
+      if(pRes.data.statusCode == 200){
+       $scope.employee = pRes.data.data[0];
+       console.log($scope.employee);
+      }
+      console.log(pRes);
+    })
+  }
+  $scope.updateEmployee = function(){
+      var dor = moment($scope.employee.dob).add(60,"years").format("YYYY-MM-DD")
+      var obj = {
+      "name":$scope.employee.emp_name,
+      "desingnation":$scope.employee.emp_designation,
+      "village":$scope.employee.emp_village,
+      "city":$scope.employee.emp_city,
+      "post":$scope.employee.emp_po,
+      "ps":$scope.employee.emp_ps,
+      "district":$scope.employee.emp_district,
+      "pin":$scope.employee.emp_pin,
+      "mobile":$scope.employee.mobile,
+      "email":$scope.employee.email,
+      "ulb_id":$scope.employee.emp_ulb,
+      "dob":moment($scope.employee.dob).format("YYYY-MM-DD"),
+      "doj":moment($scope.employee.doj).format("YYYY-MM-DD"),
+      "dor":dor,
+      "status":$scope.employee.emp_status,
+    }
+    ulbService.manageEmployee(obj,'update').then(function(pRes){
+      console.log(pRes);
+      if(pRes.data.statusCode == 200){
+        Util.alertMessage('success', pRes.data.message);
+      }
+    })
+  }
+  /******This is for delete employee from employee list********/
+  $scope.deleteEmployee = function(id){
+   var obj = {
+     "id":id
+   }
+   ulbService.manageEmployee(obj,'delete').then(function(pRes) {
+     console.log(pRes);
+     if(pRes.status == 200){
+       $scope.loadEmpList();
+     }
+   })
+ }
 });
 app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService,Util){
   /*******************************************************/

@@ -43,6 +43,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
                }
              }
         })
+        .state('editEmployee',{
+             templateUrl:'pages/editemployee.html',
+             url:'/editemployee/:id',
+             controller:"Emp_Controller"
+        })
 });
 app.constant('CONFIG', {
   'HTTP_HOST': '../server/api.php' //client staging

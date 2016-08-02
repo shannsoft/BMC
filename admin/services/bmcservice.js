@@ -5,7 +5,28 @@ app.factory("ulbService", function ($http,CONFIG,$localStorage) {
          headers: {'Accesstoken':$localStorage.user.accessToken}
        });
       return response;
-    }
+    },
+    loadEmployeebyID: function(data,option){
+      var _serializedData = $.param({"reqmethod": 'employee', "operation":option, "employee_data" : data});
+      var response = $http({
+          method: 'POST',
+          url: CONFIG.HTTP_HOST,
+          data : _serializedData,
+          headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
+      });
+
+      return response;
+    },
+    manageEmployee: function (data,option) {
+     var _serializedData = $.param({"reqmethod": 'employee',"operation":option, "employee_data":data});
+     var response = $http({
+         method: 'POST',
+         url: CONFIG.HTTP_HOST,
+         data : _serializedData,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
+     });
+     return response;
+   }
   }
 });
 app.factory("employeeService", function ($http,CONFIG,$localStorage) {
@@ -54,7 +75,7 @@ app.factory("employeeService", function ($http,CONFIG,$localStorage) {
           data : _serializedData,
           headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
       });
-      
+
       return response;
     }
   };
