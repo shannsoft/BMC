@@ -25,7 +25,7 @@
             <div class="col-sm-8">
               <select class="form-control"  ng-model="employee.emp_designation" name="emp_designation" ng-init="desingnation()"  required>
                 <option value="">Select Designation</option>
-                <option value="{{employee.id}}" ng-repeat="employee in employeelist">{{employee.designation}}</option>
+                <option value="{{desig.id}}" ng-repeat="desig in designationList">{{desig.designation}}</option>
               </select>
               <span class="help-block" ng-show="addemployee.emp_designation.$error.required && addemployee.emp_designation.$touched">Please add your desingnation</span>
             </div>

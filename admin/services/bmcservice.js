@@ -18,6 +18,8 @@ app.factory("ulbService", function ($http,CONFIG,$localStorage) {
       return response;
     },
     manageEmployee: function (data,option) {
+      console.log(option);
+      console.log(data);
      var _serializedData = $.param({"reqmethod": 'employee',"operation":option, "employee_data":data});
      var response = $http({
          method: 'POST',

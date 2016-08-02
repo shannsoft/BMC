@@ -22,7 +22,7 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
     ulbService.loadEmployeebyID(obj,'get').then(function(pRes){
       if(pRes.data.statusCode == 200){
        $scope.employee = pRes.data.data[0];
-       console.log($scope.employee);
+       $scope.getdistrictulb($scope.employee.district_id);
       }
       console.log(pRes);
     })
@@ -180,7 +180,7 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
  $scope.desingnation = function(){
    employeeService.desingnation().then(function(pRes) {
      if(pRes.status == 200){
-     $scope.employeelist = pRes.data.data;
+     $scope.designationList = pRes.data.data;
      }
 
   //  console.log(pRes);

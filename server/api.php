@@ -297,7 +297,7 @@ header('Access-Control-Allow-Origin: *');
 					break;
 				case 'get':
 					$employee_data = isset($this->_request['employee_data']) ? $this->_request['employee_data'] : $this->_request;
-					$sql = "SELECT a.emp_id, a.name, a.villege_town, a.city, a.post, a.police_station, a.pin, a.mobile, a.email, a.dob, a.doj, a.dor, a.emp_status, a.createdDate, a.modifiedDate, a.isDeleted, b.district_name, c.designation, d.ulb_name FROM employee_table a INNER JOIN district_master b ON a.district_id = b.district_id INNER JOIN designation_master c ON a.designation_id = c.designation_id INNER JOIN ulb_master d ON a.ulb_id = d.ulb_id where a.isDeleted = 0";
+					$sql = "SELECT a.emp_id, a.district_id,a.ulb_id,a.designation_id, a.name, a.villege_town, a.city, a.post, a.police_station, a.pin, a.mobile, a.email, a.dob, a.doj, a.dor, a.emp_status, a.createdDate, a.modifiedDate, a.isDeleted, b.district_name, c.designation, d.ulb_name FROM employee_table a INNER JOIN district_master b ON a.district_id = b.district_id INNER JOIN designation_master c ON a.designation_id = c.designation_id INNER JOIN ulb_master d ON a.ulb_id = d.ulb_id where a.isDeleted = 0";
 					if(isset($employee_data['id']))
 						$sql .= " AND a.emp_id=".$employee_data['id'];
 					$rows = $this->executeGenericDQLQuery($sql);
@@ -306,11 +306,13 @@ header('Access-Control-Allow-Origin: *');
 						$employee[$i]['id'] = $rows[$i]['emp_id'];
 						$employee[$i]['name'] = $rows[$i]['name'];
 						$employee[$i]['designation'] = $rows[$i]['designation'];
+						$employee[$i]['designation_id'] = $rows[$i]['designation_id'];
 						$employee[$i]['village'] = $rows[$i]['villege_town'];
 						$employee[$i]['city'] = $rows[$i]['city'];
 						$employee[$i]['post'] = $rows[$i]['post'];
 						$employee[$i]['police_station'] = $rows[$i]['police_station'];
 						$employee[$i]['district'] = $rows[$i]['district_name'];
+						$employee[$i]['district_id'] = $rows[$i]['district_id'];
 						$employee[$i]['pin'] = $rows[$i]['pin'];
 						$employee[$i]['mobile'] = $rows[$i]['mobile'];
 						$employee[$i]['email'] = $rows[$i]['email'];
@@ -318,6 +320,7 @@ header('Access-Control-Allow-Origin: *');
 						$employee[$i]['doj'] = $rows[$i]['doj'];
 						$employee[$i]['dor'] = $rows[$i]['dor'];
 						$employee[$i]['ulb'] = $rows[$i]['ulb_name'];
+						$employee[$i]['ulb_id'] = $rows[$i]['ulb_id'];
 						$employee[$i]['emp_status'] = $rows[$i]['emp_status'];
 						$employee[$i]['createdDate'] = $rows[$i]['createdDate'];
 						$employee[$i]['isDeleted'] = $rows[$i]['isDeleted'];
@@ -326,10 +329,81 @@ header('Access-Control-Allow-Origin: *');
 					break;
 				case 'delete':
 					$employee_data = isset($this->_request['employee_data']) ? $this->_request['employee_data'] : $this->_request;
-					$sql = "update ".self::usersTable." set isDeleted=1 where emp_id=".$employee_data['id'];
+					$sql = "update ".self::employee_table." set isDeleted=1 where emp_id=".$employee_data['id'];
 					$result = $this->executeGenericDMLQuery($sql);
 					if($result){
 						$this->sendResponse(200,$this->messages['deleted']);
+					}
+					break;
+				case 'update':
+					$employee_data = $this->_request['employee_data'];
+					$emp_id = $employee_data['id'];
+					$name = $employee_data['name'];
+					$desingnation = $employee_data['desingnation'];
+					$village = $employee_data['village'];
+					$city = $employee_data['city'];
+					$post = $employee_data['post'];
+					$ps = $employee_data['ps'];
+					$district = $employee_data['district'];
+					$pin = $employee_data['pin'];
+					$mobile = $employee_data['mobile'];
+					$email = $employee_data['email'];
+					$ulb_id = $employee_data['ulb_id'];
+					$dob = $employee_data['dob'];
+					$doj = $employee_data['doj'];
+					$dor = $employee_data['dor'];
+					$status = $employee_data['status'];
+					$modified = date("Y-m-d");
+					$sql = "update ".self::employee_table." set name='$name'";
+					if(isset($employee_data['desingnation'])){
+						$sql .=", designation_id = ".$desingnation;
+					}
+					if(isset($employee_data['village'])){
+						$sql .=", villege_town = '$village'";
+					}
+					if(isset($employee_data['city'])){
+						$sql .=", city = '$city'";
+					}
+					if(isset($employee_data['post'])){
+						$sql .=", post = '$post'";
+					}
+					if(isset($employee_data['ps'])){
+						$sql .=", police_station = '$post'";
+					}
+					if(isset($employee_data['district'])){
+						$sql .=", district_id =".$district;
+					}
+					if(isset($employee_data['pin'])){
+						$sql .=", pin =".$pin;
+					}
+					if(isset($employee_data['mobile'])){
+						$sql .=", mobile ='$mobile'";
+					}
+					if(isset($employee_data['mobile'])){
+						$sql .=", email ='$email'";
+					}
+					if(isset($employee_data['ulb_id'])){
+						$sql .=", ulb_id =".$ulb_id;
+					}
+					if(isset($employee_data['dob'])){
+						$sql .=", dob ='$dob'";
+					}
+					if(isset($employee_data['doj'])){
+						$sql .=", doj ='$doj'";
+					}
+					if(isset($employee_data['dor'])){
+						$sql .=", dor ='$dor'";
+					}
+					if(isset($employee_data['status'])){
+						$sql .=", emp_status ='$status'";
+					}
+					if($modified){
+						$sql .=", modifiedDate ='$modified'";
+					}
+					$sql .= " where emp_id=".$emp_id;
+					$result = $this->executeGenericDMLQuery($sql);
+					if($result){
+						$this->sendResponse(200,$this->messages['userUpdated']);
 					}
 					break;
 			}
