@@ -1,6 +1,6 @@
 <section class="content-header" >
   <h1 class="">
-    Employee List
+    Retired Employee List
     <small>control panel</small>
   </h1>
   <button class="btn btn-primary pull-right" ui-sref="newplan" ng-if="user_type == '3'"><i class="fa fa-plus"></i></button>
@@ -52,9 +52,7 @@
                 <td>{{employee.dor}}</td>
                 <td>{{employee.emp_status}}</td>
                 <td>
-                  <a href="" class="option-btn" ng-click="goToEdit(employee.id)"><i class="fa fa-pencil-square-o"></i></a>
-                  <a href="" class="option-btn" ng-click="deleteEmployee(employee.id)"  confirm="Are you sure, {{name}}?" confirm-title="Please verify, {{name}}?" confirm-ok="Yes" confirm-cancel="No"><i class="fa fa-trash"></i></a>
-                </td>
+
               </tr>
             </tbody>
           </table>

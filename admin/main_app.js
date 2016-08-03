@@ -53,6 +53,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
              url:'/UserProfile',
              controller:"User_controller"
         })
+        .state('retiredemployeelist',{
+             templateUrl:"pages/retiredemployeelist.html",
+             url:'/retiredemployeelist',
+             controller:"Emp_Controller"
+        })
 });
 app.constant('CONFIG', {
   'HTTP_HOST': '../server/api.php' //client staging
