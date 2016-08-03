@@ -229,23 +229,40 @@ header('Access-Control-Allow-Origin: *');
 			$headers = apache_request_headers();
 			$accessToken = $headers['Accesstoken'];
 			$password = md5($this->_request['password']);
-			$sql = "update ".self::usersTable." set password='$password' where token='$token'";
+			$sql = "update ".self::usersTable." set password='$password' where user_token='$accessToken'";
 			$result = $this->executeGenericDMLQuery($sql);
 			if($result){
-				$this->sendResponse2(200,$this->messages['changedPassword']);
+				$this->sendResponse(200,'Successfully Changed Your Password');
 			}
+		}
+	 	public function checkPassword(){
+		    	$headers = apache_request_headers();
+		    	$accessToken = $headers['Accesstoken'];
+					if(isset($this->_request['password'])){
+						$cpass = $this->_request['password'];
+						$sql = "SELECT password FROM ".self::usersTable." where user_token='$accessToken'";
+						$rows = $this->executeGenericDQLQuery($sql);
+						$users = array();
+						if($rows[0]['password'] == md5($cpass)){
+							$this->sendResponse(200,"success");
+						}
+						else{
+							$this->sendResponse(201,"failure");
+						}
+					}
 		}
 		public function updateProfile(){
 			$headers = apache_request_headers();
 			$accessToken = $headers['Accesstoken'];
-			$user_name = $this->_request['user_name'];
-			$email = $this->_request['email'];
-			$mobile = $this->_request['mobile'];
-			$address = $this->_request['address'];
+			$user_data = $this->_request['user_data'];
+			$user_name = $user_data['user_name'];
+			$email = $user_data['email'];
+			$mobile = $user_data['mobile'];
+			$address = $user_data['address'];
 			$sql = "update ".self::usersTable." set user_name='$user_name', mobile='$mobile', address='$address', email='$email' where user_token='$accessToken'";
 			$result = $this->executeGenericDMLQuery($sql);
 			if($result){
-				$this->sendResponse2(200,$this->messages['changedPassword']);
+				$this->sendResponse(200,'Profile Updated Successfully');
 			}
 		}
 		public function getDesignationList(){

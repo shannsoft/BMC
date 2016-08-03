@@ -81,4 +81,52 @@ app.factory("employeeService", function ($http,CONFIG,$localStorage) {
       return response;
     }
   };
+ });
+  app.factory("UserService", function($http,CONFIG,$localStorage){
+  return{
+    checkPassword: function (data) {
+    console.log(data);
+   var _serializedData = $.param({"reqmethod": 'checkPassword', "token":data.token,"password":data.password});
+   var response = $http({
+       method: 'POST',
+       url: CONFIG.HTTP_HOST,
+       data : _serializedData,
+         headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
+   });
+   return response;
+ },
+  updateProfile:function(data){
+    console.log(data);
+    var _serializedData = $.param({"reqmethod": 'updateProfile',"user_data":data});
+    var response = $http({
+        method: 'POST',
+        url: CONFIG.HTTP_HOST,
+        data : _serializedData,
+      headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
+    });
+    return response;
+  },
+  changepassword:function(data){
+    console.log(data);
+         var _serializedData = $.param({"reqmethod": 'changePassword', "password":data});
+         var response = $http({
+             method: 'POST',
+             url: CONFIG.HTTP_HOST,
+             data : _serializedData,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
+         });
+         return response;
+       },
+  checkPassword: function (data) {
+      console.log(data);
+      var _serializedData = $.param({"reqmethod": 'checkPassword', "password":data});
+      var response = $http({
+          method: 'POST',
+          url: CONFIG.HTTP_HOST,
+          data : _serializedData,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
+      });
+      return response;
+    }
+  };
 });

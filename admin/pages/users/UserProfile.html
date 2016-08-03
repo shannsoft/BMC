@@ -3,7 +3,7 @@
     User Profile
   </h1>
 </section>
-<section class="content" ng-init="getLogedInUser()">
+<section class="content">
   <div class="row">
     <div class="col-md-12">
       <div class="nav-tabs-custom">
@@ -13,33 +13,38 @@
           <li><a href="" data-toggle="tab" ng-click="changeTab('changepassword')">Change Password</a></li>
         </ul>
         <div class="tab-content">
-          <div class="tab-pane" ng-class="{'active':currentTab == 'myprofile'}">
+          <div class="tab-pane" ng-class="{'active':currentTab == 'myprofile'}" ng-init="loadUserdetails()">
             <div class="post">
               <div class="user-block">
-                <img class="img-circle img-bordered-sm" src=" dist/img/rda-sm-logo.png" alt="user image">
-                    <span class="username">
-                      <a href="">{{profile.first_name+' '+profile.last_name}}</a>
-                    </span>
-                <span class="description">{{profile.email}}</span>
+              <table class="box box-primary" >
+               <tr>
+                  <td>User Name:</td>
+                  <td>{{userProfile.user_name}}</td>
+               </tr>
+               <tr>
+                <td>Email:</td>
+                <td>{{userProfile.email}}</td>
+               </tr>
+               <tr>
+                  <td>Mobile:</td>
+                  <td>{{userProfile.mobile}}</td>
+               </tr>
+                <tr>
+                  <td>Address:</td>
+                  <td>{{userProfile.address}}</td>
+                </tr>
+              </table>
               </div>
             </div>
           </div>
-          <div class="tab-pane" ng-class="{'active':currentTab == 'editprofile'}">
+          <div class="tab-pane" ng-class="{'active':currentTab == 'editprofile'}" ng-init="loadUserbyID()">
             <form class="form-horizontal" name="updateProfile">
               <div class="form-group">
-                <label for="inputName" class="col-sm-2 control-label">First Name</label>
-                <div class="col-sm-10" ng-class="{'has-error': (updateProfile.firstname.$invalid && updateProfile.firstname.$touched)}">
-                  <input type="text" name="firstname" class="form-control"  placeholder="First Name" ng-model="profile.first_name" required ng-pattern="/^(\D)+$/">
-                  <span class="help-block" ng-show="updateProfile.firstname.$error.required && updateProfile.firstname.$touched">Please enter first name</span>
-                  <span class="help-block" ng-show="updateProfile.firstname.$error.pattern && updateProfile.firstname.$touched">Please enter valid name</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="inputName" class="col-sm-2 control-label">Last Name</label>
-                <div class="col-sm-10"  ng-class="{'has-error': (updateProfile.lasttname.$invalid && updateProfile.lasttname.$touched)}">
-                  <input type="text" name="lasttname" class="form-control"  placeholder="Last Name" ng-model="profile.last_name" required ng-pattern="/^(\D)+$/">
-                  <span class="help-block" ng-show="updateProfile.lasttname.$error.required && updateProfile.lasttname.$touched">Pleasse enter lastname</span>
-                  <span class="help-block" ng-show="updateProfile.lasttname.$error.pattern && updateProfile.lasttname.$touched">Pleasse enter valid lastname</span>
+                <label for="inputName" class="col-sm-2 control-label">User Name</label>
+                <div class="col-sm-10" ng-class="{'has-error': (updateProfile.user_name.$invalid && updateProfile.user_name.$touched)}">
+                  <input type="text" name="user_name" class="form-control"  placeholder="First Name" ng-model="profile.user_name" required ng-pattern="/^(\D)+$/">
+                  <span class="help-block" ng-show="updateProfile.user_name.$error.required && updateProfile.user_name.$touched">Please enter user name</span>
+                  <span class="help-block" ng-show="updateProfile.user_name.$error.pattern && updateProfile.user_name.$touched">Please enter valid name</span>
                 </div>
               </div>
               <div class="form-group">
@@ -59,11 +64,19 @@
                 </div>
               </div>
               <div class="form-group">
+                <label for="inputName" class="col-sm-2 control-label">Address</label>
+                <div class="col-sm-10" ng-class="{'has-error': (updateProfile.user_address.$invalid && updateProfile.user_address.$touched)}">
+                  <textarea name="adv_text" class="form-control" rows="4" placeholder="Address"  ng-model="profile.address"  required ng-pattern="/^(\D)+$/"></textarea>
+                  <span class="help-block" ng-show="updateProfile.user_address.$error.required && updateProfile.user_address.$touched">Please enter user address</span>
+                  <span class="help-block" ng-show="updateProfile.user_address.$error.pattern && updateProfile.user_address.$touched">Please enter valid address</span>
+                </div>
+              </div>
+              <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
+                  <button type="button" class="btn btn-danger" ng-click="updateMyProfile()" ng-disabled="updateProfile.$invalid">Update</button>
                   <section  align="center">
                       <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="close()">{{alert.msg}}</alert>
                   </section>
-                  <button type="button" class="btn btn-danger" ng-click="updateMyProfile()" ng-disabled="updateProfile.$invalid">Update</button>
                 </div>
               </div>
             </form>
@@ -97,6 +110,9 @@
                       <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="close()">{{alert.msg}}</alert>
                   </section>
                   <button type="button" ng-click="changePassword()" class="btn btn-danger" ng-disabled="changepwd.$invalid || !is_correct_pwd || password.new != password.confirm">Change Password</button>
+                  <section  align="center m-t-sm">
+                      <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="close()">{{alert.msg}}</alert>
+                  </section>
                 </div>
               </div>
             </form>

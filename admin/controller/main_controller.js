@@ -242,6 +242,51 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
     })
  }
 });
-app.controller("User_controller",function([$scope,$state,Util,$localStorage]){
+app.controller("User_controller",function($scope,$localStorage,$rootScope,UserService,Util){
 
+  $scope.currentTab = 'myprofile';
+  $scope.changeTab = function(tab){
+  $scope.currentTab = tab;
+  }
+  $scope.currentTab = 'myprofile';
+ $scope.updateMyProfile = function(){
+    var obj = {
+      'user_name':$scope.profile.user_name,
+      'email':  $scope.profile.email,
+      'mobile': $scope.profile.mobile,
+      'address':$scope.profile.address
+    }
+    UserService.updateProfile(obj).then(function(pRes) {
+       if(pRes.data.statusCode == 200){
+         Util.alertMessage('success', pRes.data.message);
+       }
+     },function(err) {
+     console.log(">>>>>>>>>>>>>   ",err);
+   })
+  }
+  $scope.loadUserdetails = function(){
+     $scope.userProfile = $localStorage.user;
+  }
+  $scope.loadUserbyID = function(){
+    $scope.profile = $localStorage.user
+  }
+  $scope.changePassword = function(){
+    // var obj ={
+    //   "password":$scope.password.confirm
+    // }
+    UserService.changepassword($scope.password.confirm).then(function(pRes){
+      if(pRes.data.statusCode == 200){
+        Util.alertMessage('success', pRes.data.message);
+      //  $scope.password = {};
+      console.log(pRes);
+      }
+    })
+  }
+  $scope.checkCurrentPassword = function(pwd){
+    console.log(pwd);
+    UserService.checkPassword(pwd).then(function(pRes) {
+      console.log(pRes);
+      $scope.is_correct_pwd = (pRes.data.statusCode == 200) ? true : false;
+    })
+  }
 });
