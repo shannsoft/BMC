@@ -94,14 +94,19 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
   $scope.login = function(user){
     employeeService.login(user).then(function(pRes) {
       if(pRes.data.statusCode == 200){
-        $localStorage.user ={
+        $localStorage.user = {
           "district_id" : pRes.data.data.district_id,
-           "email"      : pRes.data.data.email,
-           "id"         : pRes.data.data.id,
-           "roll_id"    : pRes.data.data.roll_id,
-           "ulb_id"     : pRes.data.data.ulb_id,
-           "user_name"  : pRes.data.data.user_name,
-           "accessToken": pRes.data.data.token,
+          "district"    : pRes.data.data.district,
+          "email"       : pRes.data.data.email,
+          "mobile"      : pRes.data.data.mobile,
+          "id"          : pRes.data.data.id,
+          "roll_id"     : pRes.data.data.roll_id,
+          "roll_type"   : pRes.data.data.roll_type,
+          "ulb_id"      : pRes.data.data.ulb_id,
+          "ulb"         : pRes.data.data.ulb_name,
+          "address"     : pRes.data.data.address,
+          "user_name"   : pRes.data.data.user_name,
+          "accessToken" : pRes.data.data.token,
         }
        localStorage.setItem("roll_id",pRes.data.data.roll_id);
         $scope.getUserDetails();

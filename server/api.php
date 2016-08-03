@@ -188,17 +188,22 @@ header('Access-Control-Allow-Origin: *');
 			$sql = "update ".self::usersTable." set user_token='$token' where user_name='$user_name'";
 			$result = $this->executeGenericDMLQuery($sql);
 			if($result){
-				$sql = "select * from ".self::usersTable." where user_name = '$user_name' and password = '$password' limit 1";
+				$sql = "select a.user_id,a.user_name,a.email,a.address,a.mobile,a.roll_id,a.ulb_id,a.user_token,a.district_id,b.rolle_type,c.ulb_name,d.district_name	FROM user_tbl a INNER JOIN role_master b ON a.roll_id = b.roll_id	INNER JOIN ulb_master c ON a.ulb_id = c.ulb_id INNER JOIN district_master d ON a.district_id = d.district_id where a.user_name = '$user_name' and a.password = '$password' limit 1";
 				$rows = $this->executeGenericDQLQuery($sql);
 				if(sizeof($rows)){
 						$users = array();
 						$users['id'] = $rows[0]['user_id'];
 						$users['user_name'] = $rows[0]['user_name'];
 						$users['email'] = $rows[0]['email'];
+						$users['address'] = $rows[0]['address'];
+						$users['mobile'] = $rows[0]['mobile'];
 						$users['roll_id'] = $rows[0]['roll_id'];
+						$users['roll_type'] = $rows[0]['rolle_type'];
 						$users['ulb_id'] = $rows[0]['ulb_id'];
+						$users['ulb_name'] = $rows[0]['ulb_name'];
 						$users['token'] = $rows[0]['user_token'];
 						$users['district_id'] = $rows[0]['district_id'];
+						$users['district'] = $rows[0]['district_name'];
 						$this->sendResponse(200,$this->messages['loginSuccess'],$users);
 				}
 				else {
