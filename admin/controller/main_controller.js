@@ -27,6 +27,7 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
       console.log(pRes);
     })
   }
+  /***********This is for update employee data ***********/
   $scope.updateEmployee = function(id){
       var dor = moment($scope.employee.dob).add(60,"years").format("YYYY-MM-DD")
       var obj = {
@@ -56,20 +57,15 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
   }
   /******This is for delete employee from employee list********/
   $scope.deleteEmployee = function(id){
-    //alert('are you sure want to delete');
     deleteUser = $window.confirm('Are you sure you want to delete this employee?');
     if(deleteUser){
-     //Your action will goes here
      alert('Yes i want to delete');
     }
-   var obj = {
+    var obj = {
      "id":id
-   }
-   ulbService.manageEmployee(obj,'delete').then(function(pRes) {
+    }
+    ulbService.manageEmployee(obj,'delete').then(function(pRes) {
      console.log(pRes);
-    //  if(pRes.status == 200){
-    //    $scope.loadEmpList();
-    //  }
    })
  }
 });
@@ -194,8 +190,6 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
      if(pRes.status == 200){
      $scope.designationList = pRes.data.data;
      }
-
-  //  console.log(pRes);
   })
  }
  /**binds district and ulb in district and ulb dropdown in newemployee page**/
@@ -204,7 +198,6 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
      if(pRes.status == 200){
      $scope.district = pRes.data.data;
      }
-     //console.log(pRes);
    })
  }
  $scope.getdistrictulb = function(emp_district){
@@ -212,6 +205,7 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
      $scope.ulblist = pRes.data.data;
    })
  }
+ /************ This is for submitting employee details*************/
  $scope.submitdetails = function(){
     var dor = moment($scope.employee.dob).add(60,"years").format("YYYY-MM-DD")
     var obj = {
@@ -243,20 +237,21 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
  }
 });
 app.controller("User_controller",function($scope,$localStorage,$rootScope,UserService,Util){
-
+/************ This is for userprofile***************/
   $scope.currentTab = 'myprofile';
   $scope.changeTab = function(tab){
   $scope.currentTab = tab;
   }
   $scope.currentTab = 'myprofile';
- $scope.updateMyProfile = function(){
+  /******* This is for update myprofile in user profile**********/
+  $scope.updateMyProfile = function(){
     var obj = {
       'user_name':$scope.profile.user_name,
       'email':  $scope.profile.email,
       'mobile': $scope.profile.mobile,
       'address':$scope.profile.address
-    }
-    UserService.updateProfile(obj).then(function(pRes) {
+     }
+  UserService.updateProfile(obj).then(function(pRes) {
        if(pRes.data.statusCode == 200){
          Util.alertMessage('success', pRes.data.message);
        }
@@ -264,16 +259,16 @@ app.controller("User_controller",function($scope,$localStorage,$rootScope,UserSe
      console.log(">>>>>>>>>>>>>   ",err);
    })
   }
+  /********* This is for loading userdetails in user profile page***********/
   $scope.loadUserdetails = function(){
      $scope.userProfile = $localStorage.user;
   }
+  /********This is for loading user profile according to thir id************/
   $scope.loadUserbyID = function(){
     $scope.profile = $localStorage.user
   }
+  /******* This is for changepassword in userprofile page*************/
   $scope.changePassword = function(){
-    // var obj ={
-    //   "password":$scope.password.confirm
-    // }
     UserService.changepassword($scope.password.confirm).then(function(pRes){
       if(pRes.data.statusCode == 200){
         Util.alertMessage('success', pRes.data.message);
@@ -282,6 +277,7 @@ app.controller("User_controller",function($scope,$localStorage,$rootScope,UserSe
       }
     })
   }
+  /****** This is for checking currentpassword in user profile page*************/
   $scope.checkCurrentPassword = function(pwd){
     console.log(pwd);
     UserService.checkPassword(pwd).then(function(pRes) {

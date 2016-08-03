@@ -110,9 +110,6 @@
                       <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="close()">{{alert.msg}}</alert>
                   </section>
                   <button type="button" ng-click="changePassword()" class="btn btn-danger" ng-disabled="changepwd.$invalid || !is_correct_pwd || password.new != password.confirm">Change Password</button>
-                  <section  align="center m-t-sm">
-                      <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="close()">{{alert.msg}}</alert>
-                  </section>
                 </div>
               </div>
             </form>
