@@ -226,14 +226,26 @@ header('Access-Control-Allow-Origin: *');
 			}
 		}
 		public function changePassword(){
-			if(isset($this->_request['token'])){
-				$token = $this->_request['token'];
-				$password = md5($this->_request['password']);
-				$sql = "update ".self::usersTable." set password='$password' where token='$token'";
-				$result = $this->executeGenericDMLQuery($sql);
-				if($result){
-					$this->sendResponse2(200,$this->messages['changedPassword']);
-				}
+			$headers = apache_request_headers();
+			$accessToken = $headers['Accesstoken'];
+			$password = md5($this->_request['password']);
+			$sql = "update ".self::usersTable." set password='$password' where token='$token'";
+			$result = $this->executeGenericDMLQuery($sql);
+			if($result){
+				$this->sendResponse2(200,$this->messages['changedPassword']);
+			}
+		}
+		public function updateProfile(){
+			$headers = apache_request_headers();
+			$accessToken = $headers['Accesstoken'];
+			$user_name = $this->_request['user_name'];
+			$email = $this->_request['email'];
+			$mobile = $this->_request['mobile'];
+			$address = $this->_request['address'];
+			$sql = "update ".self::usersTable." set user_name='$user_name', mobile='$mobile', address='$address', email='$email' where user_token='$accessToken'";
+			$result = $this->executeGenericDMLQuery($sql);
+			if($result){
+				$this->sendResponse2(200,$this->messages['changedPassword']);
 			}
 		}
 		public function getDesignationList(){
