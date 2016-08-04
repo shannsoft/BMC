@@ -15,6 +15,8 @@ header('Access-Control-Allow-Origin: *');
 		const district = "district_master";
 		const ulb_tbl = "ulb_master";
 		const employee_table = "employee_table";
+		const document_tbl = "document_master";
+		const pension_tbl = "retirement_pension";
 		private $db = NULL;
 		private $proxy = NULL;
 		private $storeApiLogin = false;
@@ -295,6 +297,75 @@ header('Access-Control-Allow-Origin: *');
 				$desig[$i]['name'] = $rows[$i]['ulb_name'];
 			}
 			$this->sendResponse(200,$this->messages['dataFetched'],$desig);
+		}
+		public function getEmployee(){
+			$headers = apache_request_headers();
+			$accessToken = $headers['Accesstoken'];
+			$sql = "select * from ".self::usersTable." where user_token = '$accessToken'";
+			$rows = $this->executeGenericDQLQuery($sql);
+			$user_id = $rows[0]['user_id'];
+			$roll_id = $rows[0]['roll_id'];
+			$status = $this->_request['status'];
+			$sql = "SELECT a.emp_id, a.district_id,a.ulb_id,a.designation_id, a.name, a.villege_town, a.city, a.post, a.police_station, a.pin, a.mobile, a.email, a.dob, a.doj, a.dor, a.emp_status, a.createdDate, a.modifiedDate, a.isDeleted, b.district_name, c.designation, d.ulb_name FROM employee_table a INNER JOIN district_master b ON a.district_id = b.district_id INNER JOIN designation_master c ON a.designation_id = c.designation_id INNER JOIN ulb_master d ON a.ulb_id = d.ulb_id where a.isDeleted = 0 AND a.emp_status='$status'";
+			if($roll_id == 1){
+				$sql .= " AND a.created_by=".$user_id;
+			}
+			$rows = $this->executeGenericDQLQuery($sql);
+			$employee = array();
+			for($i = 0; $i < sizeof($rows); $i++) {
+				$employee[$i]['id'] = $rows[$i]['emp_id'];
+				$employee[$i]['name'] = $rows[$i]['name'];
+				$employee[$i]['designation'] = $rows[$i]['designation'];
+				$employee[$i]['designation_id'] = $rows[$i]['designation_id'];
+				$employee[$i]['village'] = $rows[$i]['villege_town'];
+				$employee[$i]['city'] = $rows[$i]['city'];
+				$employee[$i]['post'] = $rows[$i]['post'];
+				$employee[$i]['police_station'] = $rows[$i]['police_station'];
+				$employee[$i]['district'] = $rows[$i]['district_name'];
+				$employee[$i]['district_id'] = $rows[$i]['district_id'];
+				$employee[$i]['pin'] = $rows[$i]['pin'];
+				$employee[$i]['mobile'] = $rows[$i]['mobile'];
+				$employee[$i]['email'] = $rows[$i]['email'];
+				$employee[$i]['dob'] = $rows[$i]['dob'];
+				$employee[$i]['doj'] = $rows[$i]['doj'];
+				$employee[$i]['dor'] = $rows[$i]['dor'];
+				$employee[$i]['ulb'] = $rows[$i]['ulb_name'];
+				$employee[$i]['ulb_id'] = $rows[$i]['ulb_id'];
+				$employee[$i]['emp_status'] = $rows[$i]['emp_status'];
+				$employee[$i]['createdDate'] = $rows[$i]['createdDate'];
+				$employee[$i]['isDeleted'] = $rows[$i]['isDeleted'];
+			}
+			$this->sendResponse(200,$this->messages['dataFetched'],$employee);
+		}
+		public function getEmployeeDocument(){
+			$headers = apache_request_headers();
+			$accessToken = $headers['Accesstoken'];
+			$emp_id = $this->_request['id'];
+			$sql = "select * from ".self::pension_tbl." where emp_id=".$emp_id;
+			$rows = $this->executeGenericDQLQuery($sql);
+			$documents = array();
+			for($i = 0; $i < sizeof($rows); $i++) {
+				$documents[$i]['id'] = $rows[$i]['pension_id'];
+				$documents[$i]['emp_id'] = $rows[$i]['emp_id'];
+				$documents[$i]['pension_type'] = $rows[$i]['pension_type'];
+				$documents[$i]['pension_category'] = $rows[$i]['pension_category'];
+				$documents[$i]['documents'] = $rows[$i]['documents'];
+				$documents[$i]['pending_at'] = $rows[$i]['pending_at'];
+				$documents[$i]['file_no'] = $rows[$i]['file_no'];
+				$documents[$i]['dod'] = $rows[$i]['dod'];
+				$documents[$i]['remarks'] = $rows[$i]['remarks'];
+			}
+			$this->sendResponse(200,$this->messages['dataFetched'],$documents);
+		}
+		public function getDocumentList(){
+			$sql = "select * from ".self::document_tbl;
+			$rows = $this->executeGenericDQLQuery($sql);
+			$document = array();
+			for($i=0;$i<sizeof($rows);$i++){
+				$document[$i]['id'] = $rows[$i]['document_id'];
+				$document[$i]['document_name'] = $rows[$i]['document_name'];
+			}
+			$this->sendResponse(200,$this->messages['dataFetched'],$document);
 		}
 		public function employee(){
 			if(!isset($this->_request['operation']))
