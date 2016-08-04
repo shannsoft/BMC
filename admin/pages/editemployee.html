@@ -138,6 +138,7 @@
             <option value="">Select one</option>
             <option value="Active">Active</option>
             <option value="Suspend">Suspend</option>
+              <option value="Retired">Retired</option>
           </select>
           <span class="help-block" ng-show="addemployee.emp_status.$error.required && addemployee.emp_status.$touched">Please enter employee status</span>
         </div>
@@ -145,7 +146,7 @@
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
-          <button type="submit" class="btn btn-default" ui-sref="dashboard">Cancel</button>
+          <button type="submit" class="btn btn-default" ui-sref="employeeList">Back</button>
           <button  type="submit" class="btn btn-info pull-right" ng-click="updateEmployee(employee.id)">Update</button>
           <section  align="center m-t-sm">
               <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="close()">{{alert.msg}}</alert>
