@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2016 at 09:35 AM
+-- Generation Time: Aug 04, 2016 at 08:13 AM
 -- Server version: 10.0.17-MariaDB
 -- PHP Version: 5.6.14
 
@@ -110,6 +110,26 @@ CREATE TABLE `document_master` (
   `document_name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `document_master`
+--
+
+INSERT INTO `document_master` (`document_id`, `document_name`) VALUES
+(1, 'Xerox copy with attestation of death Certificate and legal heir certificate in Case of Family pension.'),
+(2, 'Periodical Service Verification Certificate with seal and signature'),
+(3, 'Period of suspension and its result to be recorded in Service Book'),
+(4, 'The duly attested and counter checked Pay fixation statement by the District Audit office L.F.A'),
+(5, 'Condomation of overage wanting Approved by the Council Resolution and approval of D.M.A'),
+(6, 'Service interruption Certificate '),
+(7, 'Attestation of joint single photograph'),
+(8, 'No dues Certificate'),
+(9, 'A Certificate as whether any Depil/Disiplinary/Vilgilance or criminal Proceeding if any may be required as per GO No 175/HUD. Dt 02.01.2003'),
+(10, 'The last Pay certificate in OTC form'),
+(11, 'Form-I and Form-II relating to Nomination for family pension and List of family members should be filled.'),
+(12, 'In service death Form-XI addressed To the widow/widower.'),
+(13, 'In case family pension SL.No 10 and SL.No 11 of Form XII i.e Attestation of two Gazetted Govt Servants or two more person of respectability of the area.'),
+(14, 'The remarks of the Chairperson in Case of family pension with seal and Signature');
+
 -- --------------------------------------------------------
 
 --
@@ -135,15 +155,16 @@ CREATE TABLE `employee_table` (
   `emp_status` text NOT NULL,
   `createdDate` date NOT NULL,
   `modifiedDate` date DEFAULT NULL,
-  `isDeleted` tinyint(4) NOT NULL
+  `isDeleted` tinyint(4) NOT NULL,
+  `created_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employee_table`
 --
 
-INSERT INTO `employee_table` (`emp_id`, `name`, `designation_id`, `villege_town`, `city`, `post`, `police_station`, `district_id`, `pin`, `mobile`, `email`, `ulb_id`, `dob`, `doj`, `dor`, `emp_status`, `createdDate`, `modifiedDate`, `isDeleted`) VALUES
-(1, 'Santosh', 1, 'bhubaneswar', 'bhubaneswar', 'bbsr', '', 19, 751001, '9438753143', 'santoshmajhi99@gmail.com', 1, '2016-08-03', '2016-08-04', '2018-04-12', 'Active', '2016-08-01', NULL, 0);
+INSERT INTO `employee_table` (`emp_id`, `name`, `designation_id`, `villege_town`, `city`, `post`, `police_station`, `district_id`, `pin`, `mobile`, `email`, `ulb_id`, `dob`, `doj`, `dor`, `emp_status`, `createdDate`, `modifiedDate`, `isDeleted`, `created_by`) VALUES
+(1, 'Santosh Majhi', 1, 'bhubaneswar', 'bhubaneswar', 'bbsr', 'test', 1, 751001, '9438753143', 'santoshmajhi99@gmail.com', 2, '2016-08-03', '2016-08-04', '2076-08-03', 'Retired', '2016-08-01', '2016-08-02', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -179,6 +200,13 @@ CREATE TABLE `retirement_pension` (
   `dod` date DEFAULT NULL,
   `remarks` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `retirement_pension`
+--
+
+INSERT INTO `retirement_pension` (`pension_id`, `emp_id`, `pension_type`, `pension_category`, `documents`, `pending_at`, `file_no`, `dod`, `remarks`) VALUES
+(1, 1, 'Pension', 'LFS', '1,2,3,4,7,9', 'ULB', NULL, NULL, 'Send to central office');
 
 -- --------------------------------------------------------
 
@@ -261,7 +289,7 @@ CREATE TABLE `user_tbl` (
 
 INSERT INTO `user_tbl` (`user_id`, `email`, `user_name`, `password`, `mobile`, `address`, `roll_id`, `ulb_id`, `district_id`, `user_token`) VALUES
 (1, 'admin@gmail.com', 'Admin', 'E10ADC3949BA59ABBE56E057F20F883E', '0', '', 0, 0, 0, ''),
-(2, 'uibno@gmail.com', 'ulb_angul', 'E10ADC3949BA59ABBE56E057F20F883E', '0', '', 3, 1, 0, 'Rt7v9chSxeq2HU34T46AN53FFLTTds4oD1yKFNO2xDPRWQ3j6jt0Kmx06QeU');
+(2, 'uibno@gmail.com', 'ulb_angul', 'E10ADC3949BA59ABBE56E057F20F883E', '9438753143', 'Bhubaneswar', 3, 1, 1, '');
 
 --
 -- Indexes for dumped tables
@@ -345,7 +373,7 @@ ALTER TABLE `district_master`
 -- AUTO_INCREMENT for table `document_master`
 --
 ALTER TABLE `document_master`
-  MODIFY `document_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `document_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `employee_table`
 --
@@ -360,7 +388,7 @@ ALTER TABLE `pension_history`
 -- AUTO_INCREMENT for table `retirement_pension`
 --
 ALTER TABLE `retirement_pension`
-  MODIFY `pension_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pension_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `role_master`
 --
