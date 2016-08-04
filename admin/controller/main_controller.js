@@ -1,4 +1,4 @@
-app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,ulbService,$stateParams,$window,Util){
+app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,ulbService,$stateParams,$window,Util,employeeService){
   /*******************************************************/
   /*************This is use for employee List*************/
   /*******************************************************/
@@ -26,6 +26,18 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
       }
       console.log(pRes);
     })
+     $scope.loadEmployeebyID = function(){
+        var obj ={
+          "id":$stateParams.id
+        }
+        ulbService.loadEmployeebyID(obj,'get').then(function(pRes){
+          if(pRes.data.statusCode == 200){
+           $scope.employee = pRes.data.data[0];
+           $scope.getdistrictulb($scope.employee.district_id);
+          }
+          console.log(pRes);
+        })
+      }
   }
   /***********This is for update employee data ***********/
   $scope.updateEmployee = function(id){
@@ -68,6 +80,42 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
      console.log(pRes);
    })
  }
+ $scope.loadRetiredEmployee = function(){
+   $scope.status = localStorage.getItem('status');
+   employeeService.loadRetiredEmployee().then(function(pRes){
+     console.log(pRes);
+     $scope.employee_list = pRes.data.data;
+   })
+ };
+ $scope.loadEmpdocument = function(id){
+   $state.go('employeeDocuments',{id:id})
+ }
+ $scope.loadEmployeeDocs = function(){
+  employeeService.getDomentList().then(function(response){
+    if(response.data.statusCode == 200){
+      $scope.documentList = response.data.data;
+      employeeService.loadEmployeeDocs($stateParams.id).then(function(pRes){
+        if(pRes.data.statusCode == 200){
+          var documentList = [];
+          if(pRes.data.data.length > 0){
+            $scope.employeeDoc = pRes.data.data[0];
+            documentList = pRes.data.data[0].documents.split(',');
+          }
+          angular.forEach($scope.documentList,function(item){
+            item.is_selected = false;
+            if(documentList.length > 0){
+              angular.forEach(documentList,function(id){
+                if(id == item.id){
+                  item.is_selected = true;
+                }
+              })
+            }
+          });
+        }
+      });
+    }
+  });
+}
 });
 app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService,Util){
   /*******************************************************/

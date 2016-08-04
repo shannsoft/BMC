@@ -4934,3 +4934,7 @@ table.text-center th {
 .over-x-sc{
   overflow-x: scroll;
 }
+input[type=checkbox], input[type=radio]{
+  margin: 4px 5px 0 0;
+  line-height: normal;
+}

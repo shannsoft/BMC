@@ -79,6 +79,22 @@ app.factory("employeeService", function ($http,CONFIG,$localStorage) {
       });
 
       return response;
+    },
+    loadRetiredEmployee:function(){
+      var response = $http.get(CONFIG.HTTP_HOST + "?reqmethod=getEmployee&status=Retired",{
+        headers:{'Accesstoken':$localStorage.user.accessToken}
+      });
+      return response;
+    },
+    loadEmployeeDocs: function(id){
+      var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod=getEmployeeDocument&id="+id,{
+         headers:{'Accesstoken':$localStorage.user.accessToken}
+       });
+      return response;
+    },
+    getDomentList: function(){
+      var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod=getDocumentList");
+      return response;
     }
   };
  });

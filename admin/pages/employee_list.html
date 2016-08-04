@@ -3,7 +3,7 @@
     Employee List
     <small>control panel</small>
   </h1>
-  <button class="btn btn-primary pull-right" ui-sref="newplan" ng-if="user_type == '3'"><i class="fa fa-plus"></i></button>
+  <button class="btn btn-primary pull-right"><i class="fa fa-plus"></i></button>
 </section>
 <section class="content" ng-init="loadEmpList()">
   <div class="row">
@@ -30,6 +30,7 @@
                 <th>DOB</th>
                 <th>DOJ</th>
                 <th>DOR</th>
+                <td>ULB</td>
                 <th>Status</th>
                 <th>Operation</th>
               </tr>
@@ -50,6 +51,7 @@
                 <td>{{employee.dob}}</td>
                 <td>{{employee.doj}}</td>
                 <td>{{employee.dor}}</td>
+                <td>{{employee.ulb}}</td>
                 <td>{{employee.emp_status}}</td>
                 <td>
                   <a href="" class="option-btn" ng-click="goToEdit(employee.id)"><i class="fa fa-pencil-square-o"></i></a>
