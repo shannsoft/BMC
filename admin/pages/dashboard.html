@@ -1,15 +1,15 @@
-<section class="content-header">
+<section class="content-header" >
   <h1>
     Dashboard {{loggedin}}
     <small>Control panel</small>
   </h1>
 </section>
-<section class="content" >
+<section class="content" ng-init="loadEmployeebyStatus()">
   <div class="row">
     <div class="col-lg-4 col-xs-6">
       <div class="small-box bg-aqua">
         <div class="inner">
-          <h3>560</h3>
+          <h3>{{empstatus.retired_emp}}</h3>
           <p>Retired Employee</p>
         </div>
         <div class="icon">
@@ -21,7 +21,7 @@
     <div class="col-lg-4 col-xs-6">
       <div class="small-box bg-green"s>
         <div class="inner">
-          <h3>140</h3>
+          <h3>{{empstatus.tobe_retired}}</h3>
           <p>To be retired next 6 months</p>
         </div>
         <div class="icon">
@@ -33,13 +33,13 @@
     <div class="col-lg-4 col-xs-6">
       <div class="small-box bg-yellow">
         <div class="inner">
-          <h3>540</h3>
-          <p>Rejected List</p>
+          <h3>{{empstatus.total_emp}}</h3>
+          <p>Total Employee List</p>
         </div>
         <div class="icon">
           <i class="ion ion-person-add"></i>
         </div>
-        <a href="" class="small-box-footer">View Status  <i class="fa fa-arrow-circle-right"></i></a>
+        <a href="" class="small-box-footer">View Status <i class="fa fa-arrow-circle-right"></i></a>
       </div>
     </div>
   </div>

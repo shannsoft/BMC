@@ -105,6 +105,14 @@ app.factory("employeeService", function ($http,CONFIG,$localStorage) {
       });
       return response;
     },
+    loadEmployeebyStatus: function () {
+    var response = $http.get(CONFIG.HTTP_HOST + "/?reqmethod=employeeCount", {
+            headers:{'Accesstoken':$localStorage.user.accessToken}
+    });
+    return response;
+    // console.log('response');
+  }
+
   };
  });
   app.factory("UserService", function($http,CONFIG,$localStorage){

@@ -309,6 +309,13 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
       }
     })
  }
+ $scope.loadEmployeebyStatus = function(){
+   employeeService.loadEmployeebyStatus().then(function(pRes){
+     console.log(pRes);
+   $scope.empstatus = pRes.data.data;
+   })
+ }
+
 });
 app.controller("User_controller",function($scope,$localStorage,$rootScope,UserService,Util){
 /************ This is for userprofile***************/
