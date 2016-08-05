@@ -116,6 +116,7 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
     }
   });
 }
+/***********This is used for updating  employee document**************/
  $scope.updateEmployeeDoc = function(){
     var ref_date = moment($scope.employeeDoc.ref_date).format("YYYY-MM-DD");
     var documents = [];
@@ -309,6 +310,7 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
       }
     })
  }
+ /***********This code is loading employee according to their status***************/
  $scope.loadEmployeebyStatus = function(){
    employeeService.loadEmployeebyStatus().then(function(pRes){
      console.log(pRes);
