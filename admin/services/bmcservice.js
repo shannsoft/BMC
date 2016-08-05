@@ -14,7 +14,6 @@ app.factory("ulbService", function ($http,CONFIG,$localStorage) {
           data : _serializedData,
           headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
       });
-
       return response;
     },
     manageEmployee: function (data,option) {
@@ -97,13 +96,12 @@ app.factory("employeeService", function ($http,CONFIG,$localStorage) {
       return response;
     },
     updateEmployeeDoc:function(data){
-      console.log(data);
       var _serializedData = $.param({"reqmethod": 'updateEmployeeDocument',"documents_data":data});
       var response = $http({
           method: 'POST',
           url: CONFIG.HTTP_HOST,
           data : _serializedData,
-        headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
+          headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
       });
       return response;
     },

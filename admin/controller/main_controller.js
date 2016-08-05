@@ -117,16 +117,15 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
   });
 }
  $scope.updateEmployeeDoc = function(){
-   var ref_date = moment($scope.employeeDoc.ref_date).format("YYYY-MM-DD")
+    var ref_date = moment($scope.employeeDoc.ref_date).format("YYYY-MM-DD");
     var documents = [];
-    //empdocuments = arr.split(',');
-      angular.forEach($scope.documentList,function(item){
-        if(item.is_selected == true){
-          documents.push(item.id);
-        }
-      });
-      var pension_id =  ($scope.employeeDoc.id) ? $scope.employeeDoc.id : '';
-      var dod =  ($scope.employeeDoc.dod) ? $scope.employeeDoc.dod : null;
+    angular.forEach($scope.documentList,function(item){
+      if(item.is_selected == true){
+        documents.push(item.id);
+      }
+    });
+    var pension_id =  ($scope.employeeDoc.id) ? $scope.employeeDoc.id : '';
+    var dod =  ($scope.employeeDoc.dod) ? $scope.employeeDoc.dod : null;
     var obj = {
       "pension_id" : pension_id,
       "emp_id" : $stateParams.id,

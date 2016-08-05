@@ -370,11 +370,11 @@ header('Access-Control-Allow-Origin: *');
       $documents = $document_data['documents'];
       $ref_no = $document_data['ref_no'];
       $ref_date = $document_data['ref_date'];
-      $dod = (isset($document_data['dod'])) ? $document_data['dod'] : null;
+      $dod = ($document_data['dod']) ? $document_data['dod'] : null;
       $remarks = $document_data['remarks'];
       $pending_at = 'ULB';
       if($pension_id){
-        $sql = "update ".self::pension_tbl." set pension_type='$pension_type', pension_category='$category', documents='$documents', dod='$dod', remarks='$remarks', pending_at='$pending_at', where pension_id=".$pension_id;
+        $sql = "update ".self::pension_tbl." set pension_type='$pension_type', pension_category='$category', documents='$documents', dod='$dod', remarks='$remarks', pending_at='$pending_at' where pension_id=".$pension_id;
         $result = $this->executeGenericDMLQuery($sql);
         if($result){
           $sql = "insert into ".self::pension_history."(pension_id,ulb_ref_no,ulb_ref_date) values('$pension_id','$ref_no','$ref_date')";
@@ -393,7 +393,38 @@ header('Access-Control-Allow-Origin: *');
         }
       }
 		}
-		public function getDocumentList(){
+    public function employeeCount() {
+      $headers = apache_request_headers();
+      $accessToken = $headers['Accesstoken'];
+      if($accessToken){
+        $sql = "select * from ".self::usersTable." where user_token = '$accessToken'";
+        $rows = $this->executeGenericDQLQuery($sql);
+        $userId = $rows[0]['user_id'];
+        $roll_id = $rows[0]['roll_id'];
+      }
+      $employeeCount = array();
+      $sql = "SELECT * FROM ".self::employee_table." where isDeleted = 0";
+      if($roll_id && $roll_id == 3)
+        $sql .=" AND created_by=".$userId;
+      $result = $this->executeGenericDQLQuery($sql);
+      $employeeCount['total_emp'] = sizeof($result);
+
+      $sql = "SELECT * FROM `employee_table` WHERE dor <= DATE(NOW()) AND isDeleted = 0";
+      if($roll_id && $roll_id == 3)
+        $sql .=" AND created_by=".$userId;
+      $result = $this->executeGenericDQLQuery($sql);
+      $employeeCount['retired_emp'] = sizeof($result);
+
+      $current_date = date("Y-m-d");
+      $effectiveDate = date('Y-m-d', strtotime("+6 months", strtotime($current_date)));
+      $sql = "SELECT * FROM `employee_table` WHERE dor > '$current_date' AND dor <= '$effectiveDate' AND isDeleted = 0";
+      if($roll_id && $roll_id == 3)
+        $sql .=" AND created_by=".$userId;
+      $result = $this->executeGenericDQLQuery($sql);
+      $employeeCount['tobe_retired'] = sizeof($result);
+      $this->sendResponse(200,'No.of count on all employee List',$employeeCount);
+    }
+    public function getDocumentList(){
 			$sql = "select * from ".self::document_tbl;
 			$rows = $this->executeGenericDQLQuery($sql);
 			$document = array();
