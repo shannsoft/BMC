@@ -116,6 +116,33 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
     }
   });
 }
+ $scope.updateEmployeeDoc = function(){
+   var ref_date = moment($scope.employeeDoc.ref_date).format("YYYY-MM-DD")
+    var documents = [];
+    //empdocuments = arr.split(',');
+      angular.forEach($scope.documentList,function(item){
+        if(item.is_selected == true){
+          documents.push(item.id);
+        }
+      });
+      var pension_id =  ($scope.employeeDoc.id) ? $scope.employeeDoc.id : '';
+      var dod =  ($scope.employeeDoc.dod) ? $scope.employeeDoc.dod : null;
+    var obj = {
+      "pension_id" : pension_id,
+      "emp_id" : $stateParams.id,
+      "pension_type":$scope.employeeDoc.pension_type,
+      "category" :$scope.employeeDoc.pension_category,
+      "documents":  documents.toString() ,
+      "ref_no"  :$scope.employeeDoc.ref_no,
+      "ref_date" :ref_date,
+      "dod" :dod,
+      "remarks" :$scope.employeeDoc.remarks
+    }
+    console.log(obj);
+    employeeService.updateEmployeeDoc(obj) .then(function(pRes){
+      console.log(pRes);
+    })
+ }
 });
 app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService,Util){
   /*******************************************************/

@@ -95,7 +95,18 @@ app.factory("employeeService", function ($http,CONFIG,$localStorage) {
     getDomentList: function(){
       var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod=getDocumentList");
       return response;
-    }
+    },
+    updateEmployeeDoc:function(data){
+      console.log(data);
+      var _serializedData = $.param({"reqmethod": 'updateEmployeeDocument',"documents_data":data});
+      var response = $http({
+          method: 'POST',
+          url: CONFIG.HTTP_HOST,
+          data : _serializedData,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
+      });
+      return response;
+    },
   };
  });
   app.factory("UserService", function($http,CONFIG,$localStorage){
