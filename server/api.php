@@ -17,6 +17,7 @@ header('Access-Control-Allow-Origin: *');
 		const employee_table = "employee_table";
 		const document_tbl = "document_master";
 		const pension_tbl = "retirement_pension";
+		const pension_history = "pension_history";
 		private $db = NULL;
 		private $proxy = NULL;
 		private $storeApiLogin = false;
@@ -356,6 +357,41 @@ header('Access-Control-Allow-Origin: *');
 				$documents[$i]['remarks'] = $rows[$i]['remarks'];
 			}
 			$this->sendResponse(200,$this->messages['dataFetched'],$documents);
+		}
+		public function updateEmployeeDocument(){
+      // printf("Last inserted record has id %d\n", mysql_insert_id());
+			$headers = apache_request_headers();
+			$accessToken = $headers['Accesstoken'];
+			$document_data = $this->_request['documents_data'];
+      $pension_id = $document_data['pension_id'];
+      $emp_id = $document_data['emp_id'];
+      $pension_type = $document_data['pension_type'];
+      $category = $document_data['category'];
+      $documents = $document_data['documents'];
+      $ref_no = $document_data['ref_no'];
+      $ref_date = $document_data['ref_date'];
+      $dod = (isset($document_data['dod'])) ? $document_data['dod'] : null;
+      $remarks = $document_data['remarks'];
+      $pending_at = 'ULB';
+      if($pension_id){
+        $sql = "update ".self::pension_tbl." set pension_type='$pension_type', pension_category='$category', documents='$documents', dod='$dod', remarks='$remarks', pending_at='$pending_at', where pension_id=".$pension_id;
+        $result = $this->executeGenericDMLQuery($sql);
+        if($result){
+          $sql = "insert into ".self::pension_history."(pension_id,ulb_ref_no,ulb_ref_date) values('$pension_id','$ref_no','$ref_date')";
+          $rows = $this->executeGenericDMLQuery($sql);
+          $this->sendResponse(200,$this->messages['userUpdated']);
+        }
+      }
+      else{
+        $sql = "insert into ".self::pension_tbl."(emp_id,pension_type,pension_category,documents,pending_at,dod,remarks) values('$emp_id','$pension_type','$category','$documents','$pending_at','$dod','$remarks')";
+        $rows = $this->executeGenericDMLQuery($sql);
+        if($rows){
+          $insert_id = mysql_insert_id();
+          $sql = "insert into ".self::pension_history."(pension_id,ulb_ref_no,ulb_ref_date) values('$insert_id','$ref_no','$ref_date')";
+          $rows = $this->executeGenericDMLQuery($sql);
+          $this->sendResponse(200,$this->messages['userUpdated']);
+        }
+      }
 		}
 		public function getDocumentList(){
 			$sql = "select * from ".self::document_tbl;
