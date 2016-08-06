@@ -1,6 +1,9 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 	require_once("Rest.inc.php");
+	require_once('./mail/PHPMailerAutoload.php');
+	require_once ('./mail/PHPMailerAutoload.php');
+  require_once ( './mail/class.phpmailer.php' ); //
 	class API extends REST {
 		public $data = "";
 		const DB_SERVER = "localhost";
@@ -63,6 +66,8 @@ header('Access-Control-Allow-Origin: *');
 				"loginSuccess" => "Successfully Logedin",
 				"userLogout" => "Successfully log out",
 				"changedPassword" => "Successfully Changed your password",
+				"otpSentSuccess" => "OTP sent successfully",
+				"otpSentError" => "Error in sending OTP",
 				"dataSaved" => "Data saved successfully"
 		);
 		public function __construct(){
@@ -462,6 +467,67 @@ header('Access-Control-Allow-Origin: *');
 				$document[$i]['document_name'] = $rows[$i]['document_name'];
 			}
 			$this->sendResponse(200,$this->messages['dataFetched'],$document);
+		}
+
+		public function sendOtp(){
+
+				// creatin OTP
+				$otp = mt_rand(100000,999999);
+				$ToEmail = $this->_request['ToEmail'];
+				$sql = "update user_tbl set otp= '$otp' where email='$ToEmail'";
+				$affectedRows = $this->executeGenericDMLQuery($sql);
+				if(intval($affectedRows) == 0)
+					$this->sendResponse(402,"Invalid email given");
+				$ToName  = 'BMC Corporation';
+				$MessageHTML = "<h3> Reset password  <h3>
+											<p>Dear User ,</p>
+											<p> The OTP for the password reset is <b>$otp</b></p>";
+
+
+				$Mail = new PHPMailer();
+			  $Mail->IsSMTP(); // Use SMTP
+			  $Mail->Host        = "smtp.gmail.com"; // Sets SMTP server
+			  $Mail->SMTPDebug   = 2; // 2 to enable SMTP debug information
+			  $Mail->SMTPAuth    = TRUE; // enable SMTP authentication
+			  $Mail->SMTPSecure  = "tls"; //Secure conection
+			  $Mail->Port        = 587; // set the SMTP port
+			  $Mail->Username    = 'rajendrasahoodbpb@gmail.com'; // SMTP account username
+			  $Mail->Password    = 'dbpb*raju'; // SMTP account password
+			  $Mail->Priority    = 1; // Highest priority - Email priority (1 = High, 3 = Normal, 5 = low)
+			  $Mail->CharSet     = 'UTF-8';
+			  $Mail->Encoding    = '8bit';
+			  $Mail->Subject     = 'Test Email Using Gmail';
+			  $Mail->ContentType = 'text/html; charset=utf-8\r\n';
+			  $Mail->From        = 'rajendrasahoodbpb@gmail.com';
+			  $Mail->FromName    = 'GMail Test';
+			  $Mail->WordWrap    = 900; // RFC 2822 Compliant for Max 998 characters per line
+
+			  $Mail->AddAddress( $ToEmail ); // To:
+			  $Mail->isHTML( TRUE );
+			  $Mail->Body    = $MessageHTML;
+			  // $Mail->AltBody = $MessageTEXT;
+			  $Mail->Send();
+			  $Mail->SmtpClose();
+
+			  if ( $Mail->IsError() ) { // ADDED - This error checking was missing
+			    // return FALSE;
+					return $this->sendResponse(200,$this->messages['otpSentError']);
+			  }
+			  else {
+					return $this->sendResponse(200,$this->messages['otpSentSuccess']);
+			    // return TRUE;
+			  }
+
+
+
+			$Send = SendMail( $ToEmail, $MessageHTML, $MessageTEXT );
+			// if ( $Send ) {
+			//   return $this->sendResponse(200,"otpSentSuccess");
+			// }
+			// else {
+			//     $this->sendResponse(200,"otpSentError");
+			// }
+			// $this->sendResponse(200,$this->messages['dataFetched'],$document);
 		}
 		public function employee(){
 			if(!isset($this->_request['operation']))
