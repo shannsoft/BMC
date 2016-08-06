@@ -1,4 +1,4 @@
-var app = angular.module("bmc_app", ['ui.router', 'ui.bootstrap', 'ngResource', 'ngStorage', 'ngAnimate','datePicker']);
+var app = angular.module("bmc_app", ['ui.router', 'ui.bootstrap', 'ngResource', 'ngStorage', 'ngAnimate','datePicker','ngCookies']);
 app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/login');
     $stateProvider
@@ -16,6 +16,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('login', {
             templateUrl: 'pages/login.html',
             url: '/login',
+            controller:"Main_Controller",
+            onEnter: function($localStorage, $state) {
+               if ($localStorage.user) {
+                   $state.go('dashboard');
+               }
+             }
+        })
+        .state('forgot-password', {
+            templateUrl: 'pages/forgotPassword.html',
+            url: '/forgot-password',
             controller:"Main_Controller",
             onEnter: function($localStorage, $state) {
                if ($localStorage.user) {

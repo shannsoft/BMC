@@ -144,27 +144,38 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
     })
  }
 });
-app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService,Util){
+app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService,Util,$cookieStore){
+  $scope.loginPage = function(){
+    $scope.user = {};
+    if($cookieStore.get('username')){
+      $scope.user.username = $cookieStore.get('username');
+      $scope.user.password = $cookieStore.get('password');
+    }
+  }
   /*******************************************************/
   /*************This is use for check user login**********/
   /*******************************************************/
   $scope.getUserDetails = function(){
    if($localStorage.user){
-     $scope.logedIn_user = $localStorage.user;
+     $rootScope.logedIn_user = $localStorage.user;
      $rootScope.loggedin = true;
      $rootScope.roll_id = localStorage.getItem('roll_id');
    }
    else{
-     $scope.logedIn_user = {};
+     $rootScope.logedIn_user = {};
      $rootScope.loggedin = false;
    }
  }
  /*******************************************************/
  /*************This is use for  user login***************/
  /*******************************************************/
-  $scope.login = function(user){
-    employeeService.login(user).then(function(pRes) {
+  $scope.login = function(){
+    employeeService.login($scope.user).then(function(pRes) {
       if(pRes.data.statusCode == 200){
+        if($scope.user.remember){
+          $cookieStore.put('username', $scope.user.username);
+          $cookieStore.put('password', $scope.user.password);
+        }
         $localStorage.user = {
           "district_id" : pRes.data.data.district_id,
           "district"    : pRes.data.data.district,
@@ -196,10 +207,12 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
   /*******************************************************/
   $scope.signOut = function(){
     employeeService.logout().then(function(pRes) {
-      if(pRes.status == 200){
+      if(pRes.data.statusCode == 200){
         $rootScope.loggedin = false;
         delete $localStorage.user;
-        $state.go("login");
+        setTimeout(function () {
+          $state.go("login");
+        }, 500);
       }
     },
     function(err) {
@@ -313,8 +326,7 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
  /***********This code is loading employee according to their status***************/
  $scope.loadEmployeebyStatus = function(){
    employeeService.loadEmployeebyStatus().then(function(pRes){
-     console.log(pRes);
-   $scope.empstatus = pRes.data.data;
+     $scope.empstatus = pRes.data.data;
    })
  }
 

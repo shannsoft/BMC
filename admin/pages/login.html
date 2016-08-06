@@ -3,7 +3,7 @@
     <img src="dist/img/orissa-emunicipality.png" class="user-image" alt="User Image" style="width:100%">
   </div>
   <form class="">
-      <div class="login-box-body">
+      <div class="login-box-body" ng-init="loginPage()">
         <p class="login-box-msg">Sign in to start your session</p>
         <form name="login">
           <div class="form-group has-feedback">
@@ -17,11 +17,11 @@
           <div class="row">
             <div class="col-xs-12">
               <label>
-                <input type="checkbox"> Remember Me
+                <input type="checkbox" ng-model="user.remember"> Remember Me
               </label>
             </div>
             <div class="col-xs-12">
-              <button ng-click="login(user)" class="btn btn-primary btn-block btn-flat">
+              <button ng-click="login()" class="btn btn-primary btn-block btn-flat">
                 Sign In
               </button>
               <section  align="center m-t-sm">
@@ -30,7 +30,7 @@
             </div>
           </div>
         </form>
-        <a href="">I forgot my password</a><br>
+        <a ui-sref="forgot-password">I forgot my password</a><br>
       </div>
   </form>
 </div>
