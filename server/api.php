@@ -343,6 +343,17 @@ header('Access-Control-Allow-Origin: *');
 			}
 			$this->sendResponse(200,$this->messages['dataFetched'],$employee);
 		}
+		public function acceptRetirement(){
+			$headers = apache_request_headers();
+			$accessToken = $headers['Accesstoken'];
+			$emp_id = $this->_request['id'];
+			if($accessToken)
+			$sql = "update ".self::employee_table." set emp_status='Retired' where emp_id=".$emp_id;
+			$result = $this->executeGenericDMLQuery($sql);
+			if($result){
+				$this->sendResponse(200,'Successfully Updated');
+			}
+		}
 		public function getEmployeeDocument(){
 			$headers = apache_request_headers();
 			$accessToken = $headers['Accesstoken'];
@@ -424,6 +435,58 @@ header('Access-Control-Allow-Origin: *');
         $employee['pension_category'] = $rows[0]['pension_category'];
         $employee['documents'] = $rows[0]['documents'];
         $employee['remarks'] = $rows[0]['remarks'];
+			}
+			$this->sendResponse(200,$this->messages['dataFetched'],$employee);
+		}
+		public function employeeList() {
+			$headers = apache_request_headers();
+			$accessToken = $headers['Accesstoken'];
+			$status = $this->_request['status'];
+			if($accessToken){
+				$sql = "select * from ".self::usersTable." where user_token = '$accessToken'";
+				$rows = $this->executeGenericDQLQuery($sql);
+				$userId = $rows[0]['user_id'];
+				$roll_id = $rows[0]['roll_id'];
+			}
+			$sql = "SELECT a.emp_id, a.district_id,a.ulb_id,a.designation_id, a.name, a.villege_town, a.city, a.post, a.police_station,
+			a.pin, a.mobile, a.email, a.dob, a.doj, a.dor, a.emp_status, a.createdDate, a.modifiedDate, b.district_name, c.designation,
+			d.ulb_name FROM employee_table a
+			INNER JOIN district_master b ON a.district_id = b.district_id
+			INNER JOIN designation_master c ON a.designation_id = c.designation_id
+			INNER JOIN ulb_master d ON a.ulb_id = d.ulb_id
+			where a.isDeleted = 0";
+			if($roll_id && $roll_id == 3)
+        $sql .=" AND a.created_by=".$userId;
+			if($status == "Retired"){
+				$sql .=" AND a.dor <= DATE(NOW())";
+			}
+			if($status == "tobeRetired"){
+				$current_date = date("Y-m-d");
+	      $effectiveDate = date('Y-m-d', strtotime("+6 months", strtotime($current_date)));
+				$sql .=" AND dor > '$current_date' AND dor <= '$effectiveDate'";
+			}
+			$rows = $this->executeGenericDQLQuery($sql);
+			$employee = array();
+			for($i = 0; $i < sizeof($rows); $i++) {
+				$employee[$i]['id'] = $rows[$i]['emp_id'];
+				$employee[$i]['name'] = $rows[$i]['name'];
+				$employee[$i]['designation'] = $rows[$i]['designation'];
+				$employee[$i]['designation_id'] = $rows[$i]['designation_id'];
+				$employee[$i]['village'] = $rows[$i]['villege_town'];
+				$employee[$i]['city'] = $rows[$i]['city'];
+				$employee[$i]['post'] = $rows[$i]['post'];
+				$employee[$i]['police_station'] = $rows[$i]['police_station'];
+				$employee[$i]['district'] = $rows[$i]['district_name'];
+				$employee[$i]['district_id'] = $rows[$i]['district_id'];
+				$employee[$i]['pin'] = $rows[$i]['pin'];
+				$employee[$i]['mobile'] = $rows[$i]['mobile'];
+				$employee[$i]['email'] = $rows[$i]['email'];
+				$employee[$i]['dob'] = $rows[$i]['dob'];
+				$employee[$i]['doj'] = $rows[$i]['doj'];
+				$employee[$i]['dor'] = $rows[$i]['dor'];
+				$employee[$i]['ulb'] = $rows[$i]['ulb_name'];
+				$employee[$i]['ulb_id'] = $rows[$i]['ulb_id'];
+				$employee[$i]['emp_status'] = $rows[$i]['emp_status'];
 			}
 			$this->sendResponse(200,$this->messages['dataFetched'],$employee);
 		}
@@ -528,6 +591,24 @@ header('Access-Control-Allow-Origin: *');
 			//     $this->sendResponse(200,"otpSentError");
 			// }
 			// $this->sendResponse(200,$this->messages['dataFetched'],$document);
+		}
+		public function forgotPassword(){
+			$email = $this->_request['email'];
+			$password = md5($this->_request['password']);
+			$otp = $this->_request['otp'];
+			if(isset($this->_request['otp'])){
+				$sql = "update ".self::usersTable." set password='$password' where otp='$otp' AND email='$email'";
+				$result = $this->executeGenericDMLQuery($sql);
+				if($result){
+					$this->sendResponse(200,'Change Password Successfully');
+				}
+				else{
+					$this->sendResponse(201,'You have entered wrong otp');
+				}
+			}
+			else{
+				$this->sendResponse(201,'You have entered wrong otp');
+			}
 		}
 		public function employee(){
 			if(!isset($this->_request['operation']))

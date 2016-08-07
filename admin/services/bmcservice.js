@@ -83,6 +83,18 @@ app.factory("employeeService", function ($http,CONFIG,$localStorage) {
       });
       return response;
     },
+    getEmployeeListBystatus:function(status){
+      var response = $http.get(CONFIG.HTTP_HOST + "?reqmethod=employeeList&status="+status,{
+        headers:{'Accesstoken':$localStorage.user.accessToken}
+      });
+      return response;
+    },
+    acceptRetirement:function(id){
+      var response = $http.get(CONFIG.HTTP_HOST + "?reqmethod=acceptRetirement&id="+id,{
+        headers:{'Accesstoken':$localStorage.user.accessToken}
+      });
+      return response;
+    },
     loadEmployeeDocs: function(id){
       var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod=getEmployeeDocument&id="+id,{
          headers:{'Accesstoken':$localStorage.user.accessToken}
@@ -157,6 +169,16 @@ app.factory("UserService", function($http,CONFIG,$localStorage){
     },
     applyToken: function (mail) {
         var _serializedData = $.param({"reqmethod": 'sendOtp', "toEmail":mail});
+        var response = $http({
+            method: 'POST',
+            url: CONFIG.HTTP_HOST,
+            data : _serializedData,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        });
+        return response;
+    },
+    forgotPassword: function (obj) {
+        var _serializedData = $.param({"reqmethod": 'forgotPassword', "email":obj.user_email, "password":obj.cpass, "otp":obj.otp});
         var response = $http({
             method: 'POST',
             url: CONFIG.HTTP_HOST,

@@ -53,6 +53,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
                }
              }
         })
+        .state('employeeList-bystatus',{
+             templateUrl:'pages/employeeStatus.html',
+             url:'/employeeList-bystatus/:status',
+             controller:"Emp_Controller",
+             onEnter: function($localStorage, $state) {
+               if (!$localStorage.user) {
+                   $state.go('login');
+               }
+             }
+        })
         .state('editEmployee',{
              templateUrl:'pages/editemployee.html',
              url:'/editemployee/:id',

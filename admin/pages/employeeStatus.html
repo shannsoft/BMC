@@ -1,11 +1,11 @@
 <section class="content-header" >
   <h1 class="">
-    Retired Employee List
+    {{status}} Employee List
     <small>control panel</small>
   </h1>
   <button class="btn btn-primary pull-right" ui-sref="newplan" ng-if="user_type == '3'"><i class="fa fa-plus"></i></button>
 </section>
-<section class="content" ng-init="loadRetiredEmployee()">
+<section class="content" ng-init="loadEmployeeListByStatus()">
   <div class="row">
     <div class="col-xs-12">
       <div class="box">
@@ -32,7 +32,7 @@
                 <th>DOR</th>
                 <th>ULB</th>
                 <th>Status</th>
-                <th>Operation</th>
+                <th ng-if="logedIn_user.roll_id == 3 && status == 'Retired'">Operation</th>
               </tr>
             </thead>
             <tbody>
@@ -53,8 +53,9 @@
                 <td>{{Retiredemployee.dor}}</td>
                 <td>{{Retiredemployee.ulb}}</td>
                 <td>{{Retiredemployee.emp_status}}</td>
-                <td>
-                  <button ng-click="loadEmpdocument(Retiredemployee.id)" type="button" class="btn btn-block btn-info btn-x">Employee Documents</button>
+                <td ng-if="logedIn_user.roll_id == 3 && status == 'Retired'" align="center">
+                  <button ng-click="acceptRetirement(Retiredemployee.id)" type="button" class="btn btn-block btn-info btn-x" ng-if="Retiredemployee.emp_status != 'Retired'">Accept Retirement</button>
+                  <button type="button" class="btn btn-sm btn-info btn-x" ng-if="Retiredemployee.emp_status == 'Retired'"><i class="fa fa-check"></i></button>
                 </td>
               </tr>
             </tbody>

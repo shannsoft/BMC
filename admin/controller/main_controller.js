@@ -9,6 +9,27 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
       }
     })
   }
+  /*******************************************************/
+  /********This is use for employee List by status********/
+  /*******************************************************/
+  $scope.loadEmployeeListByStatus = function(){
+    $scope.status = $stateParams.status;
+    employeeService.getEmployeeListBystatus($stateParams.status).then(function(pRes) {
+      if(pRes.data.statusCode == 200){
+        $scope.employee_list = pRes.data.data;
+      }
+    })
+  }
+  /*******************************************************/
+  /********This is use for employee List by status********/
+  /*******************************************************/
+  $scope.acceptRetirement = function(id){
+    employeeService.acceptRetirement(id).then(function(pRes) {
+      if(pRes.data.statusCode == 200){
+        $state.go('employeeDocuments',{id:id});
+      }
+    })
+  }
   /*****This is redirect employee to edit employee page***/
   $scope.goToEdit = function(id){
     console.log(id);
@@ -88,7 +109,7 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
    })
  };
  $scope.loadEmpdocument = function(id){
-   $state.go('employeeDocuments',{id:id})
+   $state.go('employeeDocuments',{id:id});
  }
  $scope.loadEmployeeDocs = function(){
   employeeService.getDomentList().then(function(response){
@@ -339,6 +360,21 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
      if(res.data.statusCode == 200){
         $scope.is_token = true;
         Util.alertMessage('success', res.data.message);
+      }
+      else{
+        Util.alertMessage('danger', res.data.message);
+      }
+   })
+ }
+ $scope.forgotPassword = function(){
+   UserService.forgotPassword($scope.password).then(function(res){
+     console.log(res);
+     if(res.data.statusCode == 200){
+        $scope.is_token = true;
+        Util.alertMessage('success', res.data.message);
+        setTimeout(function () {
+          $state.go('login');
+        }, 6000);
       }
       else{
         Util.alertMessage('danger', res.data.message);
