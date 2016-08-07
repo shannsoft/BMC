@@ -17,8 +17,6 @@ app.factory("ulbService", function ($http,CONFIG,$localStorage) {
       return response;
     },
     manageEmployee: function (data,option) {
-      console.log(option);
-      console.log(data);
      var _serializedData = $.param({"reqmethod": 'employee',"operation":option, "employee_data":data});
      var response = $http({
          method: 'POST',
@@ -115,51 +113,57 @@ app.factory("employeeService", function ($http,CONFIG,$localStorage) {
 
   };
  });
-  app.factory("UserService", function($http,CONFIG,$localStorage){
+app.factory("UserService", function($http,CONFIG,$localStorage){
   return{
     checkPassword: function (data) {
-    console.log(data);
-   var _serializedData = $.param({"reqmethod": 'checkPassword', "token":data.token,"password":data.password});
-   var response = $http({
-       method: 'POST',
-       url: CONFIG.HTTP_HOST,
-       data : _serializedData,
-         headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
-   });
-   return response;
- },
-  updateProfile:function(data){
-    console.log(data);
-    var _serializedData = $.param({"reqmethod": 'updateProfile',"user_data":data});
-    var response = $http({
-        method: 'POST',
-        url: CONFIG.HTTP_HOST,
-        data : _serializedData,
-      headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
-    });
-    return response;
-  },
-  changepassword:function(data){
-    console.log(data);
-         var _serializedData = $.param({"reqmethod": 'changePassword', "password":data});
-         var response = $http({
-             method: 'POST',
-             url: CONFIG.HTTP_HOST,
-             data : _serializedData,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
-         });
-         return response;
-       },
-  checkPassword: function (data) {
-      console.log(data);
-      var _serializedData = $.param({"reqmethod": 'checkPassword', "password":data});
+       var _serializedData = $.param({"reqmethod": 'checkPassword', "token":data.token,"password":data.password});
+       var response = $http({
+           method: 'POST',
+           url: CONFIG.HTTP_HOST,
+           data : _serializedData,
+             headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
+       });
+       return response;
+    },
+    updateProfile:function(data){
+      var _serializedData = $.param({"reqmethod": 'updateProfile',"user_data":data});
       var response = $http({
           method: 'POST',
           url: CONFIG.HTTP_HOST,
           data : _serializedData,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
+        headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
       });
       return response;
+    },
+    changepassword:function(data){
+       var _serializedData = $.param({"reqmethod": 'changePassword', "password":data});
+       var response = $http({
+           method: 'POST',
+           url: CONFIG.HTTP_HOST,
+           data : _serializedData,
+          headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
+       });
+       return response;
+    },
+    checkPassword: function (data) {
+        var _serializedData = $.param({"reqmethod": 'checkPassword', "password":data});
+        var response = $http({
+            method: 'POST',
+            url: CONFIG.HTTP_HOST,
+            data : _serializedData,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
+        });
+        return response;
+    },
+    applyToken: function (mail) {
+        var _serializedData = $.param({"reqmethod": 'sendOtp', "toEmail":mail});
+        var response = $http({
+            method: 'POST',
+            url: CONFIG.HTTP_HOST,
+            data : _serializedData,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        });
+        return response;
     }
   };
 });

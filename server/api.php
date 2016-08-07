@@ -473,8 +473,8 @@ header('Access-Control-Allow-Origin: *');
 
 				// creatin OTP
 				$otp = mt_rand(100000,999999);
-				$ToEmail = $this->_request['ToEmail'];
-				$sql = "update user_tbl set otp= '$otp' where email='$ToEmail'";
+				$toEmail = $this->_request['toEmail'];
+				$sql = "update user_tbl set otp= '$otp' where email='$toEmail'";
 				$affectedRows = $this->executeGenericDMLQuery($sql);
 				if(intval($affectedRows) == 0)
 					$this->sendResponse(402,"Invalid email given");
@@ -496,13 +496,13 @@ header('Access-Control-Allow-Origin: *');
 			  $Mail->Priority    = 1; // Highest priority - Email priority (1 = High, 3 = Normal, 5 = low)
 			  $Mail->CharSet     = 'UTF-8';
 			  $Mail->Encoding    = '8bit';
-			  $Mail->Subject     = 'Test Email Using Gmail';
+			  $Mail->Subject     = 'Forgot Password';
 			  $Mail->ContentType = 'text/html; charset=utf-8\r\n';
-			  $Mail->From        = 'rajendrasahoodbpb@gmail.com';
-			  $Mail->FromName    = 'GMail Test';
+			  $Mail->From        = 'info@ulbpension.com';
+			  $Mail->FromName    = 'Odisha e-Municipality';
 			  $Mail->WordWrap    = 900; // RFC 2822 Compliant for Max 998 characters per line
 
-			  $Mail->AddAddress( $ToEmail ); // To:
+			  $Mail->AddAddress( $toEmail ); // To:
 			  $Mail->isHTML( TRUE );
 			  $Mail->Body    = $MessageHTML;
 			  // $Mail->AltBody = $MessageTEXT;
@@ -511,7 +511,7 @@ header('Access-Control-Allow-Origin: *');
 
 			  if ( $Mail->IsError() ) { // ADDED - This error checking was missing
 			    // return FALSE;
-					return $this->sendResponse(200,$this->messages['otpSentError']);
+					return $this->sendResponse(201,$this->messages['otpSentError']);
 			  }
 			  else {
 					return $this->sendResponse(200,$this->messages['otpSentSuccess']);
@@ -520,7 +520,7 @@ header('Access-Control-Allow-Origin: *');
 
 
 
-			$Send = SendMail( $ToEmail, $MessageHTML, $MessageTEXT );
+			$Send = SendMail( $toEmail, $MessageHTML, $MessageTEXT );
 			// if ( $Send ) {
 			//   return $this->sendResponse(200,"otpSentSuccess");
 			// }

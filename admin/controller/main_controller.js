@@ -144,7 +144,7 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
     })
  }
 });
-app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService,Util,$cookieStore){
+app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService,Util,$cookieStore,UserService){
   $scope.loginPage = function(){
     $scope.user = {};
     if($cookieStore.get('username')){
@@ -327,6 +327,22 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
  $scope.loadEmployeebyStatus = function(){
    employeeService.loadEmployeebyStatus().then(function(pRes){
      $scope.empstatus = pRes.data.data;
+   })
+ }
+
+ /*******************************************************/
+ /*************This is use for  user logout**************/
+ /*******************************************************/
+ $scope.password = {};
+ $scope.applyOTP = function(){
+   UserService.applyToken($scope.password.user_email).then(function(res){
+     if(res.data.statusCode == 200){
+        $scope.is_token = true;
+        Util.alertMessage('success', res.data.message);
+      }
+      else{
+        Util.alertMessage('danger', res.data.message);
+      }
    })
  }
 
