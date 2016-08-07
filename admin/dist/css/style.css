@@ -4941,3 +4941,25 @@ input[type=checkbox], input[type=radio]{
 .m-t-sm{
   margin-top: 5px;
 }
+
+
+
+
+
+
+
+
+.doc-wrap-bg{
+	background:#d2d6de;
+}
+.doc-wrap-bg h2{
+	font-size:24px;
+	font-weight:bold;
+	margin-top:0px;
+}
+.doc-wrap{
+	background:#fff;
+	border-radius:5px;
+	padding:30px;
+}
+.m-b-20{ margin-bottom:20px;}
