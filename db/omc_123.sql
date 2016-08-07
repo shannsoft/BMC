@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 06, 2016 at 01:46 PM
+-- Generation Time: Aug 07, 2016 at 02:55 PM
 -- Server version: 10.0.17-MariaDB
 -- PHP Version: 5.6.14
 
@@ -192,7 +192,9 @@ INSERT INTO `pension_history` (`history_id`, `pension_id`, `ulb_ref_no`, `ulb_re
 (1, 1, '123', '2016-08-13', '', '0000-00-00', '', '0000-00-00'),
 (2, 1, '123', '2016-08-10', '', '0000-00-00', '', '0000-00-00'),
 (3, 1, '123', '2016-08-05', '', '0000-00-00', '', '0000-00-00'),
-(4, 1, '123', '2016-08-12', NULL, NULL, NULL, NULL);
+(4, 1, '123', '2016-08-12', NULL, NULL, NULL, NULL),
+(5, 1, '12313', '2016-08-12', NULL, NULL, NULL, NULL),
+(6, 1, '12313', '2016-08-11', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -209,15 +211,17 @@ CREATE TABLE `retirement_pension` (
   `pending_at` text,
   `file_no` text,
   `dod` date DEFAULT NULL,
-  `remarks` text
+  `remarks` text,
+  `nominee` text,
+  `relation` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `retirement_pension`
 --
 
-INSERT INTO `retirement_pension` (`pension_id`, `emp_id`, `pension_type`, `pension_category`, `documents`, `pending_at`, `file_no`, `dod`, `remarks`) VALUES
-(1, 1, 'Pension', 'NON LFS', '1,2,3,4,7,9,11,12,13,14', 'ULB', NULL, '0000-00-00', 'Send to central officeasdfasdf');
+INSERT INTO `retirement_pension` (`pension_id`, `emp_id`, `pension_type`, `pension_category`, `documents`, `pending_at`, `file_no`, `dod`, `remarks`, `nominee`, `relation`) VALUES
+(1, 1, 'Family Pension', 'NON LFS', '1,2,3,4,7,9,11,12,13,14', 'ULB', NULL, '0000-00-00', 'Send to central officeasdfaasdfasdf', 'asdfd', 'asdfasd');
 
 -- --------------------------------------------------------
 
@@ -291,16 +295,17 @@ CREATE TABLE `user_tbl` (
   `roll_id` int(11) NOT NULL,
   `ulb_id` int(11) NOT NULL,
   `district_id` int(11) NOT NULL,
-  `user_token` text
+  `user_token` text,
+  `otp` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_tbl`
 --
 
-INSERT INTO `user_tbl` (`user_id`, `email`, `user_name`, `password`, `mobile`, `address`, `roll_id`, `ulb_id`, `district_id`, `user_token`) VALUES
-(1, 'admin@gmail.com', 'Admin', 'E10ADC3949BA59ABBE56E057F20F883E', '0', '', 0, 0, 0, 'dwo7zZA5V5n7Sx8GwzHJsTpLMK7I4O95qlmPs25pe7bNmjZtVPlnxnB1gdBl'),
-(2, 'santoshmajhi99@gmail.com', 'ulb_angul', 'E10ADC3949BA59ABBE56E057F20F883E', '9438753143', 'Anugul', 3, 1, 1, '');
+INSERT INTO `user_tbl` (`user_id`, `email`, `user_name`, `password`, `mobile`, `address`, `roll_id`, `ulb_id`, `district_id`, `user_token`, `otp`) VALUES
+(1, 'admin@gmail.com', 'Admin', 'E10ADC3949BA59ABBE56E057F20F883E', '0', '', 0, 0, 0, 'dwo7zZA5V5n7Sx8GwzHJsTpLMK7I4O95qlmPs25pe7bNmjZtVPlnxnB1gdBl', ''),
+(2, 'santoshmajhi99@gmail.com', 'ulb_angul', 'e10adc3949ba59abbe56e057f20f883e', '9438753143', 'Anugul', 3, 1, 1, 'y1BblPmhzh1NzOGXbpXtKwVz89aYEJNSago00b4A1uplzDuuuAWK6OOkhiKW', '831797');
 
 --
 -- Indexes for dumped tables
@@ -389,12 +394,12 @@ ALTER TABLE `document_master`
 -- AUTO_INCREMENT for table `employee_table`
 --
 ALTER TABLE `employee_table`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `pension_history`
 --
 ALTER TABLE `pension_history`
-  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `retirement_pension`
 --

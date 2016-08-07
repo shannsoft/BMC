@@ -157,7 +157,9 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
       "ref_no"  :$scope.employeeDoc.ref_no,
       "ref_date" :ref_date,
       "dod" :dod,
-      "remarks" :$scope.employeeDoc.remarks
+      "remarks" :$scope.employeeDoc.remarks,
+      "nominee" :$scope.employeeDoc.nominee,
+      "relation" :$scope.employeeDoc.relation,
     }
     console.log(obj);
     employeeService.updateEmployeeDoc(obj) .then(function(pRes){

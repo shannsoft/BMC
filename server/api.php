@@ -371,6 +371,8 @@ header('Access-Control-Allow-Origin: *');
 				$documents[$i]['file_no'] = $rows[$i]['file_no'];
 				$documents[$i]['dod'] = $rows[$i]['dod'];
 				$documents[$i]['remarks'] = $rows[$i]['remarks'];
+				$documents[$i]['nominee'] = $rows[$i]['nominee'];
+				$documents[$i]['relation'] = $rows[$i]['relation'];
 			}
 			$this->sendResponse(200,$this->messages['dataFetched'],$documents);
 		}
@@ -388,9 +390,15 @@ header('Access-Control-Allow-Origin: *');
       $ref_date = $document_data['ref_date'];
       $dod = ($document_data['dod']) ? $document_data['dod'] : null;
       $remarks = $document_data['remarks'];
+      $nominee = $document_data['nominee'];
+      $relation = $document_data['relation'];
       $pending_at = 'ULB';
       if($pension_id){
-        $sql = "update ".self::pension_tbl." set pension_type='$pension_type', pension_category='$category', documents='$documents', dod='$dod', remarks='$remarks', pending_at='$pending_at' where pension_id=".$pension_id;
+        $sql = "update ".self::pension_tbl." set pension_type='$pension_type', pension_category='$category', documents='$documents', dod='$dod', remarks='$remarks', pending_at='$pending_at'";
+				if(isset($document_data['nominee'])){
+					$sql .=", nominee ='$nominee', relation='$relation'";
+				}
+				$sql .=" where pension_id=".$pension_id;;
         $result = $this->executeGenericDMLQuery($sql);
         if($result){
           $sql = "insert into ".self::pension_history."(pension_id,ulb_ref_no,ulb_ref_date) values('$pension_id','$ref_no','$ref_date')";
@@ -398,7 +406,7 @@ header('Access-Control-Allow-Origin: *');
         }
       }
       else{
-        $sql = "insert into ".self::pension_tbl."(emp_id,pension_type,pension_category,documents,pending_at,dod,remarks) values('$emp_id','$pension_type','$category','$documents','$pending_at','$dod','$remarks')";
+        $sql = "insert into ".self::pension_tbl."(emp_id,pension_type,pension_category,documents,pending_at,dod,remarks,nominee,relation) values('$emp_id','$pension_type','$category','$documents','$pending_at','$dod','$remarks','$nominee','$relation')";
         $rows = $this->executeGenericDMLQuery($sql);
         if($rows){
           $pension_id = mysql_insert_id();
@@ -407,7 +415,7 @@ header('Access-Control-Allow-Origin: *');
         }
       }
       $sql = "SELECT a.name, a.villege_town, a.city, a.post, a.police_station, a.pin, a.mobile, a.email,
-      a.dob, a.doj, a.dor, b.district_name, c.designation, d.ulb_name,e.pension_type,e.pension_category,e.documents,e.remarks
+      a.dob, a.doj, a.dor, b.district_name, c.designation, d.ulb_name,e.pension_type,e.pension_category,e.documents,e.remarks,e.nominee,e.relation
       FROM employee_table a
       INNER JOIN district_master b ON a.district_id = b.district_id
       INNER JOIN designation_master c ON a.designation_id = c.designation_id
@@ -435,8 +443,11 @@ header('Access-Control-Allow-Origin: *');
         $employee['pension_category'] = $rows[0]['pension_category'];
         $employee['documents'] = $rows[0]['documents'];
         $employee['remarks'] = $rows[0]['remarks'];
+        $employee['nominee'] = $rows[0]['nominee'];
+        $employee['relation'] = $rows[0]['relation'];
 			}
 			$this->sendResponse(200,$this->messages['dataFetched'],$employee);
+
 		}
 		public function employeeList() {
 			$headers = apache_request_headers();
