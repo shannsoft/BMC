@@ -110,25 +110,24 @@
     <div class="row" id="cover_page">
   		<div class="col-sm-8 col-sm-offset-2">
   			<div class="doc-wrap">
-  				<h2 class="text-center">ULB</h2>
-
-  				<hr/>
   				<div class="row m-b-20">
   					<div class="col-sm-6">
-  						<div class="block"><strong>Ref no :</strong> <span>454132</span></div>
-  						<div class="block"><strong>Ref Date :</strong> <span>454132</span></div>
+  						<div class="block"><strong>Ref no :</strong> <span>{{employeeDoc.ref_no}}</span></div>
+  						<div class="block"><strong>Ref Date :</strong> <span>{{employeeDoc.ref_date | date:'yyyy-MM-dd'}}</span></div>
   					</div>
   					<div class="col-sm-6 text-right">
-  						<div class="block"><strong>Application no :</strong> <span>123</span></div>
+  						<div class="block"><strong>Application no :</strong> <span>{{updatedData.id}}</span></div>
   					</div>
   				</div>
   				<hr/>
   				<div class="row m-b-20">
   					<div class="col-sm-2">
-  						<strong>To,</strong>
+  						<strong>To</strong>
   					</div>
   					<div class="col-sm-10">
-  						<p>Consectetur adipiscing elit. Maecenas gravida euismod elit ac consequat. Sed vel nisl odio. Ut mattis ex laoreet, rutrum tellus sed, pretium turpis.rutrum tellus sed.</p>
+  						<p>The under Secretary to Goverment,<br>
+                 Housing&Urban Devlopment Department,<br>
+                 Odisha,Bhubaneswar</p>
   					</div>
   				</div>
   				<div class="row m-b-20">
@@ -136,7 +135,7 @@
   						<strong>Sub :</strong>
   					</div>
   					<div class="col-sm-10">
-  						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas gravida euismod. </p>
+  						<p>{{updatedData.remarks}} </p>
   					</div>
   				</div>
   				<hr/>
@@ -150,42 +149,36 @@
   					<tbody>
   						<tr>
   							<th width="25%">Name</th>
-  							<td>Santosh Majhi</td>
+  							<td>{{updatedData.name}}</td>
   						</tr>
   						<tr>
   							<th>Mobile no</th>
-  							<td>+91 9856471235</td>
+  							<td>{{updatedData.mobile}}</td>
   						</tr>
   						<tr>
   							<th>Date of Join</th>
-  							<td>july 3, 1980</td>
+  							<td>{{updatedData.doj}}</td>
   						</tr>
   						<tr>
   							<th>Date of birth</th>
-  							<td>july 3, 1965</td>
+  							<td>{{updatedData.dob}}</td>
   						</tr>
   						<tr>
   							<th>Date of Retire</th>
-  							<td>july 3, 2010</td>
+  							<td>{{updatedData.dor}}</td>
   						</tr>
   						<tr>
   							<th>Pension Type</th>
-  							<td>Pension / Family Pension</td>
+  							<td>{{updatedData.pension_type}}</td>
   						</tr>
   						<tr>
   							<th>Pension</th>
-  							<td>LFS / Non LFS</td>
+  							<td>{{updatedData.pension_category}}</td>
   						</tr>
   						<tr>
   							<th>Document List</th>
   							<td>
-  								<p>1) Maecenas gravida </p>
-  								<p>2) Consectetur adipiscing </p>
-  								<p>3) Gravida </p>
-  								<p>4) Maecenas </p>
-  								<p>5) Maecenas gravida </p>
-  								<p>6) Maecenas gravida </p>
-  								<p>7) Maecenas gravida </p>
+  								<p ng-repeat="doc in selectedDoc track by $index">{{$index+1}}) {{doc}}</p>
   							</td>
   						</tr>
   					</tbody>
@@ -196,7 +189,7 @@
             </div>
   					<div class="col-sm-6 text-right">
   						<p>your faithfully</p>
-  						<strong>Santosh Majhi</strong>
+              <p></p>
   					</div>
   				</div>
   			</div>

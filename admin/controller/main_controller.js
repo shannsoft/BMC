@@ -163,13 +163,22 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
       "relation" :$scope.employeeDoc.relation,
     }
     employeeService.updateEmployeeDoc(obj) .then(function(pRes){
-      console.log(pRes);
       $scope.updatedData = pRes.data.data;
       $scope.is_coverPage = true;
+      $scope.selectedDoc = [];
+      documents_list = $scope.updatedData.documents.split(',');
+      angular.forEach($scope.documentList,function(documents){
+      angular.forEach(documents_list,function(item){
+          if(item == documents.id){
+            $scope.selectedDoc.push(documents.document_name);
+          }
+        })
+      });
     })
+
  }
  $scope.printCoverPage  = function(div){
-   document.getElementById('title').innerHTML = 'Tesst title';
+   document.getElementById('title').innerHTML = $scope.updatedData.ulb;
    var docHead = document.head.outerHTML;
    document.getElementById('title').innerHTML = 'Odisha-eMunicipality';
    var printContents = document.getElementById(div).outerHTML;
