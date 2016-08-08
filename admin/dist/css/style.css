@@ -4963,3 +4963,8 @@ input[type=checkbox], input[type=radio]{
 	padding:30px;
 }
 .m-b-20{ margin-bottom:20px;}
+.forgot-spin{
+  margin-left: 120px;
+  font-size: 25px;
+  display: inline-block;
+}

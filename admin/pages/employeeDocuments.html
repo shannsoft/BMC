@@ -107,16 +107,16 @@
   </div>
 
   <div class="" ng-if="is_coverPage">
-    <div class="row" id="cover_page">
+    <div class="row">
   		<div class="col-sm-8 col-sm-offset-2">
-  			<div class="doc-wrap">
+  			<div class="doc-wrap" id="cover_page">
   				<div class="row m-b-20">
   					<div class="col-sm-6">
   						<div class="block"><strong>Ref no :</strong> <span>{{employeeDoc.ref_no}}</span></div>
   						<div class="block"><strong>Ref Date :</strong> <span>{{employeeDoc.ref_date | date:'yyyy-MM-dd'}}</span></div>
   					</div>
   					<div class="col-sm-6 text-right">
-  						<div class="block"><strong>Application no :</strong> <span>{{updatedData.id}}</span></div>
+  						<div class="block"><strong>Application no :</strong> <span>{{updatedData.pension_id}}</span></div>
   					</div>
   				</div>
   				<hr/>
@@ -185,7 +185,6 @@
   				</table>
   				<div class="row m-b-20">
             <div class="col-sm-6">
-              <!-- <button class="btn btn-default">Print</button> -->
             </div>
   					<div class="col-sm-6 text-right">
   						<p>Your's Faithfully</p>
