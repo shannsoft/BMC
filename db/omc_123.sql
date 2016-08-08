@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2016 at 02:55 PM
+-- Generation Time: Aug 08, 2016 at 09:27 AM
 -- Server version: 10.0.17-MariaDB
 -- PHP Version: 5.6.14
 
@@ -165,7 +165,9 @@ CREATE TABLE `employee_table` (
 
 INSERT INTO `employee_table` (`emp_id`, `name`, `designation_id`, `villege_town`, `city`, `post`, `police_station`, `district_id`, `pin`, `mobile`, `email`, `ulb_id`, `dob`, `doj`, `dor`, `emp_status`, `createdDate`, `modifiedDate`, `isDeleted`, `created_by`) VALUES
 (1, 'Santosh Majhi', 1, 'bhubaneswar', 'bhubaneswar', 'bbsr', 'test', 1, 751001, '9438753143', 'santoshmajhi99@gmail.com', 2, '2016-08-03', '2016-08-04', '2016-08-03', 'Retired', '2016-08-01', '2016-08-04', 0, 2),
-(2, 'Test', 3, 'Bhubaneswar', 'Bhubaneswar', 'sahid nagar', 'test', 1, 751001, '9078640778', 'santoshmajhi99@gmail.com', 2, '1981-05-14', '2016-08-11', '2017-03-18', 'Active', '2016-08-05', NULL, 0, 2);
+(2, 'Test', 3, 'Bhubaneswar', 'Bhubaneswar', 'sahid nagar', 'test', 1, 751001, '9078640778', 'santoshmajhi99@gmail.com', 2, '1981-05-14', '2016-08-11', '2017-03-18', 'Active', '2016-08-05', NULL, 0, 2),
+(3, 'pradeep', 3, 'kdp', 'bhadrak', 'bdk', 'bdk', 9, 456789, '9876545678', 'hg@gmail.com', 5, '1972-11-03', '1993-02-09', '2032-11-03', 'Retired', '2016-08-08', NULL, 0, 4),
+(4, 'seema', 1, 'kdp', 'bls', 'bdk', 'bdk', 9, 456778, '9876545678', 'hgg@gmail.com', 4, '2016-08-03', '2016-08-05', '2076-08-03', 'Retired', '2016-08-08', NULL, 0, 4);
 
 -- --------------------------------------------------------
 
@@ -194,7 +196,18 @@ INSERT INTO `pension_history` (`history_id`, `pension_id`, `ulb_ref_no`, `ulb_re
 (3, 1, '123', '2016-08-05', '', '0000-00-00', '', '0000-00-00'),
 (4, 1, '123', '2016-08-12', NULL, NULL, NULL, NULL),
 (5, 1, '12313', '2016-08-12', NULL, NULL, NULL, NULL),
-(6, 1, '12313', '2016-08-11', NULL, NULL, NULL, NULL);
+(6, 1, '12313', '2016-08-11', NULL, NULL, NULL, NULL),
+(7, 2, '123', '2016-08-12', NULL, NULL, NULL, NULL),
+(8, 3, '123', '2016-08-12', NULL, NULL, NULL, NULL),
+(9, 4, '123', '2016-08-12', NULL, NULL, NULL, NULL),
+(10, 5, '123', '2016-08-12', NULL, NULL, NULL, NULL),
+(11, 6, '123', '2016-08-12', NULL, NULL, NULL, NULL),
+(12, 7, '123', '2016-08-12', NULL, NULL, NULL, NULL),
+(13, 8, '123', '2016-08-12', NULL, NULL, NULL, NULL),
+(14, 9, '123', '2016-08-12', NULL, NULL, NULL, NULL),
+(15, 10, '123', '2016-08-12', NULL, NULL, NULL, NULL),
+(16, 11, '123', '2016-08-12', NULL, NULL, NULL, NULL),
+(17, 2, '123', '2016-08-25', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -221,7 +234,17 @@ CREATE TABLE `retirement_pension` (
 --
 
 INSERT INTO `retirement_pension` (`pension_id`, `emp_id`, `pension_type`, `pension_category`, `documents`, `pending_at`, `file_no`, `dod`, `remarks`, `nominee`, `relation`) VALUES
-(1, 1, 'Family Pension', 'NON LFS', '1,2,3,4,7,9,11,12,13,14', 'ULB', NULL, '0000-00-00', 'Send to central officeasdfaasdfasdf', 'asdfd', 'asdfasd');
+(1, 1, 'Family Pension', 'NON LFS', '1,2,3,4,7,9,11,12,13,14', 'ULB', NULL, '0000-00-00', 'Send to central officeasdfaasdfasdf', 'asdfd', 'asdfasd'),
+(2, 3, 'Pension', 'LFS', '1,2,8,12', 'ULB', NULL, '0000-00-00', 'gfhf', '', ''),
+(3, 3, 'Pension', 'LFS', '1,2,8', 'ULB', NULL, '0000-00-00', 'gfhf', '', ''),
+(4, 3, 'Pension', 'LFS', '1,2,8', 'ULB', NULL, '0000-00-00', 'gfhf', '', ''),
+(5, 3, 'Pension', 'LFS', '1,2,8', 'ULB', NULL, '0000-00-00', 'gfhf', '', ''),
+(6, 3, 'Pension', 'LFS', '1,2,8', 'ULB', NULL, '0000-00-00', 'gfhf', '', ''),
+(7, 3, 'Pension', 'LFS', '1,2,8', 'ULB', NULL, '0000-00-00', 'gfhf', '', ''),
+(8, 3, 'Pension', 'LFS', '1,2,8', 'ULB', NULL, '0000-00-00', 'gfhf', '', ''),
+(9, 3, 'Pension', 'LFS', '1,2,8', 'ULB', NULL, '0000-00-00', 'gfhf', '', ''),
+(10, 3, 'Pension', 'LFS', '1,2,8', 'ULB', NULL, '0000-00-00', 'gfhf', '', ''),
+(11, 3, 'Pension', 'LFS', '1,2,8', 'ULB', NULL, '0000-00-00', 'gfhf', '', '');
 
 -- --------------------------------------------------------
 
@@ -304,8 +327,9 @@ CREATE TABLE `user_tbl` (
 --
 
 INSERT INTO `user_tbl` (`user_id`, `email`, `user_name`, `password`, `mobile`, `address`, `roll_id`, `ulb_id`, `district_id`, `user_token`, `otp`) VALUES
-(1, 'admin@gmail.com', 'Admin', 'E10ADC3949BA59ABBE56E057F20F883E', '0', '', 0, 0, 0, 'dwo7zZA5V5n7Sx8GwzHJsTpLMK7I4O95qlmPs25pe7bNmjZtVPlnxnB1gdBl', ''),
-(2, 'santoshmajhi99@gmail.com', 'ulb_angul', 'e10adc3949ba59abbe56e057f20f883e', '9438753143', 'Anugul', 3, 1, 1, 'y1BblPmhzh1NzOGXbpXtKwVz89aYEJNSago00b4A1uplzDuuuAWK6OOkhiKW', '831797');
+(2, 'santoshmajhi99@gmail.com', 'ulb_angul', 'e10adc3949ba59abbe56e057f20f883e', '9438753143', 'Anugul', 3, 1, 1, '', '831797'),
+(3, 'info@ulbpension.com', 'ulb_pension', 'e10adc3949ba59abbe56e057f20f883e', '9876565656', 'bbsr', 1, 1, 1, '', ''),
+(4, 'biswal@gmail.com', 'ulb_bhuban', 'e10adc3949ba59abbe56e057f20f883e', '9853212234', 'dhenkanal', 3, 4, 9, 'FFrllCRA41rctAyECx1U8Bcs40Wf3rzLa8WX0OojFHLMJvqQjsctZfq7Q7XM', '');
 
 --
 -- Indexes for dumped tables
@@ -394,17 +418,17 @@ ALTER TABLE `document_master`
 -- AUTO_INCREMENT for table `employee_table`
 --
 ALTER TABLE `employee_table`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `pension_history`
 --
 ALTER TABLE `pension_history`
-  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `retirement_pension`
 --
 ALTER TABLE `retirement_pension`
-  MODIFY `pension_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `pension_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `role_master`
 --
@@ -424,7 +448,7 @@ ALTER TABLE `ulb_master`
 -- AUTO_INCREMENT for table `user_tbl`
 --
 ALTER TABLE `user_tbl`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

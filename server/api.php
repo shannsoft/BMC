@@ -313,7 +313,7 @@ header('Access-Control-Allow-Origin: *');
 			$roll_id = $rows[0]['roll_id'];
 			$status = $this->_request['status'];
 			$sql = "SELECT a.emp_id, a.district_id,a.ulb_id,a.designation_id, a.name, a.villege_town, a.city, a.post, a.police_station, a.pin, a.mobile, a.email, a.dob, a.doj, a.dor, a.emp_status, a.createdDate, a.modifiedDate, a.isDeleted, b.district_name, c.designation, d.ulb_name FROM employee_table a INNER JOIN district_master b ON a.district_id = b.district_id INNER JOIN designation_master c ON a.designation_id = c.designation_id INNER JOIN ulb_master d ON a.ulb_id = d.ulb_id where a.isDeleted = 0 AND a.emp_status='$status'";
-			if($roll_id == 1){
+			if($roll_id == 3){
 				$sql .= " AND a.created_by=".$user_id;
 			}
 			$rows = $this->executeGenericDQLQuery($sql);
@@ -629,6 +629,7 @@ header('Access-Control-Allow-Origin: *');
 			$accessToken = $headers['Accesstoken'];
 			$sql = "select * from ".self::usersTable." where user_token = '$accessToken'";
 			$rows = $this->executeGenericDQLQuery($sql);
+			$roll_id = $rows[0]['roll_id'];
 			$user_id = $rows[0]['user_id'];
 			switch ($this->_request['operation']) {
 				case 'create':
@@ -659,6 +660,8 @@ header('Access-Control-Allow-Origin: *');
 					$sql = "SELECT a.emp_id, a.district_id,a.ulb_id,a.designation_id, a.name, a.villege_town, a.city, a.post, a.police_station, a.pin, a.mobile, a.email, a.dob, a.doj, a.dor, a.emp_status, a.createdDate, a.modifiedDate, a.isDeleted, b.district_name, c.designation, d.ulb_name FROM employee_table a INNER JOIN district_master b ON a.district_id = b.district_id INNER JOIN designation_master c ON a.designation_id = c.designation_id INNER JOIN ulb_master d ON a.ulb_id = d.ulb_id where a.isDeleted = 0";
 					if(isset($employee_data['id']))
 						$sql .= " AND a.emp_id=".$employee_data['id'];
+					if($roll_id && $roll_id == 3)
+			      $sql .=" AND created_by=".$user_id;
 					$rows = $this->executeGenericDQLQuery($sql);
 					$employee = array();
 					for($i = 0; $i < sizeof($rows); $i++) {
