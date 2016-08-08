@@ -1,4 +1,5 @@
 app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,ulbService,$stateParams,$window,Util,employeeService){
+  $scope.employeeDoc = {};
   /*******************************************************/
   /*************This is use for employee List*************/
   /*******************************************************/
@@ -161,10 +162,24 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
       "nominee" :$scope.employeeDoc.nominee,
       "relation" :$scope.employeeDoc.relation,
     }
-    console.log(obj);
     employeeService.updateEmployeeDoc(obj) .then(function(pRes){
       console.log(pRes);
+      $scope.updatedData = pRes.data.data;
+      $scope.is_coverPage = true;
     })
+ }
+ $scope.printCoverPage  = function(div){
+   document.getElementById('title').innerHTML = 'Tesst title';
+   var docHead = document.head.outerHTML;
+   document.getElementById('title').innerHTML = 'Odisha-eMunicipality';
+   var printContents = document.getElementById(div).outerHTML;
+   var winAttr = "location=yes, statusbar=no, menubar=no, titlebar=no, toolbar=no,dependent=no, width=865, height=600, resizable=yes, screenX=200, screenY=200, personalbar=no, scrollbars=yes";
+   var newWin = window.open("", "_blank", winAttr);
+   var writeDoc = newWin.document;
+   writeDoc.open();
+   writeDoc.write('<!doctype html><html>' + docHead + '<body onLoad="window.print()">' + printContents + '</body></html>');
+   writeDoc.close();
+   newWin.focus();
  }
 });
 app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService,Util,$cookieStore,UserService){
@@ -400,13 +415,13 @@ app.controller("User_controller",function($scope,$localStorage,$rootScope,UserSe
       'mobile': $scope.profile.mobile,
       'address':$scope.profile.address
      }
-  UserService.updateProfile(obj).then(function(pRes) {
-       if(pRes.data.statusCode == 200){
-         Util.alertMessage('success', pRes.data.message);
-       }
-     },function(err) {
-     console.log(">>>>>>>>>>>>>   ",err);
-   })
+     UserService.updateProfile(obj).then(function(pRes) {
+         if(pRes.data.statusCode == 200){
+           Util.alertMessage('success', pRes.data.message);
+         }
+       },function(err) {
+       console.log(">>>>>>>>>>>>>   ",err);
+     })
   }
   /********* This is for loading userdetails in user profile page***********/
   $scope.loadUserdetails = function(){

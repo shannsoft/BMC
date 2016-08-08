@@ -608,7 +608,7 @@ header('Access-Control-Allow-Origin: *');
 			$password = md5($this->_request['password']);
 			$otp = $this->_request['otp'];
 			if(isset($this->_request['otp'])){
-				$sql = "update ".self::usersTable." set password='$password' where otp='$otp' AND email='$email'";
+				$sql = "update ".self::usersTable." set password='$password', otp=null where otp='$otp' AND email='$email'";
 				$result = $this->executeGenericDMLQuery($sql);
 				if($result){
 					$this->sendResponse(200,'Change Password Successfully');

@@ -5,103 +5,208 @@
   </h1>
 </section>
 <section class="content" ng-init="loadEmployeeDocs()">
-  <div class="">
     <div class="box box-info">
-      <div class="box-header with-border">
-        <h3 class="box-title">Add Employee Document</h3>
-      </div>
-      <form class="form-horizontal" name="addEmployeeDocument">
-        <div class="box-body">
-          <div class="form-group" ng-class="{'has-error': (addEmployeeDocument.pension_type.$invalid && addEmployeeDocument.pension_type.$touched)}">
-            <label for="inputPassword3" class="col-sm-3 control-label">Pension Type</label>
-            <div class="col-sm-8">
-              <select class="form-control" ng-model="employeeDoc.pension_type" name="pension_type" required>
-                <option value="">Select one</option>
-                <option value="Pension">Pension</option>
-                <option value="Family Pension">Family Pension</option>
-              </select>
-              <span class="help-block" ng-show="addEmployeeDocument.pension_type.$error.required && addEmployeeDocument.pension_type.$touched">Please enter employee status</span>
+      <div class="" ng-if="!is_coverPage">
+        <div class="box-header with-border">
+          <h3 class="box-title">Add Employee Document</h3>
+        </div>
+        <form class="form-horizontal" name="addEmployeeDocument">
+          <div class="box-body">
+            <div class="form-group" ng-class="{'has-error': (addEmployeeDocument.pension_type.$invalid && addEmployeeDocument.pension_type.$touched)}">
+              <label for="inputPassword3" class="col-sm-3 control-label">Pension Type</label>
+              <div class="col-sm-8">
+                <select class="form-control" ng-model="employeeDoc.pension_type" name="pension_type" required>
+                  <option value="">Select one</option>
+                  <option value="Pension">Pension</option>
+                  <option value="Family Pension">Family Pension</option>
+                </select>
+                <span class="help-block" ng-show="addEmployeeDocument.pension_type.$error.required && addEmployeeDocument.pension_type.$touched">Please enter employee status</span>
+              </div>
             </div>
-          </div>
-          <div class="form-group" ng-class="{'has-error': (addEmployeeDocument.pension_category.$invalid && addEmployeeDocument.pension_category.$touched)}">
-            <label for="inputPassword3" class="col-sm-3 control-label">Category</label>
-            <div class="col-sm-8">
-              <select class="form-control" ng-model="employeeDoc.pension_category" name="pension_category" required>
-                <option value="">Select one</option>
-                <option value="LFS">LFS</option>
-                <option value="NON LFS">Non LFS</option>
-              </select>
-              <span class="help-block" ng-show="addEmployeeDocument.pension_category.$error.required && addEmployeeDocument.pension_category.$touched">Please enter employee status</span>
+            <div class="form-group" ng-class="{'has-error': (addEmployeeDocument.pension_category.$invalid && addEmployeeDocument.pension_category.$touched)}">
+              <label for="inputPassword3" class="col-sm-3 control-label">Category</label>
+              <div class="col-sm-8">
+                <select class="form-control" ng-model="employeeDoc.pension_category" name="pension_category" required>
+                  <option value="">Select one</option>
+                  <option value="LFS">LFS</option>
+                  <option value="NON LFS">Non LFS</option>
+                </select>
+                <span class="help-block" ng-show="addEmployeeDocument.pension_category.$error.required && addEmployeeDocument.pension_category.$touched">Please enter employee status</span>
+              </div>
             </div>
-          </div>
-          <div class="form-group" ng-if="employeeDoc.pension_type == 'Family Pension'">
-            <label for="inputEmail3" class="col-sm-3 control-label">Nominee</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" name="emp_nominee" ng-model="employeeDoc.nominee" placeholder="Nominee">
+            <div class="form-group" ng-if="employeeDoc.pension_type == 'Family Pension'">
+              <label for="inputEmail3" class="col-sm-3 control-label">Nominee</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="emp_nominee" ng-model="employeeDoc.nominee" placeholder="Nominee">
+              </div>
             </div>
-          </div>
-          <div class="form-group" ng-if="employeeDoc.pension_type == 'Family Pension'">
-            <label for="inputEmail3" class="col-sm-3 control-label">Relation</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" name="emp_relation" ng-model="employeeDoc.relation" placeholder="Relation with employee">
+            <div class="form-group" ng-if="employeeDoc.pension_type == 'Family Pension'">
+              <label for="inputEmail3" class="col-sm-3 control-label">Relation</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="emp_relation" ng-model="employeeDoc.relation" placeholder="Relation with employee">
+              </div>
             </div>
-          </div>
-          <div class="form-group" ng-if="employeeDoc.pension_type == 'Family Pension'">
-            <label for="inputPassword3" class="col-sm-3 control-label">Date of Death/ In Service Death</label>
-            <div class="col-sm-8">
-                <p class="input-group">
-                  <input type="text" class="form-control" placeholder="Date of Death" uib-datepicker-popup ng-model="employeeDoc.dod" is-open="popup1.opened1" datepicker-options="dateOptions" close-text="Close"/>
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
-                  </span>
-                </p>
+            <div class="form-group" ng-if="employeeDoc.pension_type == 'Family Pension'">
+              <label for="inputPassword3" class="col-sm-3 control-label">Date of Death/ In Service Death</label>
+              <div class="col-sm-8">
+                  <p class="input-group">
+                    <input type="text" class="form-control" placeholder="Date of Death" uib-datepicker-popup ng-model="employeeDoc.dod" is-open="popup1.opened1" datepicker-options="dateOptions" close-text="Close"/>
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                  </p>
+              </div>
             </div>
-          </div>
-          <div class="form-group" >
-            <label for="inputEmail3" class="col-sm-3 control-label">Documents</label>
-            <div class="col-sm-8">
-              <label ng-repeat="document in documentList" style="display:block;"><input type="checkbox" ng-model="document.is_selected">{{document.document_name}}</label>
+            <div class="form-group" >
+              <label for="inputEmail3" class="col-sm-3 control-label">Documents</label>
+              <div class="col-sm-8">
+                <label ng-repeat="document in documentList" style="display:block;"><input type="checkbox" ng-model="document.is_selected">{{document.document_name}}</label>
+              </div>
             </div>
-          </div>
-          <div class="form-group" ng-class="{'has-error': (addEmployeeDocument.emp_refno.$invalid && addEmployeeDocument.emp_refno.$touched)}">
-             <label for="inputEmail3" class="col-sm-3 control-label">Reference No</label>
+            <div class="form-group" ng-class="{'has-error': (addEmployeeDocument.emp_refno.$invalid && addEmployeeDocument.emp_refno.$touched)}">
+               <label for="inputEmail3" class="col-sm-3 control-label">Reference No</label>
+               <div class="col-sm-8">
+                 <input type="text" class="form-control" name="emp_refno" ng-model="employeeDoc.ref_no" placeholder="Reference No"  ng-pattern="/^[0-9]+$/" required>
+                 <span class="help-block" ng-show="addEmployeeDocument.emp_refno.$error.required && addEmployeeDocument.emp_refno.$touched">Please enter employee ref no</span>
+                 <span class="help-block" ng-show="addEmployeeDocument.emp_refno.$error.pattern && addEmployeeDocument.emp_refno.$touched">refno should be numeric</span>
+               </div>
+             </div>
+             <div class="form-group">
+             <label for="inputPassword3" class="col-sm-3 control-label">Date</label>
              <div class="col-sm-8">
-               <input type="text" class="form-control" name="emp_refno" ng-model="employeeDoc.ref_no" placeholder="Reference No"  ng-pattern="/^[0-9]+$/" required>
-               <span class="help-block" ng-show="addEmployeeDocument.emp_refno.$error.required && addEmployeeDocument.emp_refno.$touched">Please enter employee ref no</span>
-               <span class="help-block" ng-show="addEmployeeDocument.emp_refno.$error.pattern && addEmployeeDocument.emp_refno.$touched">refno should be numeric</span>
+                 <!-- <input type="text" class="form-control pull-right" id="datepicker" ng-model="buildingPlan.date"> -->
+                 <!-- <div date-picker="dates.today" id="pickerMinDateDiv" min-date="minDate" view="date" min-view="hours" timezone="UTC" watch-direct-changes="true"></div> -->
+                 <p class="input-group">
+                   <input type="text" class="form-control" uib-datepicker-popup ng-model="employeeDoc.ref_date" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                   <span class="input-group-btn">
+                     <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+                   </span>
+                 </p>
              </div>
            </div>
-           <div class="form-group">
-           <label for="inputPassword3" class="col-sm-3 control-label">Date</label>
-           <div class="col-sm-8">
-               <!-- <input type="text" class="form-control pull-right" id="datepicker" ng-model="buildingPlan.date"> -->
-               <!-- <div date-picker="dates.today" id="pickerMinDateDiv" min-date="minDate" view="date" min-view="hours" timezone="UTC" watch-direct-changes="true"></div> -->
-               <p class="input-group">
-                 <input type="text" class="form-control" uib-datepicker-popup ng-model="employeeDoc.ref_date" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
-                 <span class="input-group-btn">
-                   <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
-                 </span>
-               </p>
-           </div>
-         </div>
-           <div class="box-body">
-           <div class="form-group">
-            <label for="inputEmail3" class="col-sm-3 control-label">Remarks</label>
-            <div class="col-sm-8" ng-class="{'has-error': (addEmployeeDocument.emp_remarks.$invalid && addEmployeeDocument.emp_remarks.$touched)}">
-              <textarea name="emp_remarks" class="form-control" rows="4" placeholder="Remarks" ng-model="employeeDoc.remarks" required></textarea>
-              <span class="help-block" ng-show="addEmployeeDocument.emp_remarks.$error.required && addEmployeeDocument.emp_remarks.$touched">Please enter your  remarks</span>
+             <div class="box-body">
+             <div class="form-group">
+              <label for="inputEmail3" class="col-sm-3 control-label">Remarks</label>
+              <div class="col-sm-8" ng-class="{'has-error': (addEmployeeDocument.emp_remarks.$invalid && addEmployeeDocument.emp_remarks.$touched)}">
+                <textarea name="emp_remarks" class="form-control" rows="4" placeholder="Remarks" ng-model="employeeDoc.remarks" required></textarea>
+                <span class="help-block" ng-show="addEmployeeDocument.emp_remarks.$error.required && addEmployeeDocument.emp_remarks.$touched">Please enter your  remarks</span>
+              </div>
             </div>
           </div>
-        </div>
-         <div class="box-footer">
-          <button type="submit" class="btn btn-default" ui-sref="retiredemployeelist">Cancel</button>
-          <button ng-disabled="addEmployeeDocument.$invalid" type="submit" class="btn btn-info pull-right" ng-click="updateEmployeeDoc(employeeDoc.id)">Send to ULB</button>
-          <section  align="center m-t-sm">
-              <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="close()">{{alert.msg}}</alert>
-          </section>
-        </div>
-        <!-- /.box-footer -->
-      </form>
+           <div class="box-footer">
+            <button type="submit" class="btn btn-default" ui-sref="retiredemployeelist">Cancel</button>
+            <button ng-disabled="addEmployeeDocument.$invalid" type="submit" class="btn btn-info pull-right" ng-click="updateEmployeeDoc(employeeDoc.id)">Send to ULB</button>
+            <section  align="center m-t-sm">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="close()">{{alert.msg}}</alert>
+            </section>
+          </div>
+          <!-- /.box-footer -->
+        </form>
+      </div>
     </div>
+  </div>
+
+  <div class="" ng-if="is_coverPage">
+    <div class="row" id="cover_page">
+  		<div class="col-sm-8 col-sm-offset-2">
+  			<div class="doc-wrap">
+  				<h2 class="text-center">ULB</h2>
+
+  				<hr/>
+  				<div class="row m-b-20">
+  					<div class="col-sm-6">
+  						<div class="block"><strong>Ref no :</strong> <span>454132</span></div>
+  						<div class="block"><strong>Ref Date :</strong> <span>454132</span></div>
+  					</div>
+  					<div class="col-sm-6 text-right">
+  						<div class="block"><strong>Application no :</strong> <span>123</span></div>
+  					</div>
+  				</div>
+  				<hr/>
+  				<div class="row m-b-20">
+  					<div class="col-sm-2">
+  						<strong>To,</strong>
+  					</div>
+  					<div class="col-sm-10">
+  						<p>Consectetur adipiscing elit. Maecenas gravida euismod elit ac consequat. Sed vel nisl odio. Ut mattis ex laoreet, rutrum tellus sed, pretium turpis.rutrum tellus sed.</p>
+  					</div>
+  				</div>
+  				<div class="row m-b-20">
+  					<div class="col-sm-2">
+  						<strong>Sub :</strong>
+  					</div>
+  					<div class="col-sm-10">
+  						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas gravida euismod. </p>
+  					</div>
+  				</div>
+  				<hr/>
+  				<div class="row m-b-20">
+  					<div class="col-sm-112">
+  						<p style="text-indent: 40px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas gravida euismod elit ac consequat. Sed vel nisl odio. Ut mattis ex laoreet, rutrum tellus sed, pretium turpis.rutrum tellus sed, pretium turpis.rutrum tellus sed, pretium turpis.rutrum tellus sed, pretium turpis.rutrum tellus sed, pretium turpis.</p>
+  					</div>
+  				</div>
+
+  				<table class="table table-bordered">
+  					<tbody>
+  						<tr>
+  							<th width="25%">Name</th>
+  							<td>Santosh Majhi</td>
+  						</tr>
+  						<tr>
+  							<th>Mobile no</th>
+  							<td>+91 9856471235</td>
+  						</tr>
+  						<tr>
+  							<th>Date of Join</th>
+  							<td>july 3, 1980</td>
+  						</tr>
+  						<tr>
+  							<th>Date of birth</th>
+  							<td>july 3, 1965</td>
+  						</tr>
+  						<tr>
+  							<th>Date of Retire</th>
+  							<td>july 3, 2010</td>
+  						</tr>
+  						<tr>
+  							<th>Pension Type</th>
+  							<td>Pension / Family Pension</td>
+  						</tr>
+  						<tr>
+  							<th>Pension</th>
+  							<td>LFS / Non LFS</td>
+  						</tr>
+  						<tr>
+  							<th>Document List</th>
+  							<td>
+  								<p>1) Maecenas gravida </p>
+  								<p>2) Consectetur adipiscing </p>
+  								<p>3) Gravida </p>
+  								<p>4) Maecenas </p>
+  								<p>5) Maecenas gravida </p>
+  								<p>6) Maecenas gravida </p>
+  								<p>7) Maecenas gravida </p>
+  							</td>
+  						</tr>
+  					</tbody>
+  				</table>
+  				<div class="row m-b-20">
+            <div class="col-sm-6">
+              <!-- <button class="btn btn-default">Print</button> -->
+            </div>
+  					<div class="col-sm-6 text-right">
+  						<p>your faithfully</p>
+  						<strong>Santosh Majhi</strong>
+  					</div>
+  				</div>
+  			</div>
+        <div class="row m-b-20">
+          <div class="col-sm-6">
+            <button class="btn btn-default" ng-click="printCoverPage('cover_page')">Print</button>
+          </div>
+        </div>
+  		</div>
+  	</div>
+
   </div>
 </section>
