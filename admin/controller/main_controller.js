@@ -177,6 +177,7 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
     })
 
  }
+ /*******This is used for print a page after adding all the retire documents**************/
  $scope.printCoverPage  = function(div){
    document.getElementById('title').innerHTML = $scope.updatedData.ulb;
    var docHead = document.head.outerHTML;
