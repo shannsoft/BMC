@@ -382,9 +382,11 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
  /*******************************************************/
  $scope.password = {};
  $scope.applyOTP = function(){
+   $scope.is_forgot = true;
    UserService.applyToken($scope.password.user_email).then(function(res){
      if(res.data.statusCode == 200){
         $scope.is_token = true;
+        $scope.is_forgot = false;
         Util.alertMessage('success', res.data.message);
       }
       else{
@@ -396,7 +398,6 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
    UserService.forgotPassword($scope.password).then(function(res){
      console.log(res);
      if(res.data.statusCode == 200){
-        $scope.is_token = true;
         Util.alertMessage('success', res.data.message);
         setTimeout(function () {
           $state.go('login');

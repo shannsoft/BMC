@@ -415,7 +415,7 @@ header('Access-Control-Allow-Origin: *');
         }
       }
       $sql = "SELECT a.name, a.villege_town, a.city, a.post, a.police_station, a.pin, a.mobile, a.email,
-      a.dob, a.doj, a.dor, b.district_name, c.designation, d.ulb_name,e.pension_type,e.pension_category,e.documents,e.remarks,e.nominee,e.relation
+      a.dob, a.doj, a.dor, b.district_name, c.designation, d.ulb_name,e.pension_id,e.pension_type,e.pension_category,e.documents,e.remarks,e.nominee,e.relation
       FROM employee_table a
       INNER JOIN district_master b ON a.district_id = b.district_id
       INNER JOIN designation_master c ON a.designation_id = c.designation_id
@@ -439,6 +439,7 @@ header('Access-Control-Allow-Origin: *');
 				$employee['doj'] = $rows[0]['doj'];
 				$employee['dor'] = $rows[0]['dor'];
 				$employee['ulb'] = $rows[0]['ulb_name'];
+				$employee['pension_id'] = $rows[0]['pension_id'];
         $employee['pension_type'] = $rows[0]['pension_type'];
         $employee['pension_category'] = $rows[0]['pension_category'];
         $employee['documents'] = $rows[0]['documents'];
@@ -565,14 +566,14 @@ header('Access-Control-Allow-Origin: *');
 			  $Mail->SMTPAuth    = TRUE; // enable SMTP authentication
 			  $Mail->SMTPSecure  = "tls"; //Secure conection
 			  $Mail->Port        = 587; // set the SMTP port
-			  $Mail->Username    = 'rajendrasahoodbpb@gmail.com'; // SMTP account username
-			  $Mail->Password    = 'dbpb*raju'; // SMTP account password
+			  $Mail->Username    = 'santoshmajhi99@gmail.com'; // SMTP account username
+			  $Mail->Password    = 'mahisantu'; // SMTP account password
 			  $Mail->Priority    = 1; // Highest priority - Email priority (1 = High, 3 = Normal, 5 = low)
 			  $Mail->CharSet     = 'UTF-8';
 			  $Mail->Encoding    = '8bit';
 			  $Mail->Subject     = 'Forgot Password';
 			  $Mail->ContentType = 'text/html; charset=utf-8\r\n';
-			  $Mail->From        = 'info@ulbpension.com';
+			  $Mail->From        = 'santoshmajhi99@gmail.com';
 			  $Mail->FromName    = 'Odisha e-Municipality';
 			  $Mail->WordWrap    = 900; // RFC 2822 Compliant for Max 998 characters per line
 
