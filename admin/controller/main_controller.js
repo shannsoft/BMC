@@ -18,6 +18,7 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
     employeeService.getEmployeeListBystatus($stateParams.status).then(function(pRes) {
       if(pRes.data.statusCode == 200){
         $scope.employee_list = pRes.data.data;
+        $scope.loaddistrict();
       }
     })
   }
@@ -330,8 +331,9 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
  /**binds district and ulb in district and ulb dropdown in newemployee page**/
  $scope.loaddistrict = function(){
    employeeService.loaddistrict().then(function(pRes){
-     if(pRes.status == 200){
-     $scope.district = pRes.data.data;
+     if(pRes.data.statusCode == 200){
+       $scope.district = pRes.data.data;
+       console.log($scope.district);
      }
    })
    $scope.current_ulb = $localStorage.user.ulb;
@@ -339,12 +341,6 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
  $scope.getdistrictulb = function(emp_district){
    employeeService.getdistrictulb(parseInt(emp_district)).then(function(pRes){
      $scope.ulblist = pRes.data.data;
-     angular.forEach($scope.ulblist,function(item){
-       if(parseInt(item.id) == parseInt($localStorage.user.ulb_id)){
-         $scope.current_ulb = item.name;
-         console.log($scope.current_ulb);
-       }
-     })
    })
  }
  /************ This is for submitting employee details*************/

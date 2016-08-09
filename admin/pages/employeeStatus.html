@@ -9,8 +9,22 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">Employee List</h3>
+        <div class="box-header row">
+          <div class="col-md-4">
+            <h3 class="box-title ">Employee List</h3>
+          </div>
+          <div class="col-md-4">
+            <select class="form-control" ng-model="emp_district" name="emp_district" ng-change="emp_ulb='All';getdistrictulb(emp_district)" ng-init="emp_district = 'All'">
+              <option value="All">Search By District</option>
+              <option value="{{district.id}}" ng-repeat="district in district" >{{district.name}}</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <select class="form-control" ng-model="emp_ulb" name="emp_district" ng-init="emp_ulb = 'All'">
+              <option value="All" ng-selected="true">Search By ULB</option>
+              <option value="{{ulb.id}}" ng-repeat="ulb in ulblist" >{{ulb.name}}</option>
+            </select>
+          </div>
         </div>
         <div class="box-body over-x-sc">
           <table id="example2" class="table table-bordered table-hover">
@@ -36,26 +50,26 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="Retiredemployee in employee_list">
+              <tr ng-repeat="retired_emp in employee_list" ng-hide="(emp_district != 'All' && emp_district != retired_emp.district_id) || (emp_ulb != 'All' && emp_ulb != retired_emp.ulb_id)">
                 <td>{{$index+1}}</td>
-                <td>{{Retiredemployee.name}}</td>
-                <td>{{Retiredemployee.designation}}</td>
-                <td>{{Retiredemployee.village}}</td>
-                <td>{{Retiredemployee.city}}</td>
-                <td>{{Retiredemployee.post}}</td>
-                <td>{{Retiredemployee.police_station}}</td>
-                <td>{{Retiredemployee.district}}</td>
-                <td>{{Retiredemployee.pin}}</td>
-                <td>{{Retiredemployee.mobile}}</td>
-                <td>{{Retiredemployee.email}}</td>
-                <td>{{Retiredemployee.dob}}</td>
-                <td>{{Retiredemployee.doj}}</td>
-                <td>{{Retiredemployee.dor}}</td>
-                <td>{{Retiredemployee.ulb}}</td>
-                <td>{{Retiredemployee.emp_status}}</td>
+                <td>{{retired_emp.name}}</td>
+                <td>{{retired_emp.designation}}</td>
+                <td>{{retired_emp.village}}</td>
+                <td>{{retired_emp.city}}</td>
+                <td>{{retired_emp.post}}</td>
+                <td>{{retired_emp.police_station}}</td>
+                <td>{{retired_emp.district}}</td>
+                <td>{{retired_emp.pin}}</td>
+                <td>{{retired_emp.mobile}}</td>
+                <td>{{retired_emp.email}}</td>
+                <td>{{retired_emp.dob}}</td>
+                <td>{{retired_emp.doj}}</td>
+                <td>{{retired_emp.dor}}</td>
+                <td>{{retired_emp.ulb}}</td>
+                <td>{{retired_emp.emp_status}}</td>
                 <td ng-if="logedIn_user.roll_id == 3 && status == 'Retired'" align="center">
-                  <button ng-click="acceptRetirement(Retiredemployee.id)" type="button" class="btn btn-block btn-info btn-x" ng-if="Retiredemployee.emp_status != 'Retired'">Accept Retirement</button>
-                  <button type="button" class="btn btn-sm btn-info btn-x" ng-if="Retiredemployee.emp_status == 'Retired'"><i class="fa fa-check"></i></button>
+                  <button ng-click="acceptRetirement(retired_emp.id)" type="button" class="btn btn-block btn-info btn-x" ng-if="retired_emp.emp_status != 'Retired'">Accept Retirement</button>
+                  <button type="button" class="btn btn-sm btn-info btn-x" ng-if="retired_emp.emp_status == 'Retired'"><i class="fa fa-check"></i></button>
                 </td>
               </tr>
             </tbody>

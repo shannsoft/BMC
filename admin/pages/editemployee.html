@@ -16,7 +16,7 @@
           <div class="form-group" ng-class="{'has-error': (addemployee.emp_name.$invalid && addemployee.emp_name.$touched)}">
              <label for="inputEmail3" class="col-sm-3 control-label">Employee Name</label>
              <div class="col-sm-8">
-               <input type="text" class="form-control" name="emp_name" ng-model="employee.name" placeholder="employee Name" required ng-pattern="/^(\D)+$/">
+               <input type="text" class="form-control" name="emp_name" ng-model="employee.name" placeholder="Employee Name" required ng-pattern="/^(\D)+$/">
                <span class="help-block" ng-show="addemployee.emp_name.$error.required && addemployee.emp_name.$touched">Please enter employee name</span>
                <span class="help-block" ng-show="addemployee.emp_name.$error.pattern && addemployee.emp_name.$touched">Name should not be numeric</span>
              </div>
@@ -34,7 +34,7 @@
           <div class="form-group" ng-class="{'has-error': (addemployee.emp_village.$invalid && addemployee.emp_village.$touched)}">
             <label for="inputEmail3" class="col-sm-3 control-label">Village/Town</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" name="emp_village" ng-model="employee.village" placeholder="village/town" required ng-pattern="/^(\D)+$/">
+              <input type="text" class="form-control" name="emp_village" ng-model="employee.village" placeholder="Village/Town" required ng-pattern="/^(\D)+$/">
               <span class="help-block" ng-show="addemployee.emp_village.$error.required && addemployee.emp_village.$touched">Please enter village name</span>
               <span class="help-block" ng-show="addemployee.emp_village.$error.pattern && addemployee.emp_village.$touched">Name should not be numeric</span>
             </div>
@@ -42,7 +42,7 @@
           <div class="form-group" ng-class="{'has-error': (addemployee.emp_city.$invalid && addemployee.emp_city.$touched)}">
             <label for="inputEmail3" class="col-sm-3 control-label">city</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" name="emp_city" ng-model="employee.city" placeholder="employee city" required ng-pattern="/^(\D)+$/">
+              <input type="text" class="form-control" name="emp_city" ng-model="employee.city" placeholder="Employee City" required ng-pattern="/^(\D)+$/">
               <span class="help-block" ng-show="addemployee.emp_city.$error.required && addemployee.emp_city.$touched">Please enter city name</span>
               <span class="help-block" ng-show="addemployee.emp_city.$error.pattern && addemployee.emp_city.$touched">city should not be numeric</span>
             </div>
@@ -58,7 +58,7 @@
           <div class="form-group" ng-class="{'has-error': (addemployee.emp_ps.$invalid && addemployee.emp_ps.$touched)}">
             <label for="inputEmail3" class="col-sm-3 control-label">Ps</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" name="emp_ps" ng-model="employee.police_station" placeholder="employee postal address" required ng-pattern="/^(\D)+$/">
+              <input type="text" class="form-control" name="emp_ps" ng-model="employee.police_station" placeholder="Employee Postal Address" required ng-pattern="/^(\D)+$/">
               <span class="help-block" ng-show="addemployee.emp_ps.$error.required && addemployee.emp_ps.$touched">Please enter po name</span>
               <span class="help-block" ng-show="addemployee.emp_ps.$error.pattern && addemployee.emp_ps.$touched">city should not be numeric</span>
             </div>
@@ -109,7 +109,7 @@
               <!-- <input type="text" class="form-control pull-right" id="datepicker" ng-model="buildingPlan.date"> -->
               <!-- <div date-picker="dates.today" id="pickerMinDateDiv" min-date="minDate" view="date" min-view="hours" timezone="UTC" watch-direct-changes="true"></div> -->
               <p class="input-group">
-                <input type="text" class="form-control" uib-datepicker-popup ng-model="employee.dob" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                <input type="text" class="form-control" placeholder="Date of Birth" uib-datepicker-popup ng-model="employee.dob" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
@@ -122,7 +122,7 @@
               <!-- <input type="text" class="form-control pull-right" id="datepicker" ng-model="buildingPlan.date"> -->
               <!-- <div date-picker="dates.today" id="pickerMinDateDiv" min-date="minDate" view="date" min-view="hours" timezone="UTC" watch-direct-changes="true"></div> -->
               <p class="input-group">
-                <input type="text" class="form-control" uib-datepicker-popup ng-model="employee.doj" is-open="popup1.opened1" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                <input type="text" class="form-control" placeholder="Date of Joining" uib-datepicker-popup ng-model="employee.doj" is-open="popup1.opened1" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>

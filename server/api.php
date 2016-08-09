@@ -294,8 +294,11 @@ header('Access-Control-Allow-Origin: *');
 			$this->sendResponse(200,$this->messages['dataFetched'],$desig);
 		}
 		public function getULBList(){
-			$district_id = $this->_request['district_id'];
-			$sql = "select * from ".self::ulb_tbl." where district_id = ".$district_id;
+			$sql = "select * from ".self::ulb_tbl;
+			if(isset($this->_request['district_id'])){
+				$district_id = $this->_request['district_id'];
+				$sql .= " where district_id = ".$district_id;
+			}
 			$rows = $this->executeGenericDQLQuery($sql);
 			$desig = array();
 			for($i=0;$i<sizeof($rows);$i++){
@@ -545,7 +548,6 @@ header('Access-Control-Allow-Origin: *');
 		}
 
 		public function sendOtp(){
-
 				// creatin OTP
 				$otp = mt_rand(100000,999999);
 				$toEmail = $this->_request['toEmail'];
