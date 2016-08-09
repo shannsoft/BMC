@@ -557,52 +557,59 @@ header('Access-Control-Allow-Origin: *');
 				$MessageHTML = "<h3> Reset password  <h3>
 											<p>Dear User ,</p>
 											<p> The OTP for the password reset is <b>$otp</b></p>";
+					$Mail = new PHPMailer();
+				  $Mail->IsSMTP(); // Use SMTP
+				  $Mail->Host        = "localhost"; // Sets SMTP serve
+				  $Mail->Subject     = 'Forgot Password';
+				  $Mail->ContentType = 'text/html; charset=utf-8\r\n';
+				  $Mail->From        = 'Info@ulbpension.com';
+				  $Mail->FromName    = 'Odisha e-Municipality';
+				  $Mail->WordWrap    = 900; // RFC 2822 Compliant for Max 998 characters per line
+				  $Mail->AddAddress( $toEmail ); // To:
+				  $Mail->isHTML( TRUE );
+				  $Mail->Body = $MessageHTML;
+				  $Mail->Send();
+				  $Mail->SmtpClose();
+				  if ( $Mail->IsError() ) {
+						return $this->sendResponse(201,$this->messages['otpSentError']);
+				  }
+				  else {
+						return $this->sendResponse(200,$this->messages['otpSentSuccess']);
+				  }
 
-
-				$Mail = new PHPMailer();
-			  $Mail->IsSMTP(); // Use SMTP
-			  $Mail->Host        = "smtp.gmail.com"; // Sets SMTP server
-			  $Mail->SMTPDebug   = 2; // 2 to enable SMTP debug information
-			  $Mail->SMTPAuth    = TRUE; // enable SMTP authentication
-			  $Mail->SMTPSecure  = "tls"; //Secure conection
-			  $Mail->Port        = 587; // set the SMTP port
-			  $Mail->Username    = 'santoshmajhi99@gmail.com'; // SMTP account username
-			  $Mail->Password    = 'mahisantu'; // SMTP account password
-			  $Mail->Priority    = 1; // Highest priority - Email priority (1 = High, 3 = Normal, 5 = low)
-			  $Mail->CharSet     = 'UTF-8';
-			  $Mail->Encoding    = '8bit';
-			  $Mail->Subject     = 'Forgot Password';
-			  $Mail->ContentType = 'text/html; charset=utf-8\r\n';
-			  $Mail->From        = 'santoshmajhi99@gmail.com';
-			  $Mail->FromName    = 'Odisha e-Municipality';
-			  $Mail->WordWrap    = 900; // RFC 2822 Compliant for Max 998 characters per line
-
-			  $Mail->AddAddress( $toEmail ); // To:
-			  $Mail->isHTML( TRUE );
-			  $Mail->Body    = $MessageHTML;
-			  // $Mail->AltBody = $MessageTEXT;
-			  $Mail->Send();
-			  $Mail->SmtpClose();
-
-			  if ( $Mail->IsError() ) { // ADDED - This error checking was missing
-			    // return FALSE;
-					return $this->sendResponse(201,$this->messages['otpSentError']);
-			  }
-			  else {
-					return $this->sendResponse(200,$this->messages['otpSentSuccess']);
-			    // return TRUE;
-			  }
-
-
-
-			$Send = SendMail( $toEmail, $MessageHTML, $MessageTEXT );
-			// if ( $Send ) {
-			//   return $this->sendResponse(200,"otpSentSuccess");
-			// }
-			// else {
-			//     $this->sendResponse(200,"otpSentError");
-			// }
-			// $this->sendResponse(200,$this->messages['dataFetched'],$document);
+				// $Mail = new PHPMailer();
+			  // $Mail->IsSMTP(); // Use SMTP
+			  // $Mail->Host        = "smtp.gmail.com"; // Sets SMTP server
+			  // $Mail->SMTPDebug   = 2; // 2 to enable SMTP debug information
+			  // $Mail->SMTPAuth    = TRUE; // enable SMTP authentication
+			  // $Mail->SMTPSecure  = "tls"; //Secure conection
+			  // $Mail->Port        = 587; // set the SMTP port
+			  // $Mail->Username    = 'santoshmajhi99@gmail.com'; // SMTP account username
+			  // $Mail->Password    = 'mahisantu'; // SMTP account password
+			  // $Mail->Priority    = 1; // Highest priority - Email priority (1 = High, 3 = Normal, 5 = low)
+			  // $Mail->CharSet     = 'UTF-8';
+			  // $Mail->Encoding    = '8bit';
+			  // $Mail->Subject     = 'Forgot Password';
+			  // $Mail->ContentType = 'text/html; charset=utf-8\r\n';
+			  // $Mail->From        = 'santoshmajhi99@gmail.com';
+			  // $Mail->FromName    = 'Odisha e-Municipality';
+			  // $Mail->WordWrap    = 900; // RFC 2822 Compliant for Max 998 characters per line
+				//
+			  // $Mail->AddAddress( $toEmail ); // To:
+			  // $Mail->isHTML( TRUE );
+			  // $Mail->Body    = $MessageHTML;
+			  // // $Mail->AltBody = $MessageTEXT;
+			  // $Mail->Send();
+			  // $Mail->SmtpClose();
+				//
+			  // if ( $Mail->IsError() ) { // ADDED - This error checking was missing
+			  //   // return FALSE;
+				// 	return $this->sendResponse(201,$this->messages['otpSentError']);
+			  // }
+			  // else {
+				// 	return $this->sendResponse(200,$this->messages['otpSentSuccess']);
+			  //   // return TRUE;
+			  // }
 		}
 		public function forgotPassword(){
 			$email = $this->_request['email'];

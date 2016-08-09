@@ -76,7 +76,7 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
       "pin":$scope.employee.pin,
       "mobile":$scope.employee.mobile,
       "email":$scope.employee.email,
-      "ulb_id":$scope.employee.ulb_id,
+      "ulb_id":$localStorage.user.ulb_id,
       "dob":moment($scope.employee.dob).format("YYYY-MM-DD"),
       "doj":moment($scope.employee.doj).format("YYYY-MM-DD"),
       "dor":dor,
@@ -93,14 +93,13 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
   $scope.deleteEmployee = function(id){
     deleteUser = $window.confirm('Are you sure you want to delete this employee?');
     if(deleteUser){
-     alert('Yes i want to delete');
+      var obj = {
+       "id":id
+      }
+      ulbService.manageEmployee(obj,'delete').then(function(pRes) {
+       $scope.loadEmpList();
+     })
     }
-    var obj = {
-     "id":id
-    }
-    ulbService.manageEmployee(obj,'delete').then(function(pRes) {
-     console.log(pRes);
-   })
  }
  $scope.loadRetiredEmployee = function(){
    $scope.status = localStorage.getItem('status');
@@ -335,10 +334,17 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
      $scope.district = pRes.data.data;
      }
    })
+   $scope.current_ulb = $localStorage.user.ulb;
  }
  $scope.getdistrictulb = function(emp_district){
    employeeService.getdistrictulb(parseInt(emp_district)).then(function(pRes){
      $scope.ulblist = pRes.data.data;
+     angular.forEach($scope.ulblist,function(item){
+       if(parseInt(item.id) == parseInt($localStorage.user.ulb_id)){
+         $scope.current_ulb = item.name;
+         console.log($scope.current_ulb);
+       }
+     })
    })
  }
  /************ This is for submitting employee details*************/
@@ -355,7 +361,7 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
       "pin":$scope.employee.emp_pin,
       "mobile":$scope.employee.mobile,
       "email":$scope.employee.email,
-      "ulb_id":$scope.employee.emp_ulb,
+      "ulb_id":$localStorage.user.ulb_id,
       "dob":moment($scope.employee.dob).format("YYYY-MM-DD"),
       "doj":moment($scope.employee.doj).format("YYYY-MM-DD"),
       "dor":dor,
