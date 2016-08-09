@@ -53,8 +53,9 @@
                 <td>{{Retiredemployee.dor}}</td>
                 <td>{{Retiredemployee.ulb}}</td>
                 <td>{{Retiredemployee.emp_status}}</td>
-                <td>
-                  <button ng-click="loadEmpdocument(Retiredemployee.id)" type="button" class="btn btn-block btn-info btn-x">Employee Documents</button>
+                <td >
+                  <button ng-if="roll_id == '3'"  ng-click="loadEmpdocument(Retiredemployee.id)" type="button" class="btn btn-block btn-info btn-x">Employee Documents</button>
+                  <button ng-if="roll_id == '1'"  ng-click="" type="button" class="btn btn-block btn-info btn-x">Recive Documents</button>
                 </td>
               </tr>
             </tbody>

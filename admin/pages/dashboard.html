@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="col-lg-4 col-xs-6">
-      <div class="small-box bg-green"s>
+      <div class="small-box bg-green">
         <div class="inner">
           <h3>{{empstatus.tobe_retired}}</h3>
           <p>To be retired next 6 months</p>
@@ -43,4 +43,46 @@
       </div>
     </div>
   </div>
+ </section>
+ <section class="content" ng-if="roll_id == '1'">
+   <div class="row">
+     <div class="col-lg-4 col-xs-6">
+       <div class="small-box bg-orange">
+         <div class="inner">
+           <h3>1</h3>
+           <p>Currently In ULB</p>
+         </div>
+         <div class="icon">
+           <i class="ion ion-bag"></i>
+         </div>
+         <a ui-sref="" class="small-box-footer" >View Status<i class="fa fa-arrow-circle-right"></i></a>
+       </div>
+     </div>
+
+   <div class="col-lg-4 col-xs-6">
+     <div class="small-box bg-gray"s>
+       <div class="inner">
+         <h3>2</h3>
+         <p>Currently in Central Office</p>
+       </div>
+       <div class="icon">
+         <i class="ion ion-stats-bars"></i>
+       </div>
+       <a class="small-box-footer" ui-sref="">View Status <i class="fa fa-arrow-circle-right"></i></a>
+     </div>
+   </div>
+   <div class="col-lg-4 col-xs-6">
+     <div class="small-box bg-blue">
+       <div class="inner">
+         <h3>3</h3>
+         <p>Currently in Audit</p>
+       </div>
+       <div class="icon">
+         <i class="ion ion-person-add"></i>
+       </div>
+       <a  ui-sref="employeeList-bystatus({status: 'All'})" class="small-box-footer">View Status <i class="fa fa-arrow-circle-right"></i></a>
+     </div>
+   </div>
+    </div>
+
  </section>
