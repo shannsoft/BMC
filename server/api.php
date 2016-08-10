@@ -315,7 +315,14 @@ header('Access-Control-Allow-Origin: *');
 			$user_id = $rows[0]['user_id'];
 			$roll_id = $rows[0]['roll_id'];
 			$status = $this->_request['status'];
-			$sql = "SELECT a.emp_id, a.district_id,a.ulb_id,a.designation_id, a.name, a.villege_town, a.city, a.post, a.police_station, a.pin, a.mobile, a.email, a.dob, a.doj, a.dor, a.emp_status, a.createdDate, a.modifiedDate, a.isDeleted, b.district_name, c.designation, d.ulb_name FROM employee_table a INNER JOIN district_master b ON a.district_id = b.district_id INNER JOIN designation_master c ON a.designation_id = c.designation_id INNER JOIN ulb_master d ON a.ulb_id = d.ulb_id where a.isDeleted = 0 AND a.emp_status='$status'";
+			$sql = "SELECT a.emp_id, a.district_id,a.ulb_id,a.designation_id, a.name, a.villege_town, a.city, a.post, a.police_station,
+			 a.pin, a.mobile, a.email, a.dob, a.doj, a.dor, a.emp_status, a.createdDate, a.modifiedDate, a.isDeleted, b.district_name,
+			  c.designation, d.ulb_name, e.pension_id FROM employee_table a
+				INNER JOIN district_master b ON a.district_id = b.district_id
+				INNER JOIN designation_master c ON a.designation_id = c.designation_id
+				INNER JOIN ulb_master d ON a.ulb_id = d.ulb_id
+				INNER JOIN retirement_pension e ON a.emp_id = e.emp_id
+				where a.isDeleted = 0 AND a.emp_status='$status'";
 			if($roll_id == 3){
 				$sql .= " AND a.created_by=".$user_id;
 			}
@@ -343,6 +350,7 @@ header('Access-Control-Allow-Origin: *');
 				$employee[$i]['emp_status'] = $rows[$i]['emp_status'];
 				$employee[$i]['createdDate'] = $rows[$i]['createdDate'];
 				$employee[$i]['isDeleted'] = $rows[$i]['isDeleted'];
+				$employee[$i]['pension_id'] = $rows[$i]['pension_id'];
 			}
 			$this->sendResponse(200,$this->messages['dataFetched'],$employee);
 		}
@@ -549,6 +557,21 @@ header('Access-Control-Allow-Origin: *');
 			}
       $this->sendResponse(200,'No.of count on all employee List',$employeeCount);
     }
+		public function receiveDocument(){
+			$headers = apache_request_headers();
+      $accessToken = $headers['Accesstoken'];
+			$pension_id = $this->_request['pension_id'];
+			if($accessToken){
+				$sql = "update ".self::pension_tbl." set pending_at='Central Office' where pension_id=".$pension_id;
+				$result = $this->executeGenericDMLQuery($sql);
+				if($result){
+					$this->sendResponse(200,'Successfully Updated');
+				}
+			}
+			else{
+				$this->sendResponse(201,'Not a authorised user');
+			}
+		}
     public function getDocumentList(){
 			$sql = "select * from ".self::document_tbl;
 			$rows = $this->executeGenericDQLQuery($sql);

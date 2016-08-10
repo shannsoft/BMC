@@ -53,7 +53,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="retired_emp in employee_list" ng-hide="(emp_district != 'All' && emp_district != retired_emp.district_id) || (emp_ulb != 'All' && emp_ulb != retired_emp.ulb_id) || (search.application_no && search.application_no.toString() != retired_emp.id.toString())">
+              <tr ng-repeat="retired_emp in employee_list" ng-hide="(emp_district != 'All' && emp_district != retired_emp.district_id) || (emp_ulb != 'All' && emp_ulb != retired_emp.ulb_id) || (search.application_no && search.application_no.toString() != retired_emp.pension_id.toString())">
                 <td>{{$index+1}}</td>
                 <td>{{retired_emp.name}}</td>
                 <td>{{retired_emp.designation}}</td>
