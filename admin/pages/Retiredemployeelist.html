@@ -3,7 +3,6 @@
     Retired Employee List
     <small>control panel</small>
   </h1>
-  <button class="btn btn-primary pull-right" ui-sref="newplan" ng-if="user_type == '3'"><i class="fa fa-plus"></i></button>
 </section>
 <section class="content" ng-init="loadRetiredEmployee()">
   <div class="row">
@@ -72,7 +71,8 @@
                 <td>{{retired_emp.emp_status}}</td>
                 <td >
                   <button ng-if="roll_id == '3'"  ng-click="loadEmpdocument(retired_emp.id)" type="button" class="btn btn-block btn-info btn-x">Employee Documents</button>
-                  <button ng-if="roll_id == '1'"  ng-click="" type="button" class="btn btn-block btn-info btn-x">Recive Documents</button>
+                  <button ng-if="roll_id == '1' &&  pending_at == 'ULB'"  ng-click="loadReciveDocs(retired_emp.pension_id)" type="button" class="btn btn-block btn-info btn-x">Recive Documents</button>
+                  <button ng-if="roll_id == '1' &&  pending_at == 'Central Office'"  type="button" class="btn btn-block btn-info btn-x">Edit Documents</button>
                 </td>
               </tr>
             </tbody>

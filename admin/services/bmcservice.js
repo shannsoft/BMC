@@ -121,10 +121,24 @@ app.factory("employeeService", function ($http,CONFIG,$localStorage) {
     });
     return response;
     // console.log('response');
+  },
+  getEmpProfile : function(pension_id){
+    var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod=retiredDocuments&pension_id="+pension_id,{
+       headers: {'Accesstoken':$localStorage.user.accessToken}
+     });
+    return response;
+  },
+  receiveDocument : function(pension_id){
+    var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod=receiveDocument&pension_id="+pension_id,{
+       headers: {'Accesstoken':$localStorage.user.accessToken}
+     });
+    return response;
+  },
+  updateRetireDoc : function(){
+    
   }
-
-  };
- });
+};
+});
 app.factory("UserService", function($http,CONFIG,$localStorage){
   return{
     checkPassword: function (data) {

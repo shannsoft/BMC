@@ -1,5 +1,9 @@
 app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,ulbService,$stateParams,$window,Util,employeeService){
   $scope.employeeDoc = {};
+  $scope.currentTab = 'empprofile';
+  $scope.changeTab = function(tab){
+  $scope.currentTab = tab;
+  }
   /*******************************************************/
   /*************This is use for employee List*************/
   /*******************************************************/
@@ -190,6 +194,40 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
    writeDoc.write('<!doctype html><html>' + docHead + '<body onLoad="window.print()">' + printContents + '</body></html>');
    writeDoc.close();
    newWin.focus();
+ }
+ $scope.loadReciveDocs = function(pension_id){
+   employeeService.receiveDocument(pension_id).then(function(response){
+     if(response.data.statusCode == 200){
+       $state.go('reciveDocuments',{pension_id:pension_id});
+     }
+   });
+ }
+ $scope.loadEmpProfile = function(){
+   employeeService.getEmpProfile($stateParams.pension_id).then(function(pRes) {
+     if(pRes.data.statusCode == 200){
+       $scope.retired_employee = pRes.data.data;
+       var ducument_list = $scope.retired_employee.documents.split(',');
+       employeeService.getDomentList().then(function(response){
+         $scope.receivedDocument = [];
+         if(response.data.statusCode == 200){
+           $scope.documentList = response.data.data;
+           angular.forEach($scope.documentList,function(doc){
+             angular.forEach(ducument_list,function(id){
+               if(id == doc.id){
+                 $scope.receivedDocument.push(doc.document_name);
+               }
+             });
+           });
+            console.log($scope.receivedDocument);
+         }
+       });
+     }
+   })
+ }
+ $scope.updateRetireDoc = function(){
+   employeeService.updateRetireDoc().then(function(response){
+     
+   })
  }
 });
 app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService,Util,$cookieStore,UserService){
@@ -419,7 +457,6 @@ app.controller("User_controller",function($scope,$localStorage,$rootScope,UserSe
   $scope.changeTab = function(tab){
   $scope.currentTab = tab;
   }
-  $scope.currentTab = 'myprofile';
   /******* This is for update myprofile in user profile**********/
   $scope.updateMyProfile = function(){
     var obj = {

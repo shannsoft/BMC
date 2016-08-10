@@ -1,0 +1,201 @@
+<section class="content-header">
+  <h1>
+     Retired Employee Documents
+    <small>Control panel</small>
+  </h1>
+</section>
+<section class="content" ng-init="loadEmpProfile()">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="" data-toggle="tab" ng-click="changeTab('empprofile')">Employee Profile</a></li>
+          <li><a href="" data-toggle="tab" ng-click="changeTab('documents')">Employee Documents</a></li>
+          <li><a href="" data-toggle="tab" ng-click="changeTab('pension')">Employee Pension</a></li>
+        </ul>
+        <div class="tab-content m-t-20">
+          <div class="tab-pane" ng-class="{'active':currentTab == 'empprofile'}" >
+            <div class="post">
+              <div class="user-block">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <table class="table table-bordered box box-primary" >
+                     <tr>
+                        <td><strong>Employee Name</strong></td>
+                        <td>{{retired_employee.name}}</td>
+                     </tr>
+                     <tr>
+                      <td><strong>Desingnation</strong></td>
+                      <td>{{retired_employee.designation}}</td>
+                     </tr>
+                     <tr>
+                        <td><strong>Address</strong></td>
+                        <td>{{retired_employee.village}}, {{retired_employee.post}}, {{retired_employee.police_station}}, {{retired_employee.city}}, {{retired_employee.district}}, {{retired_employee.pin}}</td>
+                     </tr>
+                      <tr>
+                        <td><strong>Mobile</strong></td>
+                        <td>{{retired_employee.mobile}}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Email</strong></td>
+                        <td>{{retired_employee.email}}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>DOB</strong></td>
+                        <td>{{retired_employee.dob}}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>DOJ</strong></td>
+                        <td>{{retired_employee.doj}}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>DOR</strong></td>
+                        <td>{{retired_employee.dor}}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>ULB</strong></td>
+                        <td>{{retired_employee.ulb}}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" ng-class="{'active':currentTab == 'documents'}">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="box">
+                  <div class="box-header">
+                    <h3 class="box-title">documents list</h3>
+                  </div>
+                  <div class="box-body over-x-sc">
+                    <table id="example2" class="table table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <th>Sl No</th>
+                          <th>Documents</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="doc in receivedDocument">
+                          <td>{{$index+1}}</td>
+                          <td>{{doc}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" ng-class="{'active':currentTab == 'pension'}">
+            <form class="form-horizontal" name="employeepension">
+              <div class="form-group">
+                <label for="inputPassword3" class="col-sm-3 control-label">Pension Type</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" ng-model="retired_employee.pension_type" readonly>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword3" class="col-sm-3 control-label">Category</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" ng-model="retired_employee.pension_category" readonly>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword3" class="col-sm-3 control-label">Nominee</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" ng-model="retired_employee.nominee" readonly>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword3" class="col-sm-3 control-label">Relation with Employee</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" ng-model="retired_employee.relation" readonly>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword3" class="col-sm-3 control-label">Date of Death/In service Death</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" ng-model="retired_employee.dod" readonly>
+                </div>
+              </div>
+              <div class="form-group" ng-class="{'has-error': (employeepension.dept_refno.$invalid && employeepension.dept_refno.$touched)}">
+                <label for="inputPassword3" class="col-sm-3 control-label">Department Ref.No</label>
+                <div class="col-sm-8">
+                  <input type="text" name="dept_refno" placeholder="Department Ref.No" class="form-control" ng-model="retired_employee.department_ref_no" required ng-pattern="/^[0-9]+$/">
+                  <span class="help-block" ng-show="employeepension.dept_refno.$error.required && employeepension.dept_refno.$touched">Please enter Department Ref No</span>
+                  <span class="help-block" ng-show="employeepension.dept_refno.$error.pattern && employeepension.dept_refno.$touched">Refno should not be numeric</span>
+                </div>
+              </div>
+              <div class="form-group" ng-class="{'has-error': (employeepension.dept_date.$invalid && employeepension.dept_date.$touched)}">
+                <label for="inputPassword3" class="col-sm-3 control-label">Department Ref Date</label>
+                <div class="col-sm-8">
+                  <p class="input-group">
+                    <input type="text" class="form-control" name="dept_date" placeholder=" Department Reference Date" uib-datepicker-popup ng-model="retired_employee.ref_date" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <div class="form-group" ng-class="{'has-error': (employeepension.section_refno.$invalid && employeepension.section_refno.$touched)}">
+                <label for="inputPassword3" class="col-sm-3 control-label">Section Ref.No</label>
+                <div class="col-sm-8">
+                  <input type="text" name="section_refno" placeholder="Section Ref.No" class="form-control" ng-model="retired_employee.section_ref_no" required ng-pattern="/^[0-9]+$/">
+                  <span class="help-block" ng-show="employeepension.section_refno.$error.required && employeepension.section_refno.$touched">Please enter section Ref No</span>
+                  <span class="help-block" ng-show="employeepension.section_refno.$error.pattern && employeepension.section_refno.$touched">refno should not be numeric</span>
+                </div>
+              </div>
+              <div class="form-group" ng-class="{'has-error': (employeepension.section_date.$invalid && employeepension.section_date.$touched)}">
+                <label for="inputPassword3" class="col-sm-3 control-label">Section Ref Date</label>
+                <div class="col-sm-8">
+                  <p class="input-group">
+                    <input type="text" class="form-control" name="section_date" uib-datepicker-popup ng-model="retired_employee.section_refdate" placeholder="Section Ref Date" is-open="popup1.opened1" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <div class="form-group" ng-class="{'has-error': (employeepension.file_no.$invalid && employeepension.file_no.$touched)}">
+                <label for="inputPassword3" class="col-sm-3 control-label">File No</label>
+                <div class="col-sm-8">
+                  <input type="text" placeholder="File Number" name="file_no" class="form-control" ng-model="retired_employee.file_no" required ng-pattern="/^[0-9]+$/">
+                  <span class="help-block" ng-show="employeepension.file_no.$error.required && employeepension.file_no.$touched">Please enter File No</span>
+                  <span class="help-block" ng-show="employeepension.file_no.$error.pattern && employeepension.file_no.$touched">Fileno should not be numeric</span>
+                </div>
+              </div>
+              <div class="form-group" ng-class="{'has-error': (employeepension.department.$invalid && employeepension.department.$touched)}">
+                <label for="inputPassword3" class="col-sm-3 control-label">Send To</label>
+                <div class="col-sm-8">
+                    <select class="form-control" ng-model="retired_employee.select_dept" name="department" required>
+                      <option value="">select one</option>
+                      <option value="ULB">ULB</option>
+                      <option value="Audit">Audit</option>
+                    </select>
+                    <span class="help-block" ng-show="employeepension.department.$error.required && employeepension.department.$touched">select one</span>
+                </div>
+              </div>
+              <div class="form-group" ng-class="{'has-error': (employeepension.centraloffc_remarks.$invalid && employeepension.centraloffc_remarks.$touched)}">
+                <label for="inputPassword3" class="col-sm-3 control-label">Remarks</label>
+                <div class="col-sm-8">
+                  <textarea  class="form-control" rows="4" ng-model="retired_employee.remarks" name="centraloffc_remarks"></textarea>
+                  <span class="help-block" ng-show="employeepension.centraloffc_remarks.$error.required && employeepension.centraloffc_remarks.$touched">Please enter your  remarks</span>
+                </div>
+              </div>
+              <div class="box-footer">
+                <button type="submit" class="btn btn-default" ui-sref="retiredemployeelist">Back</button>
+                <button  type="submit" class="btn btn-info pull-right" ng-click="updateRetireDoc(retired_employee.pension_id)">Submit</button>
+                <section  align="center" class="m-t-sm">
+                    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="close()">{{alert.msg}}</alert>
+                </section>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -44,12 +44,12 @@
     </div>
   </div>
  </section>
- <section class="content" ng-if="roll_id == '1'">
+ <section class="content" ng-if="roll_id == '1'" ng-init="loadEmployeebyStatus()">
    <div class="row">
      <div class="col-lg-4 col-xs-6">
        <div class="small-box bg-orange">
          <div class="inner">
-           <h3>1</h3>
+           <h3>{{empstatus.at_ulb}}</h3>
            <p>Currently In ULB</p>
          </div>
          <div class="icon">
@@ -62,7 +62,7 @@
    <div class="col-lg-4 col-xs-6">
      <div class="small-box bg-gray"s>
        <div class="inner">
-         <h3>2</h3>
+         <h3>{{empstatus.at_central_office}}</h3>
          <p>Currently in Central Office</p>
        </div>
        <div class="icon">
@@ -74,7 +74,7 @@
    <div class="col-lg-4 col-xs-6">
      <div class="small-box bg-blue">
        <div class="inner">
-         <h3>3</h3>
+         <h3>{{empstatus.at_audit}}</h3>
          <p>Currently in Audit</p>
        </div>
        <div class="icon">
