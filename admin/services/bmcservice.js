@@ -134,8 +134,15 @@ app.factory("employeeService", function ($http,CONFIG,$localStorage) {
      });
     return response;
   },
-  updateRetireDoc : function(){
-    
+  updateRetireDoc : function(obj){
+    var _serializedData = $.param({"reqmethod": 'updateDocument',"document_data":obj});
+    var response = $http({
+        method: 'POST',
+        url: CONFIG.HTTP_HOST,
+        data : _serializedData,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
+    });
+    return response;
   }
 };
 });

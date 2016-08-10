@@ -181,7 +181,9 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
     })
 
  }
- /*******This is used for print a page after adding all the retire documents**************/
+ /***************************************************************/
+ /*******This is use print the cover page document***************/
+ /***************************************************************/
  $scope.printCoverPage  = function(div){
    document.getElementById('title').innerHTML = $scope.updatedData.ulb;
    var docHead = document.head.outerHTML;
@@ -195,6 +197,9 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
    writeDoc.close();
    newWin.focus();
  }
+ /***************************************************************/
+ /**This is use to accept retired documents for central office***/
+ /***************************************************************/
  $scope.loadReciveDocs = function(pension_id){
    employeeService.receiveDocument(pension_id).then(function(response){
      if(response.data.statusCode == 200){
@@ -202,6 +207,9 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
      }
    });
  }
+ /************************************************************/
+ /**This is use load retired emp_details for central office***/
+ /************************************************************/
  $scope.loadEmpProfile = function(){
    employeeService.getEmpProfile($stateParams.pension_id).then(function(pRes) {
      if(pRes.data.statusCode == 200){
@@ -218,15 +226,35 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
                }
              });
            });
-            console.log($scope.receivedDocument);
          }
        });
      }
    })
  }
+ /*******************************************************/
+ /**This is use update the dcocument for central office**/
+ /*******************************************************/
  $scope.updateRetireDoc = function(){
-   employeeService.updateRetireDoc().then(function(response){
-     
+   var dep_date = moment($scope.retired_employee.department_ref_date).format("YYYY-MM-DD");
+   var sec_date = moment($scope.retired_employee.section_ref_date).format("YYYY-MM-DD");
+   var obj = {
+     "pension_id"   : $scope.retired_employee.pension_id,
+     "history_id"   : $scope.retired_employee.history_id,
+     "send_to"      : $scope.retired_employee.send_to,
+     "dep_ref_no"   : $scope.retired_employee.department_ref_no,
+     "dep_ref_date" : dep_date,
+     "sec_ref_no"   : $scope.retired_employee.section_ref_no,
+     "sec_ref_date" : sec_date,
+     "file_no"      : $scope.retired_employee.file_no,
+     "remarks"      : $scope.retired_employee.remarks
+   }
+   employeeService.updateRetireDoc(obj).then(function(response){
+     if(response.data.statusCode = 200){
+       Util.alertMessage('success', response.data.message);
+     }
+     else{
+        Util.alertMessage('danger', response.data.message);
+     }
    })
  }
 });

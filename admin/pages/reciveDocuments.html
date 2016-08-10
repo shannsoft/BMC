@@ -103,19 +103,19 @@
                   <input type="text" class="form-control" ng-model="retired_employee.pension_category" readonly>
                 </div>
               </div>
-              <div class="form-group">
+              <div class="form-group" ng-if="retired_employee.pension_type != 'Pension'">
                 <label for="inputPassword3" class="col-sm-3 control-label">Nominee</label>
                 <div class="col-sm-8">
                   <input type="text" class="form-control" ng-model="retired_employee.nominee" readonly>
                 </div>
               </div>
-              <div class="form-group">
+              <div class="form-group" ng-if="retired_employee.pension_type != 'Pension'">
                 <label for="inputPassword3" class="col-sm-3 control-label">Relation with Employee</label>
                 <div class="col-sm-8">
                   <input type="text" class="form-control" ng-model="retired_employee.relation" readonly>
                 </div>
               </div>
-              <div class="form-group">
+              <div class="form-group" ng-if="retired_employee.dod">
                 <label for="inputPassword3" class="col-sm-3 control-label">Date of Death/In service Death</label>
                 <div class="col-sm-8">
                   <input type="text" class="form-control" ng-model="retired_employee.dod" readonly>
@@ -133,7 +133,7 @@
                 <label for="inputPassword3" class="col-sm-3 control-label">Department Ref Date</label>
                 <div class="col-sm-8">
                   <p class="input-group">
-                    <input type="text" class="form-control" name="dept_date" placeholder=" Department Reference Date" uib-datepicker-popup ng-model="retired_employee.ref_date" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                    <input type="text" class="form-control" name="dept_date" placeholder=" Department Reference Date" uib-datepicker-popup ng-model="retired_employee.department_ref_date" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
@@ -152,7 +152,7 @@
                 <label for="inputPassword3" class="col-sm-3 control-label">Section Ref Date</label>
                 <div class="col-sm-8">
                   <p class="input-group">
-                    <input type="text" class="form-control" name="section_date" uib-datepicker-popup ng-model="retired_employee.section_refdate" placeholder="Section Ref Date" is-open="popup1.opened1" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                    <input type="text" class="form-control" name="section_date" uib-datepicker-popup ng-model="retired_employee.section_ref_date" placeholder="Section Ref Date" is-open="popup1.opened1" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
@@ -170,8 +170,8 @@
               <div class="form-group" ng-class="{'has-error': (employeepension.department.$invalid && employeepension.department.$touched)}">
                 <label for="inputPassword3" class="col-sm-3 control-label">Send To</label>
                 <div class="col-sm-8">
-                    <select class="form-control" ng-model="retired_employee.select_dept" name="department" required>
-                      <option value="">select one</option>
+                    <select class="form-control" ng-model="retired_employee.send_to" name="department" required>
+                      <option value="">Select One</option>
                       <option value="ULB">ULB</option>
                       <option value="Audit">Audit</option>
                     </select>
@@ -187,7 +187,7 @@
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-default" ui-sref="retiredemployeelist">Back</button>
-                <button  type="submit" class="btn btn-info pull-right" ng-click="updateRetireDoc(retired_employee.pension_id)">Submit</button>
+                <button  type="submit" class="btn btn-info pull-right" ng-click="updateRetireDoc()">Submit</button>
                 <section  align="center" class="m-t-sm">
                     <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="close()">{{alert.msg}}</alert>
                 </section>

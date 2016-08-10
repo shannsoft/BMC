@@ -317,7 +317,7 @@ header('Access-Control-Allow-Origin: *');
 			$status = $this->_request['status'];
 			$sql = "SELECT a.emp_id, a.district_id,a.ulb_id,a.designation_id, a.name, a.villege_town, a.city, a.post, a.police_station,
 			 a.pin, a.mobile, a.email, a.dob, a.doj, a.dor, a.emp_status, a.createdDate, a.modifiedDate, a.isDeleted, b.district_name,
-			  c.designation, d.ulb_name, e.pension_id FROM employee_table a
+			  c.designation, d.ulb_name, e.pension_id,e.pending_at FROM employee_table a
 				INNER JOIN district_master b ON a.district_id = b.district_id
 				INNER JOIN designation_master c ON a.designation_id = c.designation_id
 				INNER JOIN ulb_master d ON a.ulb_id = d.ulb_id
@@ -351,6 +351,7 @@ header('Access-Control-Allow-Origin: *');
 				$employee[$i]['createdDate'] = $rows[$i]['createdDate'];
 				$employee[$i]['isDeleted'] = $rows[$i]['isDeleted'];
 				$employee[$i]['pension_id'] = $rows[$i]['pension_id'];
+				$employee[$i]['pending_at'] = $rows[$i]['pending_at'];
 			}
 			$this->sendResponse(200,$this->messages['dataFetched'],$employee);
 		}
@@ -632,7 +633,7 @@ header('Access-Control-Allow-Origin: *');
 			$document_data = $this->_request['document_data'];
 			$pension_id = $document_data['pension_id'];
 			$history_id = $document_data['history_id'];
-			$pending = $document_data['pending'];
+			$pending = $document_data['send_to'];
 			$dep_ref_no = $document_data['dep_ref_no'];
 			$dep_ref_date = $document_data['dep_ref_date'];
 			$sec_ref_no = $document_data['sec_ref_no'];
@@ -641,12 +642,20 @@ header('Access-Control-Allow-Origin: *');
 			$remarks = $document_data['remarks'];
 			if($accessToken){
 				$sql = "update ".self::pension_tbl." set pending_at='$pending',file_no='$file_no',remarks='$remarks' where pension_id=".$pension_id;
+				$result1 = $this->executeGenericDMLQuery($sql);
+				$sql = "update ".self::pension_history." set department_ref_no='$dep_ref_no', department_ref_date='$dep_ref_date', section_ref_no='$sec_ref_no', section_ref_date='$sec_ref_date' where history_id=".$history_id;
 				$result = $this->executeGenericDMLQuery($sql);
-				if($result){
-					$sql = "update ".self::pension_history." set department_ref_no='$dep_ref_no', department_ref_date='$dep_ref_date', section_ref_no='$sec_ref_no', section_ref_date='$sec_ref_date' where history_id=".$history_id;
-					$result = $this->executeGenericDMLQuery($sql);
-					if($result)
-						$this->sendResponse(200,'Successfully Updated');
+				if($result && $result1){
+					$this->sendResponse(200,'Successfully Updated');
+				}
+				else if($result){
+					$this->sendResponse(200,'Successfully Updated');
+				}
+				else if($result1){
+					$this->sendResponse(200,'Successfully Updated');
+				}
+				else{
+					$this->sendResponse(200,'You are trying to update the same data');
 				}
 			}
 			else{

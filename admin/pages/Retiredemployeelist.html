@@ -71,8 +71,8 @@
                 <td>{{retired_emp.emp_status}}</td>
                 <td >
                   <button ng-if="roll_id == '3'"  ng-click="loadEmpdocument(retired_emp.id)" type="button" class="btn btn-block btn-info btn-x">Employee Documents</button>
-                  <button ng-if="roll_id == '1' &&  pending_at == 'ULB'"  ng-click="loadReciveDocs(retired_emp.pension_id)" type="button" class="btn btn-block btn-info btn-x">Recive Documents</button>
-                  <button ng-if="roll_id == '1' &&  pending_at == 'Central Office'"  type="button" class="btn btn-block btn-info btn-x">Edit Documents</button>
+                  <button ng-if="roll_id == '1' &&  retired_emp.pending_at == 'ULB'"  ng-click="loadReciveDocs(retired_emp.pension_id)" type="button" class="btn btn-block btn-info btn-x">Recive Documents</button>
+                  <button ng-if="roll_id == '1' &&  retired_emp.pending_at != 'ULB'"  type="button" class="btn btn-block btn-info btn-x" ui-sref="reciveDocuments({pension_id:retired_emp.pension_id})">Edit Documents</button>
                 </td>
               </tr>
             </tbody>
