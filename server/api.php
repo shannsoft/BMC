@@ -626,6 +626,33 @@ header('Access-Control-Allow-Origin: *');
 				$this->sendResponse(201,'Not a authorised user');
 			}
 		}
+		public function updateDocument(){
+			$headers = apache_request_headers();
+      $accessToken = $headers['Accesstoken'];
+			$document_data = $this->_request['document_data'];
+			$pension_id = $document_data['pension_id'];
+			$history_id = $document_data['history_id'];
+			$pending = $document_data['pending'];
+			$dep_ref_no = $document_data['dep_ref_no'];
+			$dep_ref_date = $document_data['dep_ref_date'];
+			$sec_ref_no = $document_data['sec_ref_no'];
+			$sec_ref_date = $document_data['sec_ref_date'];
+			$file_no = $document_data['file_no'];
+			$remarks = $document_data['remarks'];
+			if($accessToken){
+				$sql = "update ".self::pension_tbl." set pending_at='$pending',file_no='$file_no',remarks='$remarks' where pension_id=".$pension_id;
+				$result = $this->executeGenericDMLQuery($sql);
+				if($result){
+					$sql = "update ".self::pension_history." set department_ref_no='$dep_ref_no', department_ref_date='$dep_ref_date', section_ref_no='$sec_ref_no', section_ref_date='$sec_ref_date' where history_id=".$history_id;
+					$result = $this->executeGenericDMLQuery($sql);
+					if($result)
+						$this->sendResponse(200,'Successfully Updated');
+				}
+			}
+			else{
+				$this->sendResponse(201,'Not a authorised user');
+			}
+		}
     public function getDocumentList(){
 			$sql = "select * from ".self::document_tbl;
 			$rows = $this->executeGenericDQLQuery($sql);
