@@ -387,6 +387,60 @@ header('Access-Control-Allow-Origin: *');
 			}
 			$this->sendResponse(200,$this->messages['dataFetched'],$documents);
 		}
+		public function retiredDocuments(){
+			$headers = apache_request_headers();
+			$accessToken = $headers['Accesstoken'];
+			$pension_id = $this->_request['pension_id'];
+			$sql = "SELECT a.name, a.villege_town, a.city, a.post, a.police_station, a.pin, a.mobile, a.email,
+			a.dob, a.doj, a.dor, b.district_name, c.designation, d.ulb_name,e.pension_id,e.pension_type,e.file_no,
+			e.pension_category,e.documents,e.remarks,e.nominee,e.relation,e.dod
+			FROM employee_table a
+			INNER JOIN district_master b ON a.district_id = b.district_id
+			INNER JOIN designation_master c ON a.designation_id = c.designation_id
+			INNER JOIN ulb_master d ON a.ulb_id = d.ulb_id
+			INNER JOIN retirement_pension e ON a.emp_id = e.emp_id
+			where a.isDeleted = 0 AND e.pension_id=".$pension_id;
+			$rows = $this->executeGenericDQLQuery($sql);
+			$employee = array();
+			for($i = 0; $i < sizeof($rows); $i++) {
+				$employee['name'] = $rows[0]['name'];
+				$employee['designation'] = $rows[0]['designation'];
+				$employee['village'] = $rows[0]['villege_town'];
+				$employee['city'] = $rows[0]['city'];
+				$employee['post'] = $rows[0]['post'];
+				$employee['police_station'] = $rows[0]['police_station'];
+				$employee['district'] = $rows[0]['district_name'];
+				$employee['pin'] = $rows[0]['pin'];
+				$employee['mobile'] = $rows[0]['mobile'];
+				$employee['email'] = $rows[0]['email'];
+				$employee['dob'] = $rows[0]['dob'];
+				$employee['doj'] = $rows[0]['doj'];
+				$employee['dor'] = $rows[0]['dor'];
+				$employee['ulb'] = $rows[0]['ulb_name'];
+				$employee['pension_id'] = $rows[0]['pension_id'];
+        $employee['pension_type'] = $rows[0]['pension_type'];
+        $employee['pension_category'] = $rows[0]['pension_category'];
+        $employee['documents'] = $rows[0]['documents'];
+        $employee['remarks'] = $rows[0]['remarks'];
+        $employee['nominee'] = $rows[0]['nominee'];
+        $employee['relation'] = $rows[0]['relation'];
+        $employee['file_no'] = $rows[0]['file_no'];
+        $employee['dod'] = $rows[0]['dod'];
+			}
+			$sql = "select * from ".self::pension_history." where pension_id=".$pension_id;
+			$rows = $this->executeGenericDQLQuery($sql);
+			if($rows){
+				$index = sizeof($rows)-1;
+				$employee['history_id'] = $rows[$index]['history_id'];
+				$employee['ulb_ref_no'] = $rows[$index]['ulb_ref_no'];
+				$employee['ulb_ref_date'] = $rows[$index]['ulb_ref_date'];
+				$employee['department_ref_no'] = $rows[$index]['department_ref_no'];
+				$employee['department_ref_date'] = $rows[$index]['department_ref_date'];
+				$employee['section_ref_no'] = $rows[$index]['section_ref_no'];
+				$employee['section_ref_date'] = $rows[$index]['section_ref_date'];
+			}
+			$this->sendResponse(200,$this->messages['dataFetched'],$employee);
+		}
 		public function updateEmployeeDocument(){
       // printf("Last inserted record has id %d\n", mysql_insert_id());
 			$headers = apache_request_headers();
