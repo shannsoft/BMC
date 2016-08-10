@@ -534,6 +534,19 @@ header('Access-Control-Allow-Origin: *');
         $sql .=" AND created_by=".$userId;
       $result = $this->executeGenericDQLQuery($sql);
       $employeeCount['tobe_retired'] = sizeof($result);
+			if($roll_id && $roll_id == 1){
+					$sql = "SELECT * FROM `retirement_pension` WHERE pending_at = 'ULB'";
+					$result = $this->executeGenericDQLQuery($sql);
+		      $employeeCount['at_ulb'] = sizeof($result);
+
+					$sql = "SELECT * FROM `retirement_pension` WHERE pending_at = 'Central Office'";
+					$result = $this->executeGenericDQLQuery($sql);
+		      $employeeCount['at_central_office'] = sizeof($result);
+
+					$sql = "SELECT * FROM `retirement_pension` WHERE pending_at = 'Audit'";
+					$result = $this->executeGenericDQLQuery($sql);
+		      $employeeCount['at_audit'] = sizeof($result);
+			}
       $this->sendResponse(200,'No.of count on all employee List',$employeeCount);
     }
     public function getDocumentList(){
