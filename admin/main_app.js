@@ -94,7 +94,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
              }
         })
         .state('retiredemployeelist',{
-             templateUrl:"pages/retiredemployeelist.html",
+             templateUrl:"pages/Retiredemployeelist.html",
              url:'/retiredemployeelist',
              controller:"Emp_Controller",
              onEnter: function($localStorage, $state) {

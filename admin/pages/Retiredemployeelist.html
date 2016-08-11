@@ -70,9 +70,9 @@
                 <td>{{retired_emp.ulb}}</td>
                 <td>{{retired_emp.emp_status}}</td>
                 <td >
-                  <button ng-if="roll_id == '3'"  ng-click="loadEmpdocument(retired_emp.id)" type="button" class="btn btn-block btn-info btn-x">Employee Documents</button>
-                  <button ng-if="roll_id == '1' &&  retired_emp.pending_at == 'ULB'"  ng-click="loadReciveDocs(retired_emp.pension_id)" type="button" class="btn btn-block btn-info btn-x">Recive Documents</button>
-                  <button ng-if="roll_id == '1' &&  retired_emp.pending_at != 'ULB'"  type="button" class="btn btn-block btn-info btn-x" ui-sref="reciveDocuments({pension_id:retired_emp.pension_id})">Edit Documents</button>
+                  <a href="" ng-if="roll_id == '3'"  ng-click="loadEmpdocument(retired_emp.id)"><span class="label label-primary">Employee Documents</span></a>
+                  <a href="" ng-if="roll_id == '1' &&  retired_emp.pending_at == 'ULB'"  ng-click="loadReciveDocs(retired_emp.pension_id)"><span class="label label-primary">Recive Documents</span></a>
+                  <a href="" ng-if="roll_id == '1' &&  retired_emp.pending_at != 'ULB'" ui-sref="reciveDocuments({pension_id:retired_emp.pension_id})"><span class="label label-primary">Edit Documents</span></a>
                 </td>
               </tr>
             </tbody>
