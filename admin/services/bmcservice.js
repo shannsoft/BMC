@@ -143,6 +143,12 @@ app.factory("employeeService", function ($http,CONFIG,$localStorage) {
         headers: {'Content-Type': 'application/x-www-form-urlencoded','Accesstoken':$localStorage.user.accessToken}
     });
     return response;
+  },
+  sectionEmployee : function(section){
+    var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod=sectionData&section="+section,{
+       headers: {'Accesstoken':$localStorage.user.accessToken}
+     });
+    return response;
   }
 };
 });

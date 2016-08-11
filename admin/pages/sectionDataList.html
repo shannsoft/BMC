@@ -1,0 +1,63 @@
+<section class="content-header" >
+  <h1 class="">
+    Pending Employee List At {{section}}
+  </h1>
+</section>
+<section class="content" ng-init="loadEmployeeBySection()">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <div class="col-md-3">
+            <h3 class="box-title ">Employee List</h3>
+          </div>
+          <div class="col-md-3">
+            <select class="form-control" ng-model="emp_district" name="emp_district" ng-change="emp_ulb='All';getdistrictulb(emp_district)" ng-init="emp_district = 'All';loaddistrict()">
+              <option value="All">Search By District</option>
+              <option value="{{district.id}}" ng-repeat="district in district" >{{district.name}}</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <select class="form-control" ng-model="emp_ulb" name="emp_district" ng-init="emp_ulb = 'All'">
+              <option value="All" ng-selected="true">Search By ULB</option>
+              <option value="{{ulb.id}}" ng-repeat="ulb in ulblist" >{{ulb.name}}</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" name="application_no" ng-model="search.application_no" placeholder="Application No">
+          </div>
+        </div>
+        <div class="box-body over-x-sc">
+          <table id="example2" class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>Sl No</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>DOB</th>
+                <th>ULB</th>
+                <th>Operation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="emp in sectionEmpList" ng-hide="(emp_district != 'All' && emp_district != emp.district_id) || (emp_ulb != 'All' && emp_ulb != emp.ulb_id) || (search.application_no && search.application_no.toString() != emp.pension_id.toString())">
+                <td>{{$index+1}}</td>
+                <td>{{emp.name}}</td>
+                <td>{{emp.designation}}</td>
+                <td>{{emp.mobile}}</td>
+                <td>{{emp.email}}</td>
+                <td>{{emp.dob}}</td>
+                <td>{{emp.ulb}}</td>
+                <td>
+                  <a ui-sref="sectionEmployeeDetails({pension_id:emp.pension_id})" class="option-btn"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

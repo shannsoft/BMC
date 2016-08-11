@@ -43,6 +43,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
                }
              }
         })
+        .state('sectionDataList',{
+             templateUrl:'pages/sectionDataList.html',
+             url:'/sectionDataList/:section',
+             controller:"Emp_Controller",
+             onEnter: function($localStorage, $state) {
+               if (!$localStorage.user) {
+                   $state.go('login');
+               }
+             }
+        })
         .state('employeeList',{
              templateUrl:'pages/employee_list.html',
              url:'/employeeList',
@@ -66,27 +76,62 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('editEmployee',{
              templateUrl:'pages/editemployee.html',
              url:'/editemployee/:id',
-             controller:"Emp_Controller"
+             controller:"Emp_Controller",
+             onEnter: function($localStorage, $state) {
+               if (!$localStorage.user) {
+                   $state.go('login');
+               }
+             }
         })
         .state('userProfile',{
              templateUrl:'pages/users/UserProfile.html',
              url:'/UserProfile',
-             controller:"User_controller"
+             controller:"User_controller",
+             onEnter: function($localStorage, $state) {
+               if (!$localStorage.user) {
+                   $state.go('login');
+               }
+             }
         })
         .state('retiredemployeelist',{
              templateUrl:"pages/retiredemployeelist.html",
              url:'/retiredemployeelist',
-             controller:"Emp_Controller"
+             controller:"Emp_Controller",
+             onEnter: function($localStorage, $state) {
+               if (!$localStorage.user) {
+                   $state.go('login');
+               }
+             }
         })
         .state('employeeDocuments',{
              templateUrl:'pages/employeeDocuments.html',
              url:'/employeeDocuments/:id',
-             controller:"Emp_Controller"
+             controller:"Emp_Controller",
+             onEnter: function($localStorage, $state) {
+               if (!$localStorage.user) {
+                   $state.go('login');
+               }
+             }
         })
         .state('reciveDocuments',{
              templateUrl:'pages/reciveDocuments.html',
              url:'/reciveDocuments/:pension_id',
-             controller:"Emp_Controller"
+             controller:"Emp_Controller",
+             onEnter: function($localStorage, $state) {
+               if (!$localStorage.user) {
+                   $state.go('login');
+               }
+             }
+        })
+        .state('sectionEmployeeDetails',{
+             templateUrl:'pages/sectionEmployeeDetails.html',
+             url:'/sectionEmployeeDetails/:pension_id',
+             controller:"Emp_Controller",
+             onEnter: function($localStorage, $state) {
+               if (!$localStorage.user) {
+                   $state.go('login');
+               }
+             }
         })
 
 });

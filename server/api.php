@@ -612,6 +612,43 @@ header('Access-Control-Allow-Origin: *');
 			}
       $this->sendResponse(200,'No.of count on all employee List',$employeeCount);
     }
+		public function sectionData(){
+			$headers = apache_request_headers();
+      $accessToken = $headers['Accesstoken'];
+      if($accessToken){
+				$pending_at = $this->_request['section'];
+				$sql = "SELECT a.name,a.district_id,a.ulb_id, a.villege_town, a.city, a.post, a.police_station, a.pin, a.mobile, a.email,
+				a.dob, a.doj, a.dor, b.district_name, c.designation, d.ulb_name,e.pension_id
+				FROM employee_table a
+				INNER JOIN district_master b ON a.district_id = b.district_id
+				INNER JOIN designation_master c ON a.designation_id = c.designation_id
+				INNER JOIN ulb_master d ON a.ulb_id = d.ulb_id
+				INNER JOIN retirement_pension e ON a.emp_id = e.emp_id
+				where a.isDeleted = 0 AND e.pending_at='$pending_at'";
+				$rows = $this->executeGenericDQLQuery($sql);
+				$employee = array();
+				for($i = 0; $i < sizeof($rows); $i++) {
+					$employee[$i]['name'] = $rows[$i]['name'];
+					$employee[$i]['designation'] = $rows[$i]['designation'];
+					$employee[$i]['village'] = $rows[$i]['villege_town'];
+					$employee[$i]['city'] = $rows[$i]['city'];
+					$employee[$i]['post'] = $rows[$i]['post'];
+					$employee[$i]['police_station'] = $rows[$i]['police_station'];
+					$employee[$i]['district'] = $rows[$i]['district_name'];
+					$employee[$i]['district_id'] = $rows[$i]['district_id'];
+					$employee[$i]['pin'] = $rows[$i]['pin'];
+					$employee[$i]['mobile'] = $rows[$i]['mobile'];
+					$employee[$i]['email'] = $rows[$i]['email'];
+					$employee[$i]['dob'] = $rows[$i]['dob'];
+					$employee[$i]['doj'] = $rows[$i]['doj'];
+					$employee[$i]['dor'] = $rows[$i]['dor'];
+					$employee[$i]['ulb'] = $rows[$i]['ulb_name'];
+					$employee[$i]['ulb_id'] = $rows[$i]['ulb_id'];
+					$employee[$i]['pension_id'] = $rows[$i]['pension_id'];
+				}
+				$this->sendResponse(200,$this->messages['dataFetched'],$employee);
+			}
+		}
 		public function receiveDocument(){
 			$headers = apache_request_headers();
       $accessToken = $headers['Accesstoken'];

@@ -257,6 +257,19 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
      }
    })
  }
+ /*******************************************************/
+ /****This is use load the employee by section office****/
+ /*******************************************************/
+ $scope.loadEmployeeBySection = function(){
+   $scope.section = $stateParams.section;
+   employeeService.sectionEmployee($stateParams.section).then(function(res){
+     if(res.data.statusCode = 200){
+       $scope.sectionEmpList = res.data.data;
+     }
+   },function(err){
+
+   });
+ }
 });
 app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage,employeeService,Util,$cookieStore,UserService){
   $scope.loginPage = function(){
