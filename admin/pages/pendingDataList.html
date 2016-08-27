@@ -1,0 +1,48 @@
+<section class="content-header" >
+  <h1 class="">
+    Pending Employee List
+  </h1>
+</section>
+<section class="content" ng-init="pendingPensionByULB()">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <div class="col-md-3">
+            <h3 class="box-title ">Employee List</h3>
+          </div>
+        </div>
+        <div class="box-body over-x-sc">
+          <table id="example2" class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>Sl No</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>DOB</th>
+                <th>ULB</th>
+                <th>Operation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="emp in ulbPendingList">
+                <td>{{$index+1}}</td>
+                <td>{{emp.name}}</td>
+                <td>{{emp.designation}}</td>
+                <td>{{emp.mobile}}</td>
+                <td>{{emp.email}}</td>
+                <td>{{emp.dob}}</td>
+                <td>{{emp.ulb}}</td>
+                <td>
+                  <a ui-sref="sectionEmployeeDetails({pension_id:emp.pension_id})" class="option-btn"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

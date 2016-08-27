@@ -4968,3 +4968,13 @@ input[type=checkbox], input[type=radio]{
   font-size: 25px;
   display: inline-block;
 }
+.ulb-count{
+  font-size: 18px;
+  font-weight: bold;
+  padding: 15px 20px;
+}
+.ulb-count a{
+  margin-bottom: 10px;
+  display: block;
+
+}

@@ -133,6 +133,26 @@ app.config(function($stateProvider, $urlRouterProvider) {
                }
              }
         })
+        .state('ulbPendingCount',{
+             templateUrl:'pages/ulbPensionCount.html',
+             url:'/ulbPendingCount',
+             controller:"Emp_Controller",
+             onEnter: function($localStorage, $state) {
+               if (!$localStorage.user) {
+                   $state.go('login');
+               }
+             }
+        })
+        .state('pendingAtULB',{
+             templateUrl:'pages/pendingDataList.html',
+             url:'/pendingAtULB/:id',
+             controller:"Emp_Controller",
+             onEnter: function($localStorage, $state) {
+               if (!$localStorage.user) {
+                   $state.go('login');
+               }
+             }
+        })
 
 });
 app.constant('CONFIG', {

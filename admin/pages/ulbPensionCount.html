@@ -1,0 +1,39 @@
+<section class="content-header" >
+  <h1 class="">
+    Count for Each ULB
+    <small>control panel</small>
+  </h1>
+</section>
+<section class="content" ng-init="loadEmpList()">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">ULB Count</h3>
+        </div>
+        <div class="box-body ulb-count" ng-init="ulbPendingCount()">
+          <div class="row">
+            <div class="col-md-3" ng-repeat="item in ulbPendingCount">
+              <a ui-sref="pendingAtULB({id:item.id})">{{item.ulb}} - <span ng-if="item.is_data == null">0</span><span ng-if="item.is_data != null">{{item.count}}</span></a>
+            </div>
+            <!-- <div class="col-md-3">
+              <a href="#">Khariar Road (M) - <span>49</span></a>
+            </div>
+            <div class="col-md-3">
+              <a href="#">Khariar Road (M) - <span>49</span></a>
+            </div>
+            <div class="col-md-3">
+              <a href="#">Khariar Road (M) - <span>49</span></a>
+            </div>
+            <div class="col-md-3">
+              <a href="#">Khariar Road (M) - <span>49</span></a>
+            </div>
+            <div class="col-md-3">
+              <a href="#">Khariar Road (M) - <span>49</span></a>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

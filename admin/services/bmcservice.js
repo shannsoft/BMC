@@ -6,6 +6,14 @@ app.factory("ulbService", function ($http,CONFIG,$localStorage) {
        });
       return response;
     },
+    ulbPendingCount : function(){
+      var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod=ulbPensionCount");
+      return response;
+    },
+    pendingPensionByULB : function(id){
+      var response = $http.get(CONFIG.HTTP_HOST+"?reqmethod=getEmployeeByULB&id="+id);
+      return response;
+    },
     loadEmployeebyID: function(data,option){
       var _serializedData = $.param({"reqmethod": 'employee', "operation":option, "employee_data" : data});
       var response = $http({

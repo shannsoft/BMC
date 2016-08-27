@@ -15,6 +15,27 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
     })
   }
   /*******************************************************/
+  /*****This is use for get pending count on each ulb*****/
+  /*******************************************************/
+  $scope.ulbPendingCount = function(){
+    ulbService.ulbPendingCount().then(function(pRes) {
+      if(pRes.data.statusCode == 200){
+        $scope.ulbPendingCount = pRes.data.data;
+      }
+    })
+  }
+  /*******************************************************/
+  /*****This is use for get pending pensionby  ulb********/
+  /*******************************************************/
+  $scope.pendingPensionByULB = function(){
+    ulbService.pendingPensionByULB($stateParams.id).then(function(pRes) {
+      if(pRes.data.statusCode == 200){
+        $scope.ulbPendingList = pRes.data.data;
+        console.log($scope.ulbPendingList);
+      }
+    })
+  }
+  /*******************************************************/
   /********This is use for employee List by status********/
   /*******************************************************/
   $scope.loadEmployeeListByStatus = function(){
