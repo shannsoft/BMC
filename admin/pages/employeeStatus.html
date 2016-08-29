@@ -13,13 +13,13 @@
           <div class="col-md-4">
             <h3 class="box-title ">Employee List</h3>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4" ng-show="roll_id == '1'">
             <select class="form-control" ng-model="emp_district" name="emp_district" ng-change="emp_ulb='All';getdistrictulb(emp_district)" ng-init="emp_district = 'All'">
               <option value="All">Search By District</option>
               <option value="{{district.id}}" ng-repeat="district in district" >{{district.name}}</option>
             </select>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4" ng-show="roll_id == '1'">
             <select class="form-control" ng-model="emp_ulb" name="emp_district" ng-init="emp_ulb = 'All'">
               <option value="All" ng-selected="true">Search By ULB</option>
               <option value="{{ulb.id}}" ng-repeat="ulb in ulblist" >{{ulb.name}}</option>
