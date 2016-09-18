@@ -110,7 +110,7 @@
 
   <div class="" ng-if="is_coverPage">
     <div class="row">
-  		<div class="col-sm-8 col-sm-offset-2">
+  		<div class="col-sm-10 col-sm-offset-1">
   			<div class="doc-wrap" id="cover_page">
   				<div class="row m-b-20">
   					<div class="col-sm-6">
@@ -118,7 +118,7 @@
   						<div class="block"><strong>Ref Date :</strong> <span>{{employeeDoc.ref_date | date:'yyyy-MM-dd'}}</span></div>
   					</div>
   					<div class="col-sm-6 text-right">
-  						<div class="block"><strong>Application no :</strong> <span>{{updatedData.pension_id}}</span></div>
+  						<div class="block"><strong>Date :</strong> <span>{{employeeDoc.ref_date | date:'yyyy-MM-dd'}}</span></div>
   					</div>
   				</div>
   				<hr/>
@@ -127,9 +127,11 @@
   						<strong>To</strong>
   					</div>
   					<div class="col-sm-10">
-  						<p>The under Secretary to Goverment,<br>
-                 Housing&Urban Devlopment Department,<br>
-                 Odisha,Bhubaneswar</p>
+  						<p>The Director of Municipal Administration,<br>
+							 & Ex-Officio, Joint Secratary to Government,<br>
+							 Housing & Urban Development Department,<br>
+							 Odisha, Bhubaneswar.
+						 </p>
   					</div>
   				</div>
   				<div class="row m-b-20">
@@ -137,17 +139,40 @@
   						<strong>Sub :</strong>
   					</div>
   					<div class="col-sm-10">
-  						<p>{{updatedData.remarks}} </p>
+  						<p>Sanction of pension in favour of <span class="text-u-l">{{updatedData.name}}</span> Bhadrak Municipality. </p>
   					</div>
   				</div>
   				<hr/>
   				<div class="row m-b-20">
-  					<div class="col-sm-112">
-  						<p style="text-indent: 40px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas gravida euismod elit ac consequat. Sed vel nisl odio. Ut mattis ex laoreet, rutrum tellus sed, pretium turpis.rutrum tellus sed, pretium turpis.rutrum tellus sed, pretium turpis.rutrum tellus sed, pretium turpis.rutrum tellus sed, pretium turpis.</p>
+  					<div class="col-sm-12">
+						<strong>Sir,</strong>
+  						<p style="text-indent: 40px;">I am directed to forwad herewith the pension paper of <span class="text-u-l">{{updatedData.name}}</span> who has retired from service on <span class="text-u-l">{{updatedData.dor}}</span> due to superannuation of his age. The underdesigned is satisfactory and here by recomended to grant the full pension against him. </p>
+  					</div>
+  				</div>
+  				<div class="row">
+  					<div class="col-sm-12">
+						<ol>
+							<li>Form No-VII</li>
+							<li>Form No-I</li>
+							<li>Form No-II</li>
+							<li>Form No-VIII</li>
+							<li>Memorandum of calculation sheet</li>
+							<li>Specimen signature in duplicate</li>
+							<li>Left hand thumb impression in duplicate</li>
+							<li>Last pay certificate</li>
+							<li>Joint passport size photograph in triplicate</li>
+							<li>Original service book</li>
+							<li>History of service</li>
+							<li>Form No-X (form for sanctioning of pension)</li>
+							<li>Descriptive rule in duplicate</li>
+							<li>No-dues certificate</li>
+							<li>Form of an employee under lacal fund service</li>
+							<li>Form</li>
+						</ol>
   					</div>
   				</div>
 
-  				<table class="table table-bordered">
+  				<!-- <table class="table table-bordered">
   					<tbody>
   						<tr>
   							<th width="25%">Name</th>
@@ -184,18 +209,27 @@
   							</td>
   						</tr>
   					</tbody>
-  				</table>
-  				<div class="row m-b-20">
-            <div class="col-sm-6">
-            </div>
-  					<div class="col-sm-6 text-right">
-  						<p>Your's Faithfully</p>
+  				</table> -->
+  				<div class="row m-b-40">
+  					<div class="col-sm-6 col-sm-offset-6 text-right">
+  						<strong>Your's Faithfully</strong>
+  					</div>
+  				</div>
+  				<div class="row m-t-20">
+					<div class="col-sm-8">
+  						Memo No <span class="text-u-l">7036</span> Date <span class="text-u-l">23/08/2016</span><br>
+						Copy to <span class="text-u-l">{{updatedData.name}}</span> At present <br>
+						<span class="text-u-l">{{updatedData.name}}</span> for information.
+					</div>
+  					<div class="col-sm-4 text-right">
+  						<span class="clearfix">Chairperson</span>
+  						<span class="clearfix">Bhadrak Municipality</span>
   					</div>
   				</div>
   			</div>
         <div class="row m-b-20">
-          <div class="col-sm-6">
-            <button class="btn btn-default" ng-click="printCoverPage('cover_page')">Print</button>
+          <div class="col-sm-12">
+            <button class="btn btn-primary" ng-click="printCoverPage('cover_page')">Print</button>
           </div>
         </div>
   		</div>
