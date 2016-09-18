@@ -1,3 +1,4 @@
+
 app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,ulbService,$stateParams,$window,Util,employeeService){
   $scope.employeeDoc = {};
   $scope.currentTab = 'empprofile';
@@ -206,7 +207,7 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
  /*******This is use print the cover page document***************/
  /***************************************************************/
  $scope.printCoverPage  = function(div){
-   document.getElementById('title').innerHTML = $scope.updatedData.ulb;
+   //document.getElementById('title').innerHTML = $scope.updatedData.ulb;
    var docHead = document.head.outerHTML;
    document.getElementById('title').innerHTML = 'Odisha-eMunicipality';
    var printContents = document.getElementById(div).outerHTML;
