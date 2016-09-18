@@ -725,8 +725,12 @@ header('Access-Control-Allow-Origin: *');
 			$sec_ref_date = $document_data['sec_ref_date'];
 			$file_no = $document_data['file_no'];
 			$remarks = $document_data['remarks'];
+			$status = $document_data['status'];
 			if($accessToken){
-				$sql = "update ".self::pension_tbl." set pending_at='$pending',file_no='$file_no',remarks='$remarks' where pension_id=".$pension_id;
+				$sql = "update ".self::pension_tbl." set pending_at='$pending',file_no='$file_no',remarks='$remarks'";
+				if($pending == 'ULB')
+	        $sql .=" ,Status= '$status'";
+				$sql .=" where pension_id=".$pension_id;
 				$result1 = $this->executeGenericDMLQuery($sql);
 				if($history_id)
 					$sql = "update ".self::pension_history." set department_ref_no='$dep_ref_no', department_ref_date='$dep_ref_date', section_ref_no='$sec_ref_no', section_ref_date='$sec_ref_date' where history_id=".$history_id;

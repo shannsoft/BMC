@@ -177,6 +177,17 @@
                     <span class="help-block" ng-show="employeepension.department.$error.required && employeepension.department.$touched">select one</span>
                 </div>
               </div>
+              <div class="form-group" ng-if="retired_employee.send_to == 'ULB'">
+                <label for="inputPassword3" class="col-sm-3 control-label">Reason</label>
+                <div class="col-sm-8">
+                    <select class="form-control" ng-model="retired_employee.status" name="department" required>
+                      <option value="">Select One</option>
+                      <option value="Rejected">Rejected</option>
+                      <option value="Sactioned">Sanctioned</option>
+                    </select>
+                    <span class="help-block" ng-show="employeepension.department.$error.required && employeepension.department.$touched">select one</span>
+                </div>
+              </div>
               <div class="form-group" ng-class="{'has-error': (employeepension.centraloffc_remarks.$invalid && employeepension.centraloffc_remarks.$touched)}">
                 <label for="inputPassword3" class="col-sm-3 control-label">Remarks</label>
                 <div class="col-sm-8">

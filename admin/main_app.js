@@ -163,6 +163,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
                }
              }
         })
+        .state('saction-letter',{
+             templateUrl:'pages/sactionLetter.html',
+             url:'/saction-letter/:pension_id',
+             controller:"Emp_Controller",
+             onEnter: function($localStorage, $state) {
+               if (!$localStorage.user) {
+                   $state.go('login');
+               }
+             }
+        })
 
 });
 app.constant('CONFIG', {

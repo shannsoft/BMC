@@ -267,12 +267,16 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
      "sec_ref_no"   : $scope.retired_employee.section_ref_no,
      "sec_ref_date" : sec_date,
      "file_no"      : $scope.retired_employee.file_no,
-     "remarks"      : $scope.retired_employee.remarks
+     "remarks"      : $scope.retired_employee.remarks,
+     "status"       : $scope.retired_employee.status
    }
    employeeService.updateRetireDoc(obj).then(function(response){
      if(response.data.statusCode = 200){
        if($scope.retired_employee.send_to == "ULB"){
-         $state.go('audit-objection',{pension_id:$scope.retired_employee.pension_id});
+         if($scope.retired_employee.status == 'Rejected')
+          $state.go('audit-objection',{pension_id:$scope.retired_employee.pension_id});
+         else if($scope.retired_employee.status == 'Sactioned')
+          $state.go('saction-letter',{pension_id:$scope.retired_employee.pension_id});
        }
        else
         Util.alertMessage('success', response.data.message);
