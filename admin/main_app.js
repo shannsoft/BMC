@@ -153,6 +153,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
                }
              }
         })
+        .state('audit-objection',{
+             templateUrl:'pages/auditObjection.html',
+             url:'/audit-objection/:pension_id',
+             controller:"Emp_Controller",
+             onEnter: function($localStorage, $state) {
+               if (!$localStorage.user) {
+                   $state.go('login');
+               }
+             }
+        })
 
 });
 app.constant('CONFIG', {

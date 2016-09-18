@@ -728,7 +728,10 @@ header('Access-Control-Allow-Origin: *');
 			if($accessToken){
 				$sql = "update ".self::pension_tbl." set pending_at='$pending',file_no='$file_no',remarks='$remarks' where pension_id=".$pension_id;
 				$result1 = $this->executeGenericDMLQuery($sql);
-				$sql = "update ".self::pension_history." set department_ref_no='$dep_ref_no', department_ref_date='$dep_ref_date', section_ref_no='$sec_ref_no', section_ref_date='$sec_ref_date' where history_id=".$history_id;
+				if($history_id)
+					$sql = "update ".self::pension_history." set department_ref_no='$dep_ref_no', department_ref_date='$dep_ref_date', section_ref_no='$sec_ref_no', section_ref_date='$sec_ref_date' where history_id=".$history_id;
+				else
+					$sql = "insert into ".self::pension_history."(pension_id, department_ref_no, department_ref_date,section_ref_no,section_ref_date) values('$pension_id','$dep_ref_no','$dep_ref_date','$sec_ref_no','$sec_ref_date')";
 				$result = $this->executeGenericDMLQuery($sql);
 				if($result && $result1){
 					$this->sendResponse(200,'Successfully Updated');

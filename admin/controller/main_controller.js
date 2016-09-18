@@ -271,7 +271,11 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
    }
    employeeService.updateRetireDoc(obj).then(function(response){
      if(response.data.statusCode = 200){
-       Util.alertMessage('success', response.data.message);
+       if($scope.retired_employee.send_to == "ULB"){
+         $state.go('audit-objection',{pension_id:$scope.retired_employee.pension_id});
+       }
+       else
+        Util.alertMessage('success', response.data.message);
      }
      else{
         Util.alertMessage('danger', response.data.message);
