@@ -1,15 +1,16 @@
-<section class="content hidden">
+<div class="" ng-init="loadEmpProfile()">
+  <section class="content" ng-if="retired_employee.pension_type == 'Pension'">
           <div class="row">
         		<div class="col-sm-8 col-sm-offset-2">
         			<div class="doc-wrap" id="cover_page">
 						<div class="row m-b-20">
         					<div class="col-sm-12 text-center">
-        						<p class="font-bold text-u-c font-sm">Goverment o odisha <br>Housing & Urban Development Department</p> 
+        						<p class="font-bold text-u-c font-sm">Goverment o odisha <br>Housing & Urban Development Department</p>
         					</div>
         				</div>
 						<div class="row">
         					<div class="col-sm-8 col-sm-offset-2">
-        						<p>No: <input type="text" class="form-control form-control-line" placeholder=""> / HUD, Dated /<input type="text" class="form-control form-control-line" placeholder=""></p>
+        						<p>No:  <label contenteditable="true" class="contentEdit"></label> / HUD, Dated / <label contenteditable="true" class="contentEdit"></label></p>
         					</div>
         				</div>
         				<div class="row">
@@ -34,27 +35,26 @@
         						<strong>Sub :</strong>
         					</div>
         					<div class="col-sm-10">
-        						<p>Sanction of pension in favour of Sri/Smt. <input type="text" class="form-control form-control-line" placeholder=""> Retd. of <input type="text" class="form-control form-control-line" placeholder=""> Muncipal Corporation/Municipality/ NAC in the terms of H&UD Department Resolution No. <input type="text" class="form-control form-control-line" placeholder="">, dated. 01.08.2014</p>
+        						<p>Sanction of pension in favour of Sri/Smt.  <label class="contentEdit">{{retired_employee.name}}</label> Retd. of  <label class="contentEdit">{{retired_employee.designation}}</label> Muncipal Corporation/Municipality/ NAC in the terms of H&UD Department Resolution No.  <label contenteditable="true" class="contentEdit"></label>, dated. 01.08.2014</p>
         					</div>
         				</div>
 
         				<div class="row m-b-20">
         					<div class="col-sm-12">
 								<strong>Sir,</strong>
-        						<p style="text-indent: 40px;">With reference to the above noted subject, I am directed to say that consquent upon revision of Pension /Family Pension , T.I and Gratuity of the retired empolyee of ULBs of the State includeing Municipal Corporation as per H & U. Department Resolution No.<input type="text" class="form-control form-control-line" placeholder="">/HUD dated <input type="text" class="form-control form-control-line" placeholder="">and their Council Resolution No.<input type="text" class="form-control form-control-line" placeholder="">dt<input type="text" class="form-control form-control-line" placeholder=""> the pension and Gratuity of Sri <input type="text" class="form-control form-control-line" placeholder="">, Retd.<input type="text" class="form-control form-control-line" placeholder="">are refixed w. e. f <input type="text" class="form-control form-control-line" placeholder=""> in the revised scale of pay <input type="text" class="form-control form-control-line" placeholder="">(as per <input type="text" class="form-control form-control-line" placeholder=""> Pay Commision Report) as detailed below. </p>
-								
+        						<p style="text-indent: 40px;">With reference to the above noted subject, I am directed to say that consquent upon revision of Pension /Family Pension , T.I and Gratuity of the retired empolyee of ULBs of the State includeing Municipal Corporation as per H & U. Department Resolution No. <label contenteditable="true" class="contentEdit"></label>/HUD dated  <label contenteditable="true" class="contentEdit"></label>and their Council Resolution No. <label contenteditable="true" class="contentEdit"></label>dt <label contenteditable="true" class="contentEdit"></label> the pension and Gratuity of Sri  <label class="contentEdit">{{retired_employee.name}}</label>, Retd. <label class="contentEdit">{{retired_employee.designation}}</label>are refixed w. e. f  <label contenteditable="true" class="contentEdit"></label> in the revised scale of pay  <label contenteditable="true" class="contentEdit"></label>(as per  <label contenteditable="true" class="contentEdit"></label> Pay Commision Report) as detailed below. </p>
         					</div>
         				</div>
         				<div class="row m-b-20">
         					<div class="col-sm-12">
 								<ol>
-									<li>Pension per Month <input type="text" class="form-control form-control-line" placeholder=""> + T.I to the par with DA as admissible to the regular employees of ULB from time to time</li>
+									<li>Pension per Month  <label contenteditable="true" class="contentEdit"></label> + T.I to the par with DA as admissible to the regular employees of ULB from time to time</li>
 									<li>Revised Gratuity</li>
-									<li>The Pension and Gratuity sanction order issue earlier vide H & U.D Dept. Letter No <input type="text" class="form-control form-control-line" placeholder="">/HUD., Dated <input type="text" class="form-control form-control-line" placeholder="">is hereby superseded. Care should be taken while payment of differential arrear. Pensionary dues and Gratuity to Sri<input type="text" class="form-control form-control-line" placeholder=""> Retd.<input type="text" class="form-control form-control-line" placeholder="">by adjusting the amount already paid to him/her previously. </li>
-									<li>The service book of Sri<input type="text" class="form-control form-control-line" placeholder=""> is sent herewith which may please be acknowledged.</li>
+									<li>The Pension and Gratuity sanction order issue earlier vide H & U.D Dept. Letter No  <label contenteditable="true" class="contentEdit"></label>/HUD., Dated  <label contenteditable="true" class="contentEdit"></label>is hereby superseded. Care should be taken while payment of differential arrear. Pensionary dues and Gratuity to Sri <label class="contentEdit">{{retired_employee.name}}</label> Retd. <label class="contentEdit">{{retired_employee.designation}}</label> by adjusting the amount already paid to him/her previously. </li>
+									<li>The service book of Sri <label contenteditable="true" class="contentEdit"></label> is sent herewith which may please be acknowledged.</li>
 									<li>The sanction order Number & Date must be entered in the service book. </li>
 								</ol>
-								
+
         					</div>
         				</div>
 
@@ -74,8 +74,8 @@
         				</div>
         				<div class="row">
 							<div class="col-sm-12 m-t-20">
-								Memo No <input type="text" class="form-control form-control-line" placeholder="">/HUD, Bhubaneswar, Dated the <span class="text-u-l">18/09/2016</span><br>
-								Copy forwarded to Sri<input type="text" class="form-control form-control-line" placeholder="">/2 copies for Guard File for information
+								Memo No  <label contenteditable="true" class="contentEdit"></label>/HUD, Bhubaneswar, Dated the <span class="text-u-l">18/09/2016</span><br>
+								Copy forwarded to Sri <label contenteditable="true" class="contentEdit"></label>/2 copies for Guard File for information
 							</div>
         				</div>
         			</div>
@@ -86,21 +86,19 @@
               </div>
         		</div>
         	</div>
-
-</section>
-
-<section class="content">
+  </section>
+  <section class="content" ng-if="retired_employee.pension_type == 'Family Pension'">
           <div class="row">
         		<div class="col-sm-8 col-sm-offset-2">
         			<div class="doc-wrap" id="cover_page">
 						<div class="row m-b-20">
         					<div class="col-sm-12 text-center">
-        						<p class="font-bold text-u-c font-sm">Goverment o odisha <br>Housing & Urban Development Department</p> 
+        						<p class="font-bold text-u-c font-sm">Goverment o odisha <br>Housing & Urban Development Department</p>
         					</div>
         				</div>
 						<div class="row">
         					<div class="col-sm-8 col-sm-offset-2">
-        						<p>No: <input type="text" class="form-control form-control-line" placeholder=""> / HUD, Dated /<input type="text" class="form-control form-control-line" placeholder=""></p>
+        						<p>No: <label contenteditable="true" class="contentEdit"></label> / HUD, Dated / <label contenteditable="true" class="contentEdit"></label></p>
         					</div>
         				</div>
         				<div class="row">
@@ -125,33 +123,33 @@
         						<strong>Sub :</strong>
         					</div>
         					<div class="col-sm-10">
-        						<p>Sanction of Family pension in favour of Sri/Smt. <input type="text" class="form-control form-control-line" placeholder=""> W/o/H/o- <input type="text" class="form-control form-control-line" placeholder="">, Ex-  <input type="text" class="form-control form-control-line" placeholder=""> of <input type="text" class="form-control form-control-line" placeholder=""> Muncipal Corporation/Municipality/ NAC in the terms of H&UD Department Resolution No. <input type="text" class="form-control form-control-line" placeholder="">, dtd. 01.08.2014</p>
+        						<p>Sanction of Family pension in favour of Sri/Smt.  <label contenteditable="true" class="contentEdit"></label> W/o/H/o-  <label contenteditable="true" class="contentEdit"></label>, Ex-   <label contenteditable="true" class="contentEdit"></label> of  <label contenteditable="true" class="contentEdit"></label> Muncipal Corporation/Municipality/ NAC in the terms of H&UD Department Resolution No.  <label contenteditable="true" class="contentEdit"></label>, dtd. 01.08.2014</p>
         					</div>
         				</div>
 
         				<div class="row m-b-20">
         					<div class="col-sm-12">
 								<strong>Sir,</strong>
-        						<p style="text-indent: 40px;">With reference to the above noted subject, I am directed to say that consquent upon revision of Pension /Family Pension , T.I and Gratuity of the retired empolyee of ULBs of the State includeing Municipal Corporation as per H & U. Department Resolution No.15330 and 15004, dtd. 01.08.2014 and their Council Resolution No.<input type="text" class="form-control form-control-line" placeholder="">dtd.<input type="text" class="form-control form-control-line" placeholder=""> the revised family pension and revised family pension of Smt./Sri <input type="text" class="form-control form-control-line" placeholder="">,W/o- H/o-Late<input type="text" class="form-control form-control-line" placeholder=""> are refixed w.e.f <input type="text" class="form-control form-control-line" placeholder=""> inthe Revised Scale of Pay, 2008 (as per 6th pay commission report) as detailed below.  </p>
-								
+        						<p style="text-indent: 40px;">With reference to the above noted subject, I am directed to say that consquent upon revision of Pension /Family Pension , T.I and Gratuity of the retired empolyee of ULBs of the State includeing Municipal Corporation as per H & U. Department Resolution No.15330 and 15004, dtd. 01.08.2014 and their Council Resolution No. <label contenteditable="true" class="contentEdit"></label>dtd. <label contenteditable="true" class="contentEdit"></label> the revised family pension and revised family pension of Smt./Sri  <label contenteditable="true" class="contentEdit"></label>,W/o- H/o-Late <label contenteditable="true" class="contentEdit"></label> are refixed w.e.f  <label contenteditable="true" class="contentEdit"></label> inthe Revised Scale of Pay, 2008 (as per 6th pay commission report) as detailed below.  </p>
+
         					</div>
         				</div>
         				<div class="row m-b-20">
         					<div class="col-sm-12">
 								<ol>
-									<li> i) Revised family pension @ Rs. <input type="text" class="form-control form-control-line" placeholder=""> P.M plus T.I at par with DA as admissible to the regular emplyess of ULB from time to time with maximum limit of Rs. 10,000/- P.M. including T.I w.e.f.<input type="text" class="form-control form-control-line" placeholder="">to<input type="text" class="form-control form-control-line" placeholder="">payble to Amt./Sri<input type="text" class="form-control form-control-line" placeholder="">
+									<li> i) Revised family pension @ Rs.  <label contenteditable="true" class="contentEdit"></label> P.M plus T.I at par with DA as admissible to the regular emplyess of ULB from time to time with maximum limit of Rs. 10,000/- P.M. including T.I w.e.f. <label contenteditable="true" class="contentEdit"></label>to <label contenteditable="true" class="contentEdit"></label>payble to Amt./Sri <label contenteditable="true" class="contentEdit"></label>
 									<br/>
-										ii) Revised Family pension fixed at Rs.<input type="text" class="form-control form-control-line" placeholder=""> P.M plus T.I. at per with DA as admissible to the regular employees of ULB from time to time with maximum limit of Rs. 10,000/- P.M. including T.I. w.e.f.<input type="text" class="form-control form-control-line" placeholder=""> to <input type="text" class="form-control form-control-line" placeholder="">.<br/>
-										
-										iii) Then @ Rs. <input type="text" class="form-control form-control-line" placeholder=""> plus T.I. at par with DA as admissible from time to time with maximum limit of Rs. 10,000- P.M. including T.I w.e.f.<input type="text" class="form-control form-control-line" placeholder="">
+										ii) Revised Family pension fixed at Rs. <label contenteditable="true" class="contentEdit"></label> P.M plus T.I. at per with DA as admissible to the regular employees of ULB from time to time with maximum limit of Rs. 10,000/- P.M. including T.I. w.e.f. <label contenteditable="true" class="contentEdit"></label> to  <label contenteditable="true" class="contentEdit"></label>.<br/>
+
+										iii) Then @ Rs.  <label contenteditable="true" class="contentEdit"></label> plus T.I. at par with DA as admissible from time to time with maximum limit of Rs. 10,000- P.M. including T.I w.e.f. <label contenteditable="true" class="contentEdit"></label>
 										 onwards till her/his death or remarriage whichever is earlier.
 									</li>
-									
-									<li>The Pension and Gratuity sanction order issued earlier vide H&UD Department Order No. <input type="text" class="form-control form-control-line" placeholder="">/HUD, dtd <input type="text" class="form-control form-control-line" placeholder="">is hereby superseded. Care should be taken while payment of differential arrear. Pensionary dues and Gratuity to Smt./Sri<input type="text" class="form-control form-control-line" placeholder="">W/o/H/o <input type="text" class="form-control form-control-line" placeholder=""> Retd.<input type="text" class="form-control form-control-line" placeholder="">by adjusting the amount already paid to him/her previously. </li>
-									<li>The service book of Late-<input type="text" class="form-control form-control-line" placeholder=""> is sent herewith which may please be acknowledged.</li>
-									<li>The family pension sanction order Number & Date must be entered in the service book of Late <input type="text" class="form-control form-control-line" placeholder="">. </li>
+
+									<li>The Pension and Gratuity sanction order issued earlier vide H&UD Department Order No.  <label contenteditable="true" class="contentEdit"></label>/HUD, dtd  <label contenteditable="true" class="contentEdit"></label>is hereby superseded. Care should be taken while payment of differential arrear. Pensionary dues and Gratuity to Smt./Sri <label contenteditable="true" class="contentEdit"></label>W/o/H/o  <label contenteditable="true" class="contentEdit"></label> Retd. <label contenteditable="true" class="contentEdit"></label>by adjusting the amount already paid to him/her previously. </li>
+									<li>The service book of Late- <label contenteditable="true" class="contentEdit"></label> is sent herewith which may please be acknowledged.</li>
+									<li>The family pension sanction order Number & Date must be entered in the service book of Late  <label contenteditable="true" class="contentEdit"></label>. </li>
 								</ol>
-								
+
         					</div>
         				</div>
 
@@ -171,8 +169,8 @@
         				</div>
         				<div class="row">
 							<div class="col-sm-12 m-t-20">
-								Memo No <input type="text" class="form-control form-control-line" placeholder="">/HUD, Bhubaneswar, Dated the <span class="text-u-l">18/09/2016</span><br>
-								Copy forwarded to Sri<input type="text" class="form-control form-control-line" placeholder="">/2 copies for Guard File for information
+								Memo No  <label contenteditable="true" class="contentEdit"></label>/HUD, Bhubaneswar, Dated the <span class="text-u-l">18/09/2016</span><br>
+								Copy forwarded to Sri <label contenteditable="true" class="contentEdit"></label>/2 copies for Guard File for information
 							</div>
         				</div>
         			</div>
@@ -184,4 +182,5 @@
         		</div>
         	</div>
 
-</section>
+  </section>
+</div>

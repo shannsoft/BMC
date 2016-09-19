@@ -190,6 +190,7 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
     }
     employeeService.updateEmployeeDoc(obj) .then(function(pRes){
       $scope.updatedData = pRes.data.data;
+      console.log($scope.updatedData);
       $scope.is_coverPage = true;
       $scope.selectedDoc = [];
       documents_list = $scope.updatedData.documents.split(',');
@@ -236,6 +237,7 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
    employeeService.getEmpProfile($stateParams.pension_id).then(function(pRes) {
      if(pRes.data.statusCode == 200){
        $scope.retired_employee = pRes.data.data;
+       console.log($scope.retired_employee);
        var ducument_list = $scope.retired_employee.documents.split(',');
        employeeService.getDomentList().then(function(response){
          $scope.receivedDocument = [];

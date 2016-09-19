@@ -152,22 +152,7 @@
   				<div class="row">
   					<div class="col-sm-12">
 						<ol>
-							<li>Form No-VII</li>
-							<li>Form No-I</li>
-							<li>Form No-II</li>
-							<li>Form No-VIII</li>
-							<li>Memorandum of calculation sheet</li>
-							<li>Specimen signature in duplicate</li>
-							<li>Left hand thumb impression in duplicate</li>
-							<li>Last pay certificate</li>
-							<li>Joint passport size photograph in triplicate</li>
-							<li>Original service book</li>
-							<li>History of service</li>
-							<li>Form No-X (form for sanctioning of pension)</li>
-							<li>Descriptive rule in duplicate</li>
-							<li>No-dues certificate</li>
-							<li>Form of an employee under lacal fund service</li>
-							<li>Form</li>
+							<li ng-repeat="doc in selectedDoc track by $index">{{doc}}</li>
 						</ol>
   					</div>
   				</div>
@@ -210,14 +195,34 @@
   						</tr>
   					</tbody>
   				</table> -->
-  				<div class="row m-b-40">
+          <div class="row m-b-20">
+        <div class="col-sm-6"></div>
+            <div class="col-sm-6 text-right">
+              <p>Your's Faithfully</p>
+            </div>
+          </div>
+          <div class="row m-t-40">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-6 text-right">
+          <span class="clearfix">Chairperson</span>
+          <span class="clearfix">{{updatedData.ulb}}</span>
+        </div>
+          </div>
+          <div class="row">
+        <div class="col-sm-12 m-t-20">
+          Memo No <label contenteditable="true" class="contentEdit"></label>, Date <label contenteditable="true" class="contentEdit"></label><br>
+          Copy to <span class="text-u-l">{{updatedData.name}}</span> At present <br>
+          <span class="text-u-l">{{updatedData.village}}, {{updatedData.post}}, {{updatedData.police_station}}, {{updatedData.city}}, {{updatedData.district}}</span> for information.
+        </div>
+          </div>
+  				<!-- <div class="row m-b-40">
   					<div class="col-sm-6 col-sm-offset-6 text-right">
   						<strong>Your's Faithfully</strong>
   					</div>
-  				</div>
-  				<div class="row m-t-20">
+  				</div> -->
+  				<!-- <div class="row m-t-20">
 					<div class="col-sm-8">
-  						Memo No <span class="text-u-l">7036</span> Date <span class="text-u-l">23/08/2016</span><br>
+  						Memo No <label contenteditable="true" class="contentEdit"></label> Date <label contenteditable="true" class="contentEdit"></label><br>
 						Copy to <span class="text-u-l">{{updatedData.name}}</span> At present <br>
 						<span class="text-u-l">{{updatedData.name}}</span> for information.
 					</div>
@@ -225,7 +230,7 @@
   						<span class="clearfix">Chairperson</span>
   						<span class="clearfix">Bhadrak Municipality</span>
   					</div>
-  				</div>
+  				</div> -->
   			</div>
         <div class="row m-b-20">
           <div class="col-sm-12">
