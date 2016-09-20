@@ -726,10 +726,27 @@ header('Access-Control-Allow-Origin: *');
 			$file_no = $document_data['file_no'];
 			$remarks = $document_data['remarks'];
 			$status = $document_data['status'];
+			$pension_type = $document_data['pension_type'];
+			$category = $document_data['category'];
+			$nominee = $document_data['nominee'];
+			$relation = $document_data['relation'];
+			if(isset($document_data['dod'])){
+				$dod = $document_data['dod'];
+			}
 			if($accessToken){
 				$sql = "update ".self::pension_tbl." set pending_at='$pending',file_no='$file_no',remarks='$remarks'";
 				if($pending == 'ULB')
 	        $sql .=" ,Status= '$status'";
+				if($pension_type != null)
+	        $sql .=" ,pension_type= '$pension_type'";
+				if($category != null)
+	        $sql .=" ,pension_category= '$category'";
+				if($nominee != null)
+	        $sql .=" ,nominee= '$nominee'";
+				if($relation != null)
+	        $sql .=" ,relation= '$relation'";
+				if(isset($document_data['dod']))
+	        $sql .=" ,dod= '$dod'";
 				$sql .=" where pension_id=".$pension_id;
 				$result1 = $this->executeGenericDMLQuery($sql);
 				if($history_id)

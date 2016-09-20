@@ -261,6 +261,7 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
  $scope.updateRetireDoc = function(){
    var dep_date = moment($scope.retired_employee.department_ref_date).format("YYYY-MM-DD");
    var sec_date = moment($scope.retired_employee.section_ref_date).format("YYYY-MM-DD");
+   var dod = moment($scope.retired_employee.dod).format("YYYY-MM-DD");
    var obj = {
      "pension_id"   : $scope.retired_employee.pension_id,
      "history_id"   : $scope.retired_employee.history_id,
@@ -271,8 +272,15 @@ app.controller("Emp_Controller",function($scope,$rootScope,$state,$localStorage,
      "sec_ref_date" : sec_date,
      "file_no"      : $scope.retired_employee.file_no,
      "remarks"      : $scope.retired_employee.remarks,
-     "status"       : $scope.retired_employee.status
+     "status"       : $scope.retired_employee.status,
+     "pension_type" : $scope.retired_employee.pension_type,
+     "category"     : $scope.retired_employee.pension_category,
+     "nominee"      : $scope.retired_employee.nominee,
+     "relation"     : $scope.retired_employee.relation
    }
+   if(moment(dod, "YYYY-MM-DD", true).isValid())
+    obj.dod = moment($scope.retired_employee.dod).format("YYYY-MM-DD")
+    console.log(obj);
    employeeService.updateRetireDoc(obj).then(function(response){
      if(response.data.statusCode = 200){
        if($scope.retired_employee.send_to == "ULB"){
@@ -382,11 +390,17 @@ app.controller("Main_Controller",function($scope,$rootScope,$state,$localStorage
   $scope.open2 = function() {
    $scope.popup1.opened1 = true;
   };
+  $scope.open3 = function() {
+   $scope.popup3.opened = true;
+  };
   $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
   $scope.format = $scope.formats[0];
   $scope.altInputFormats = ['M!/d!/yyyy'];
   $scope.popup1 = {
     opened1: false
+  };
+  $scope.popup3 = {
+    opened: false
   };
 
   function getDayClass(data) {

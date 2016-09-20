@@ -4995,4 +4995,5 @@ input[type=checkbox], input[type=radio]{
 .contentEdit{
   min-width:150px;
   border-bottom:1px solid #ddd;
+  font-style: italic;
 }
